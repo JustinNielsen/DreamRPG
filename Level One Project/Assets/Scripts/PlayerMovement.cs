@@ -250,6 +250,18 @@ public class PlayerMovement : MonoBehaviour
         transform.position += new Vector3(moveDirection.transform.forward.x, 0, moveDirection.transform.forward.z) * Time.deltaTime * movementSpeed * Input.GetAxis("Vertical");
         //Move Left and Right
         transform.position += new Vector3(moveDirection.transform.right.x, 0, moveDirection.transform.right.z) * Time.deltaTime * movementSpeed * Input.GetAxis("Horizontal");
+        //Get WASD Movement
+        float moveHorizontal = Input.GetAxisRaw("Horizontal");
+        float moveVertical = Input.GetAxisRaw("Vertical");
+        //Put WASD movement together to form a direction
+        Vector3 direction = new Vector3(moveHorizontal, 0f, moveVertical);
+
+        //Only apply the rotation if a button is pushed
+        if (direction != Vector3.zero)
+        {
+            //Apply rotation with a 150 degree offset.
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction) * Quaternion.Euler(0, 245, 0), 0.2f);
+        }
     }
 
     //Turns on or off the navMesh according to the bool parameter
