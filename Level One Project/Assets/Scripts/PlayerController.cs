@@ -11,22 +11,21 @@ public class PlayerController : MonoBehaviour
     public float maxDistance;
     public bool active = true;
     public TurnBasedSystem turn;
-    public GameObject turnObj;
     public States state;
-    private PlayerMovement movement;
+    public PlayerMovement movement;
     
     private void Start()
     {
         //Initialize cam to main camera
         cam = Camera.main;
+        //Initialize Player movement class object
+        movement = GetComponent<PlayerMovement>();
         //Turn off the NavMeshAgent at the beginning of the game
         movement.agent.enabled = false;
         //Set the state to WASD at the beginning of the game
         state = States.WASD;
         //Get the TurnBasedSystem script from the turnObj
-        turn = new TurnBasedSystem();
-        //Initialize Player movement class object
-        movement = new PlayerMovement();
+        turn = GameObject.FindGameObjectWithTag("turn").GetComponent<TurnBasedSystem>();
     }
 
     // Update is called once per frame

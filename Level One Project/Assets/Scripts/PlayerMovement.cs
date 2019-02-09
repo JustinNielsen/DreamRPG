@@ -5,21 +5,22 @@ using UnityEngine.AI;
 
 public class PlayerMovement : MonoBehaviour
 {
-    private Camera cam;
-    private GameObject player;
-    private GameObject waypoint;
-    public GameObject waypointPrefab;
+    Camera cam;
     public NavMeshAgent agent;
-    private float movementSpeed = 8f;
-    private bool isMoving = false;
-    private Vector3 movingTarget;
-    private Vector3 clickedTarget;
-    private NavMeshPath path;
-    private float pathLength;
-    private LineRenderer line;
-    private PlayerController pControl;
-    private float maxDistance;
-
+    GameObject player;
+    GameObject waypoint;
+    GameObject waypointPrefab;
+    float movementSpeed = 8f;
+    bool isMoving = false;
+    Vector3 movingTarget;
+    Vector3 clickedTarget;
+    NavMeshPath path;
+    float pathLength;
+    LineRenderer line;
+    PlayerController pControl;
+    float maxDistance;
+    GameObject moveDirection;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -38,19 +39,25 @@ public class PlayerMovement : MonoBehaviour
         //Initialize maxDistance from the public variable on the playerController
         maxDistance = pControl.maxDistance;
         //Initiaize prefab
-        waypointPrefab = GameObject.Find("waypoint");
+        //waypointPrefab = GameObject.Find("waypoint");
+        //Initialize object to base movement from
+        moveDirection = GameObject.FindGameObjectWithTag("turn");
     }
 
     public void NavMeshMovement()
     {
         //Declare a Ray
         Ray ray;
+        //Shows line
+        line.enabled = true;
 
         //Check if the player is done moving
         if (maxDistance < 0.5f && agent.pathStatus == NavMeshPathStatus.PathComplete && agent.remainingDistance == 0 && Vector3.Distance(transform.position, agent.destination) <= 1f)
         {
             //Sets the maxDistance back to 10 but doesn't update the scele of the range indicator yet.
             maxDistance = 10.0f;
+            //Hides Line
+            line.enabled = false;
             //Switch Turns
             pControl.turn.SwitchTurn();
         }
@@ -160,13 +167,13 @@ public class PlayerMovement : MonoBehaviour
                 DrawPath(path, 1);
 
                 //Check if a waypoint is already placed. If so Destroy it.
-                if (waypoint != null)
-                {
-                    Destroy(waypoint);
-                }
+                //if (waypoint != null)
+                //{
+                //    Destroy(waypoint);
+                //}
 
                 //Place a waypoint
-                waypoint = Instantiate(waypointPrefab, clickedTarget, Quaternion.identity);
+                //waypoint = Instantiate(waypointPrefab, clickedTarget, Quaternion.identity);
 
                 //Subtract the distance moved from the maxDistance
                 maxDistance -= pathLength;
@@ -239,13 +246,10 @@ public class PlayerMovement : MonoBehaviour
 
     public void KeyboardMovement()
     {
-        //moveInput = new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical"));
-        //moveVelocity = moveInput * movementSpeed;
-
         //Move Up and down
-        player.transform.position += new Vector3(cam.transform.forward.x, 0, cam.transform.forward.z) * Time.deltaTime * movementSpeed * Input.GetAxis("Vertical");
+        transform.position += new Vector3(moveDirection.transform.forward.x, 0, moveDirection.transform.forward.z) * Time.deltaTime * movementSpeed * Input.GetAxis("Vertical");
         //Move Left and Right
-        player.transform.position += new Vector3(cam.transform.right.x, 0, cam.transform.right.z) * Time.deltaTime * movementSpeed * Input.GetAxis("Horizontal");
+        transform.position += new Vector3(moveDirection.transform.right.x, 0, moveDirection.transform.right.z) * Time.deltaTime * movementSpeed * Input.GetAxis("Horizontal");
     }
 
     //Turns on or off the navMesh according to the bool parameter

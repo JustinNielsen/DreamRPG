@@ -9,6 +9,7 @@ TagManager:
   - player
   - navMesh
   - waypoint
+  - turn
   layers:
   - Default
   - TransparentFX
