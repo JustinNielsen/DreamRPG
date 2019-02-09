@@ -6,10 +6,11 @@ using Cinemachine;
 public class EnemyController : MonoBehaviour
 {
 
-    bool active = false;
+    public bool active = false;
     float movementSpeed = 5.0f;
     private CinemachineVirtualCamera cam;
     public CinemachineVirtualCamera camPrefab;
+    private EnemyAI ai;
 
     // Start is called before the first frame update
     void Start()
@@ -17,6 +18,8 @@ public class EnemyController : MonoBehaviour
         cam = Instantiate(camPrefab);
         cam.Priority = 5;
         cam.Follow = transform;
+
+        ai = GetComponent<EnemyAI>();
     }
 
     // Update is called once per frame
@@ -29,7 +32,6 @@ public class EnemyController : MonoBehaviour
 
             //Left and right movement
             transform.position += transform.right * Time.deltaTime * movementSpeed * Input.GetAxis("Horizontal");
-
         }
     }
 
@@ -39,6 +41,7 @@ public class EnemyController : MonoBehaviour
         {
             active = true;
             cam.Priority = 15;
+            ai.AI();
         }
         else
         {

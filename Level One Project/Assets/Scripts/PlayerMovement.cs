@@ -105,6 +105,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    //Only draws the path doesn't set the destination for the NavMeshAgent
     private Vector3 ShootRay(Ray ray, int layerMask)
     {
         //Declare a hit variable 
@@ -147,6 +148,7 @@ public class PlayerMovement : MonoBehaviour
         return hit.point;
     }
 
+    //Draws the path and sets the destination for the NavMeshAgent
     private void ShootRayClicked(Ray ray, int layerMask)
     {
         //Declare a hit variable 
@@ -223,8 +225,10 @@ public class PlayerMovement : MonoBehaviour
 
     private void DrawPath(NavMeshPath meshPath, int isGood)
     {
+        //Deletes the line
         line.positionCount = 0;
 
+        //Changes the color of the line based on the inputed number
         if (isGood == 1)
         {
             line.material.color = Color.green;
@@ -236,8 +240,10 @@ public class PlayerMovement : MonoBehaviour
             Debug.Log("Red");
         }
 
+        //Sets the amount of corners for the line
         line.positionCount = meshPath.corners.Length;
 
+        //Sets the position of each corner
         for (int i = 0; i < meshPath.corners.Length; i++)
         {
             line.SetPosition(i, path.corners[i]);

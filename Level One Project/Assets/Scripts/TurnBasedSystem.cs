@@ -7,22 +7,19 @@ public class TurnBasedSystem : MonoBehaviour
 
     public GameObject[] turnArr;
     public int turn = 0;
-
     public List<Character> charList;
 
-    //public PlayerController pController;
-    //public EnemyController[] eController;
 
     // Start is called before the first frame update
     private void Start()
     {
-        //InitializeTurnArray();
-        //InitializeEnemyArr();
+        InitializeTurnArray();
+        //Create an empty list for charList
         charList = new List<Character>();
         InitializeCharacterList();
     }
 
-    private void Update()
+    private void Update() 
     {
         if (Input.GetKeyDown(KeyCode.T))
         {
@@ -32,52 +29,42 @@ public class TurnBasedSystem : MonoBehaviour
 
     private void InitializeCharacterList()
     {
+        //Initilizes charList with objects from the turnArr
         foreach(GameObject obj in turnArr)
         {
             charList.Add(new Character(obj));
         }
     }
 
-    /*
     private void InitializeTurnArray()
     {
+        //Creates an array of enemy objects
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("enemy");
-
+        //Creates the turnArr
         turnArr = new GameObject[enemies.Length + 1];
-
+        //Sets the first element in the turnArr to the player
         turnArr[0] = GameObject.FindGameObjectWithTag("player");
-
+        //Adds the enemies to the turnArr
         for(int i = 1; i < turnArr.Length; i++)
         {
             turnArr[i] = enemies[i - 1];
         }
     }
-
     
-    private void InitializeEnemyArr()
-    {
-        pController = turnArr[0].GetComponent<PlayerController>();
-
-        eController = new EnemyController[turnArr.Length - 1];
-
-        for(int i = 1; i < turnArr.Length; i++)
-        {
-            eController[i-1] = turnArr[i].GetComponent<EnemyController>();
-        }
-    }
-    */
-
+    //Switches the turn to a differnt character
     public void SwitchTurn()
     {
+        //If turn is on turnArr's final value then set turn to 0
         if(turn == turnArr.Length - 1)
         {
             turn = 0;
         }
-        else
+        else //Otherwise advance turn by 1
         {
             turn++;
         }
 
+        //If turn = 0 activate the player object and deactivate the enemy objects
         if(turn == 0)
         {
             foreach(Character classObj in charList)
@@ -92,8 +79,9 @@ public class TurnBasedSystem : MonoBehaviour
                 }
             }
         }
-        else
+        else //Otherwise if turn != 0 deactivate everything and activate the object whose turn it is
         {
+            //Deactivate everything
             foreach (Character classObj in charList)
             {
                 if (classObj.Obj.CompareTag("player"))
@@ -106,6 +94,7 @@ public class TurnBasedSystem : MonoBehaviour
                 }
             }
 
+            //Activate the object based on the turn using the charList
             charList[turn].EController.ToggleEnemy(true);
         }
     }
