@@ -1,17 +1,23 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemyAI : MonoBehaviour
 {
-    private int[] actionsArray;
     public bool actionDone = true;
+    private GameObject player;
+    private EnemyController enemyController;
+    private NavMeshAgent agent;
+    private NavMeshPath path;
+    private float enemyMoveDistance = 10f;
 
     // Start is called before the first frame update
     void Start()
     {
-        //Initizlize actions array
-        actionsArray = new int[4] { 1, 2, 3, 4 };
+        player = GameObject.FindGameObjectWithTag("player");
+        enemyController = GetComponent<EnemyController>();
+        agent = GetComponent<NavMeshAgent>();
     }
 
     // Update is called once per frame
@@ -20,51 +26,48 @@ public class EnemyAI : MonoBehaviour
         
     }
 
-    public void AI()
+    public void AI(int aiIndex)
     {
-        RandomizeActions();
-        int i = 0;
-
-        while(i < actionsArray.Length)
+        switch (aiIndex)
         {
-
-            //actionDone = IsDone();
-
-            if (actionDone)
-            {
-                switch (actionsArray[i])
-                {
-                    case 1:
-                        //Move();
-                        Debug.Log("Move");
-                        break;
-                    case 2:
-                        //MeleeAttack();
-                        Debug.Log("MeleeAttack");
-                        break;
-                    case 3:
-                        //MagicAttack();
-                        Debug.Log("MagicAttack");
-                        break;
-                    case 4:
-                        //Shield();
-                        Debug.Log("Shield");
-                        break;
-                }
-
-                i++;
-            }
+            case 1: //Mage AI
+                MageAI();
+                break;
+            case 2: // Brute AI
+                BruteAI();
+                break;
+            case 3: // Assassin AI
+                AssassinAI();
+                break;
         }
     }
 
-    void RandomizeActions()
+    private void MageAI()
     {
-        for(int i = 0; i < actionsArray.Length; i++)
+        MoveToPlayer(10);
+    }
+
+    private void BruteAI()
+    {
+
+    }
+
+    private void AssassinAI()
+    {
+
+    }
+
+    private void MoveToPlayer(float distanceToMove)
+    {
+        agent.SetDestination(player.transform.position);
+        float beginningDistance = agent.remainingDistance;
+        float remaining = 0;
+
+        while(agent.remainingDistance - remaining < enemyMoveDistance)
         {
-            int temp = actionsArray[i];
-            int randomNum = Random.Range(0, actionsArray.Length - 1);
-            actionsArray[i] = actionsArray[randomNum];
-            actionsArray[randomNum] = temp;
+            remaining = agent.remainingDistance;
         }
+
+        agent.ResetPath();
     }
 }

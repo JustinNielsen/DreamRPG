@@ -130,12 +130,12 @@ public class PlayerMovement : MonoBehaviour
                 //Draws the path
                 DrawPath(path, 1);
 
-                Debug.Log("In Range");
+                //Debug.Log("In Range");
 
             }
             else
             {
-                Debug.Log("Out of Range");
+                //Debug.Log("Out of Range");
 
                 //Draws the path
                 DrawPath(path, 2);
@@ -232,12 +232,12 @@ public class PlayerMovement : MonoBehaviour
         if (isGood == 1)
         {
             line.material.color = Color.green;
-            Debug.Log("Green");
+            //Debug.Log("Green");
         }
         else if (isGood == 2)
         {
             line.material.color = Color.red;
-            Debug.Log("Red");
+            //Debug.Log("Red");
         }
 
         //Sets the amount of corners for the line

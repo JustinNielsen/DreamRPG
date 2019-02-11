@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
+using UnityEngine.AI;
 
 public class EnemyController : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class EnemyController : MonoBehaviour
     private CinemachineVirtualCamera cam;
     public CinemachineVirtualCamera camPrefab;
     private EnemyAI ai;
+    private NavMeshAgent agent;
 
     // Start is called before the first frame update
     void Start()
@@ -20,6 +22,8 @@ public class EnemyController : MonoBehaviour
         cam.Follow = transform;
 
         ai = GetComponent<EnemyAI>();
+        agent = GetComponent<NavMeshAgent>();
+        agent.enabled = false;
     }
 
     // Update is called once per frame
@@ -41,12 +45,14 @@ public class EnemyController : MonoBehaviour
         {
             active = true;
             cam.Priority = 15;
-            ai.AI();
+            agent.enabled = true;
+            ai.AI(1);
         }
         else
         {
             active = false;
             cam.Priority = 5;
+            agent.enabled = false;
         }
     }
 }
