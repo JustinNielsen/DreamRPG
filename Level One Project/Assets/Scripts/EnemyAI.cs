@@ -6,11 +6,13 @@ using UnityEngine.AI;
 public class EnemyAI : MonoBehaviour
 {
     public bool actionDone = true;
-    private GameObject player;
-    private EnemyController enemyController;
-    private NavMeshAgent agent;
-    private NavMeshPath path;
-    private float enemyMoveDistance = 10f;
+    GameObject player;
+    EnemyController enemyController;
+    NavMeshAgent agent;
+    NavMeshPath path;
+    float beginningDistance;
+    float remaining;
+    bool mageActive = false;
 
     // Start is called before the first frame update
     void Start()
@@ -23,7 +25,27 @@ public class EnemyAI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (mageActive)
+        {
+            Vector3 distanceToPlayer = player.transform.position - transform.position;
+            float distance = distanceToPlayer.magnitude;
+
+            if (beginningDistance - remaining >= 10f || distanceToPlayer.magnitude <= 3)
+            {
+                remaining = 0;
+                agent.ResetPath();
+                mageActive = false;
+            }
+            else
+            {
+                remaining = agent.remainingDistance;
+            }
+        }
+
+        if(beginningDistance == 0)
+        {
+            beginningDistance = agent.remainingDistance;
+        }
     }
 
     public void AI(int aiIndex)
@@ -44,7 +66,7 @@ public class EnemyAI : MonoBehaviour
 
     private void MageAI()
     {
-        MoveToPlayer(10);
+            MoveToPlayer(); 
     }
 
     private void BruteAI()
@@ -57,17 +79,11 @@ public class EnemyAI : MonoBehaviour
 
     }
 
-    private void MoveToPlayer(float distanceToMove)
+    private void MoveToPlayer()
     {
         agent.SetDestination(player.transform.position);
-        float beginningDistance = agent.remainingDistance;
-        float remaining = 0;
-
-        while(agent.remainingDistance - remaining < enemyMoveDistance)
-        {
-            remaining = agent.remainingDistance;
-        }
-
-        agent.ResetPath();
+        remaining = 0;
+        beginningDistance = agent.remainingDistance;
+        mageActive = true;
     }
 }

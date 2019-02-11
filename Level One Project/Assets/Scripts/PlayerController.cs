@@ -91,6 +91,7 @@ public class PlayerController : MonoBehaviour
         else //Sets the player active state to false
         {
             active = false;
+            movement.line.positionCount = 0;
         }
     }
 }
