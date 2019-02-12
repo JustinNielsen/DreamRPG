@@ -13,6 +13,8 @@ public class PlayerController : MonoBehaviour
     public TurnBasedSystem turn;
     public States state;
     public PlayerMovement movement;
+    public int level;
+    public int health;
     
     private void Start()
     {
@@ -91,6 +93,25 @@ public class PlayerController : MonoBehaviour
         else //Sets the player active state to false
         {
             active = false;
+            movement.line.positionCount = 0;
         }
+    }
+
+    public void SavePlayer()
+    {
+        Checkpoint.SavePlayer(this);
+    }
+
+    public void LoadPlayer()
+    {
+        Data data = Checkpoint.LoadPlayer();
+        level = data.level;
+        health = data.health;
+
+        Vector3 positon;
+        positon.x = data.position[0];
+        positon.y = data.position[1];
+        positon.z = data.position[2];
+        transform.position = positon;
     }
 }

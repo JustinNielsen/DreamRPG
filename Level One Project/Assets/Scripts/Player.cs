@@ -24,7 +24,7 @@ public class Player : MonoBehaviour
 
     public void SavePlayer ()
     {
-        Checkpoint.SavePlayer(this);
+        //Checkpoint.SavePlayer(this);
     }
 
     public void LoadPlayer ()

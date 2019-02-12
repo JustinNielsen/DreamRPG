@@ -16,7 +16,7 @@ public class PlayerMovement : MonoBehaviour
     Vector3 clickedTarget;
     NavMeshPath path;
     float pathLength;
-    LineRenderer line;
+    public LineRenderer line;
     PlayerController pControl;
     float maxDistance;
     GameObject moveDirection;
