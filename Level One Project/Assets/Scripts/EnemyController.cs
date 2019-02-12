@@ -23,7 +23,6 @@ public class EnemyController : MonoBehaviour
 
         ai = GetComponent<EnemyAI>();
         agent = GetComponent<NavMeshAgent>();
-        agent.enabled = false;
     }
 
     // Update is called once per frame
@@ -45,14 +44,14 @@ public class EnemyController : MonoBehaviour
         {
             active = true;
             cam.Priority = 15;
-            agent.enabled = true;
+            ai.enabled = true;
             ai.AI(1);
         }
         else
         {
             active = false;
             cam.Priority = 5;
-            agent.enabled = false;
+            ai.enabled = false;
         }
     }
 }
