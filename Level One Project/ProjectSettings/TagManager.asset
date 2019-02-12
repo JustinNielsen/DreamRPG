@@ -10,6 +10,7 @@ TagManager:
   - navMesh
   - waypoint
   - turn
+  - attack
   layers:
   - Default
   - TransparentFX

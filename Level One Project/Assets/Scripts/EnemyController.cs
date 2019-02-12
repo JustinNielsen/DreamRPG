@@ -13,7 +13,7 @@ public class EnemyController : MonoBehaviour
     public CinemachineVirtualCamera camPrefab;
     private EnemyAI ai;
     private NavMeshAgent agent;
-
+    public int enemyHealth;
     // Start is called before the first frame update
     void Start()
     {
@@ -29,6 +29,11 @@ public class EnemyController : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        if(enemyHealth == 0)
+        {
+            //This will destroy this object, therefore killing it. Potentially add animation before.
+            Destroy(this);
+        }
         if (active)
         {
             //Forward and backward movement
@@ -53,6 +58,15 @@ public class EnemyController : MonoBehaviour
             active = false;
             cam.Priority = 5;
             agent.enabled = false;
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.tag == "attack")
+        {
+            Damage damage = other.gameObject.GetComponent<Damage>();
+            enemyHealth -= damage.damage;
         }
     }
 }

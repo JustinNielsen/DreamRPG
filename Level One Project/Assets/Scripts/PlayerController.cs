@@ -13,19 +13,28 @@ public class PlayerController : MonoBehaviour
     public TurnBasedSystem turn;
     public States state;
     public PlayerMovement movement;
-    
+    private int playerHealth;
+    private int shieldHealth;
+    public AttackScript attackScript;
+
     private void Start()
     {
         //Initialize cam to main camera
         cam = Camera.main;
         //Initialize Player movement class object
         movement = GetComponent<PlayerMovement>();
+        //Initialize Player attack class object
+        attackScript = GetComponent<AttackScript>();
         //Turn off the NavMeshAgent at the beginning of the game
         movement.agent.enabled = false;
         //Set the state to WASD at the beginning of the game
         state = States.WASD;
         //Get the TurnBasedSystem script from the turnObj
         turn = GameObject.FindGameObjectWithTag("turn").GetComponent<TurnBasedSystem>();
+        //Sets it equal to whatever difficulty is selected.
+        //********************TODO!***************************
+        playerHealth = 1;
+        shieldHealth = 1;
     }
 
     // Update is called once per frame
@@ -36,6 +45,20 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
+        //Let's you enter attack mode. Change when needed.
+        if (Input.GetKeyDown(KeyCode.R) && state == States.NavMesh)
+        {
+            state = States.Attacking;
+        }
+        else if (Input.GetKeyDown(KeyCode.Q) && state == States.Attacking)
+        {
+            state = States.NavMesh;
+            Destroy(attackScript.boi);
+        }
+        if(playerHealth > 0)
+        {
+            //TODO Sets the gameover sequence
+        }
         if (active)
         {
             switch (state)
@@ -47,6 +70,7 @@ public class PlayerController : MonoBehaviour
                     movement.KeyboardMovement();
                     break;
                 case States.Attacking:
+                    attackScript.Attack();
                     break;
             }
         }
@@ -65,6 +89,19 @@ public class PlayerController : MonoBehaviour
             //turn on the navMeshAgent and set the state to NavMesh
             movement.agent.enabled = true;
             state = States.NavMesh;
+        }
+        //TODO - Check if the tag is right, potentially change method of damage.
+        else if(other.gameObject.tag == "enemy?")
+        {
+            //If there are no shields, it will damage the player
+            if(shieldHealth == 0)
+            {
+                playerHealth--;
+            }
+            else //Otherwise the shields will be hurt.
+            {
+                shieldHealth--;
+            }
         }
     }
 
