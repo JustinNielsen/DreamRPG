@@ -41,6 +41,7 @@ public class EnemyAI : MonoBehaviour
                 agent.ResetPath();
                 mageActive = false;
                 Debug.Log("Done");
+                RangeAttack();
             }
         }
 
@@ -56,6 +57,11 @@ public class EnemyAI : MonoBehaviour
                 agent.ResetPath();
                 bruteActive = false;
             }
+        }
+
+        if(beginningDistance == 0)
+        {
+            beginningDistance = agent.remainingDistance;
         }
     }
 
@@ -78,13 +84,13 @@ public class EnemyAI : MonoBehaviour
     private void MageAI()
     {
         MageMove();
-        RangeAttack();
+        //RangeAttack();
     }
 
     private void BruteAI()
     {
         BruteMove();
-        MeleeAttack();
+        //MeleeAttack();
     }
 
     private void AssassinAI()
@@ -149,7 +155,22 @@ public class EnemyAI : MonoBehaviour
     //Attack Player from a range
     private void RangeAttack()
     {
+        float random = Random.Range(-5, 5);
+        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(player.transform.position - transform.position), 0.15f);
+        //transform.LookAt(player.transform);
+        //transform.rotate.y +
 
+        RaycastHit hit;
+
+        if(Physics.Raycast(transform.position, transform.forward, out hit, 20f))
+        {
+            Debug.DrawLine(transform.position, hit.transform.position, Color.red, 5f);
+
+            if(hit.collider.tag == "player")
+            {
+                Debug.Log("Hit Player");
+            }
+        }
     }
 
     //Attack Player through close combat

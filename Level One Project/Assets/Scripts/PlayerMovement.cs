@@ -14,7 +14,7 @@ public class PlayerMovement : MonoBehaviour
     bool isMoving = false;
     Vector3 movingTarget;
     Vector3 clickedTarget;
-    NavMeshPath path;
+    public NavMeshPath path;
     float pathLength;
     public LineRenderer line;
     PlayerController pControl;
@@ -294,30 +294,8 @@ public class PlayerMovement : MonoBehaviour
 
     public void KeyboardMovement()
     {
-        //Move Up and down
-        //transform.position += new Vector3(moveDirection.transform.forward.x, 0, moveDirection.transform.forward.z) * Time.deltaTime * movementSpeed * Input.GetAxis("Vertical");
-        //Move Left and Right
-        //transform.position += new Vector3(moveDirection.transform.right.x, 0, moveDirection.transform.right.z) * Time.deltaTime * movementSpeed * Input.GetAxis("Horizontal");
-
         //Applies velocity to rigidbody
         rb.velocity = moveVelocity;
-        Debug.Log(moveVelocity);
-
-
-        /*
-        //Get WASD Movement
-        float moveHorizontal = Input.GetAxisRaw("Horizontal");
-        float moveVertical = Input.GetAxisRaw("Vertical");
-        //Put WASD movement together to form a direction
-        Vector3 direction = new Vector3(moveHorizontal, 0f, moveVertical);
-
-        //Only apply the rotation if a button is pushed
-        if (direction != Vector3.zero)
-        {
-            //Apply rotation with a 150 degree offset.
-            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction) * Quaternion.Euler(0, 245, 0), 0.2f);
-        }
-        */
     }
 
     //Turns on or off the navMesh according to the bool parameter

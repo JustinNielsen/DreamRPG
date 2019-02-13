@@ -76,6 +76,7 @@ public class PlayerController : MonoBehaviour
         //Turn off navMesh if exiting a collider with a tag of navMesh
         if (other.gameObject.tag == "navMesh")
         {
+            movement.line.positionCount = 0;
             //turn off the navMeshAgent and set the state to WASD
             movement.agent.enabled = false;
             state = States.WASD;
