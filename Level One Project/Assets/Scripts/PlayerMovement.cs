@@ -10,7 +10,7 @@ public class PlayerMovement : MonoBehaviour
     GameObject player;
     GameObject waypoint;
     GameObject waypointPrefab;
-    float movementSpeed = 8f;
+    public float movementSpeed = 8f;
     bool isMoving = false;
     Vector3 movingTarget;
     Vector3 clickedTarget;
@@ -71,6 +71,11 @@ public class PlayerMovement : MonoBehaviour
             {
                 Ray lookRay = new Ray(transform.position, lookToward);
                 transform.LookAt(lookRay.GetPoint(1));
+            }
+
+            if(moveInput.magnitude > 1)
+            {
+                moveInput /= moveInput.magnitude;
             }
 
             moveVelocity = transform.forward * movementSpeed * moveInput.sqrMagnitude;
