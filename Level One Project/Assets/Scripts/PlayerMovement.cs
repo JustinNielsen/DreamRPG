@@ -20,6 +20,9 @@ public class PlayerMovement : MonoBehaviour
     PlayerController pControl;
     float maxDistance;
     GameObject moveDirection;
+    Vector3 moveInput;
+    Vector3 moveVelocity;
+    Rigidbody rb;
     
     // Start is called before the first frame update
     void Start()
@@ -42,6 +45,40 @@ public class PlayerMovement : MonoBehaviour
         //waypointPrefab = GameObject.Find("waypoint");
         //Initialize object to base movement from
         moveDirection = GameObject.FindGameObjectWithTag("turn");
+        //Get the rigidbody from the player object
+        rb = player.GetComponent<Rigidbody>();
+    }
+
+    void Update()
+    {
+        if (pControl.state == States.WASD)
+        {
+            //Gets input from keys
+            float horizontal = Input.GetAxis("Horizontal");
+            float vertical = Input.GetAxis("Vertical");
+
+            //Sets velocity from input
+            moveInput = new Vector3(horizontal, 0f, vertical);
+
+            //Get camera rotation and forward values
+            Vector3 cameraForward = cam.transform.forward;
+            cameraForward.y = 0f;
+            Quaternion cameraRelativeRotation = Quaternion.FromToRotation(Vector3.forward, cameraForward);
+            Vector3 lookToward = cameraRelativeRotation * moveInput;
+
+            //Use camera values to turn the player when input is being pressed
+            if (moveInput.sqrMagnitude > 0)
+            {
+                Ray lookRay = new Ray(transform.position, lookToward);
+                transform.LookAt(lookRay.GetPoint(1));
+            }
+
+            moveVelocity = transform.forward * movementSpeed * moveInput.sqrMagnitude;
+        }
+        else
+        {
+            rb.velocity = Vector3.zero;
+        }
     }
 
     public void NavMeshMovement()
@@ -253,9 +290,16 @@ public class PlayerMovement : MonoBehaviour
     public void KeyboardMovement()
     {
         //Move Up and down
-        transform.position += new Vector3(moveDirection.transform.forward.x, 0, moveDirection.transform.forward.z) * Time.deltaTime * movementSpeed * Input.GetAxis("Vertical");
+        //transform.position += new Vector3(moveDirection.transform.forward.x, 0, moveDirection.transform.forward.z) * Time.deltaTime * movementSpeed * Input.GetAxis("Vertical");
         //Move Left and Right
-        transform.position += new Vector3(moveDirection.transform.right.x, 0, moveDirection.transform.right.z) * Time.deltaTime * movementSpeed * Input.GetAxis("Horizontal");
+        //transform.position += new Vector3(moveDirection.transform.right.x, 0, moveDirection.transform.right.z) * Time.deltaTime * movementSpeed * Input.GetAxis("Horizontal");
+
+        //Applies velocity to rigidbody
+        rb.velocity = moveVelocity;
+        Debug.Log(moveVelocity);
+
+
+        /*
         //Get WASD Movement
         float moveHorizontal = Input.GetAxisRaw("Horizontal");
         float moveVertical = Input.GetAxisRaw("Vertical");
@@ -268,6 +312,7 @@ public class PlayerMovement : MonoBehaviour
             //Apply rotation with a 150 degree offset.
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction) * Quaternion.Euler(0, 245, 0), 0.2f);
         }
+        */
     }
 
     //Turns on or off the navMesh according to the bool parameter

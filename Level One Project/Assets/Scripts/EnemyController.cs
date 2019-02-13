@@ -13,6 +13,7 @@ public class EnemyController : MonoBehaviour
     public CinemachineVirtualCamera camPrefab;
     private EnemyAI ai;
     private NavMeshAgent agent;
+    public int enemyType = 1;
 
     // Start is called before the first frame update
     void Start()
@@ -45,7 +46,7 @@ public class EnemyController : MonoBehaviour
             active = true;
             cam.Priority = 15;
             ai.enabled = true;
-            ai.AI(1);
+            ai.AI(enemyType);
         }
         else
         {

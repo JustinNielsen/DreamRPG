@@ -78,26 +78,34 @@ public class EnemyAI : MonoBehaviour
     private void MageAI()
     {
         MageMove();
-        mageActive = true; //Stays within range for range attacks
         RangeAttack();
     }
 
     private void BruteAI()
     {
         BruteMove();
-        bruteActive = true; //Always moves towards the player and tries to attack him
         MeleeAttack();
     }
 
     private void AssassinAI()
     {
+        int random = Random.Range(0, 1);
 
+        if(random == 0)
+        {
+            BruteMove();
+        }
+        else
+        {
+            MageMove();
+        }
     }
 
     private void BruteMove()
     {
         agent.SetDestination(player.transform.position);
         beginningDistance = agent.remainingDistance;
+        bruteActive = true; //Always moves towards the player and tries to attack him
     }
 
     private void MageMove()
@@ -134,13 +142,17 @@ public class EnemyAI : MonoBehaviour
         beginningDistance = agent.remainingDistance;
         Debug.Log("Remaining Distance: " + beginningDistance);
         Debug.Log("Distance" + distance);
+
+        mageActive = true; //Stays within range for range attacks
     }
 
+    //Attack Player from a range
     private void RangeAttack()
     {
 
     }
 
+    //Attack Player through close combat
     private void MeleeAttack()
     {
 
