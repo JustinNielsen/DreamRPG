@@ -81,6 +81,11 @@ public class PlayerController : MonoBehaviour
             movement.agent.enabled = false;
             state = States.WASD;
         }
+        else if(other.gameObject.tag == "projectile")
+        {
+            Destroy(other.gameObject);
+            Debug.Log("Lose Health");
+        }
     } 
 
     //Turns on and off the player according to the bool parameter

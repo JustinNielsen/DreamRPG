@@ -6,6 +6,7 @@ using UnityEngine.AI;
 public class EnemyAI : MonoBehaviour
 {
     public bool actionDone = true;
+    public GameObject mageShot;
     GameObject player;
     EnemyController enemyController;
     NavMeshAgent agent;
@@ -42,8 +43,8 @@ public class EnemyAI : MonoBehaviour
                 agent.ResetPath();
                 remaining = 0;
                 mageActive = false;
-                StartCoroutine(RangeAttackWait());
                 targetRotation = Quaternion.LookRotation(player.transform.position - transform.position, Vector3.up);
+                StartCoroutine(RangeAttackWait());
                 //RangeAttack();
             }
         }
@@ -67,25 +68,33 @@ public class EnemyAI : MonoBehaviour
             //float random = Random.Range(-4, 4);
             ////transform.LookAt(player.transform);
             //Quaternion targetRotation = Quaternion.LookRotation(player.transform.position - transform.position, Vector3.up);
-            transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, 0.05f);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 0.05f);
             //transform.Rotate(0, random, 0);
 
+            //Debug.Log(Quaternion.Angle(targetRotation, transform.rotation));
+
             //TODO - Find a way to check when done rotating
+            if (Quaternion.Angle(transform.rotation, targetRotation) <= 3.89f)
+            {
+                transform.LookAt(player.transform);
+                float random = Random.Range(-6, 6);
+                transform.Rotate(0, random, 0);
+                rangeAttack = false;
+                RaycastHit hit;
+                Debug.Log(random);
 
-            rangeAttack = false;
-            RaycastHit hit;
-            Debug.Log("asdfasdf");
+                if (Physics.Raycast(transform.position, transform.forward, out hit, 20f))
+                {
+                    if (hit.collider.tag == "player")
+                    {
+                        //Debug.Log("Random #: " + random);
+                        Debug.DrawLine(transform.position, hit.transform.position, Color.red, 5f);
+                        //Debug.Log("Hit Player");
+                    }
+                }
 
-           if (Physics.Raycast(transform.position, transform.forward, out hit, 20f))
-           {
-
-               if (hit.collider.tag == "player")
-               {
-                    //Debug.Log("Random #: " + random);
-                    Debug.DrawLine(transform.position, hit.transform.position, Color.red, 5f);
-                    //Debug.Log("Hit Player");
-               }            
-           }
+                LaunchProjectile();
+            }
             
         }
 
@@ -184,7 +193,7 @@ public class EnemyAI : MonoBehaviour
     //Attack Player from a range
     private void RangeAttack()
     {
-        float random = Random.Range(-4, 4);
+        float random = Random.Range(-5, 5);
         ////transform.LookAt(player.transform);
         Quaternion targetRotation = Quaternion.LookRotation(player.transform.position - transform.position, Vector3.up);
         //transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 0.15f);
@@ -216,6 +225,13 @@ public class EnemyAI : MonoBehaviour
     private void MeleeAttack()
     {
 
+    }
+
+    private void LaunchProjectile()
+    {
+        Vector3 pos = transform.position + transform.forward;
+        GameObject projectile = Instantiate(mageShot, transform.position, transform.rotation);
+        Destroy(projectile, 4f);
     }
 
     IEnumerator RangeAttackWait()
