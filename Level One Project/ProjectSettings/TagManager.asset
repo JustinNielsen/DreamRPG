@@ -10,6 +10,7 @@ TagManager:
   - navMesh
   - waypoint
   - turn
+  - rotation
   layers:
   - Default
   - TransparentFX

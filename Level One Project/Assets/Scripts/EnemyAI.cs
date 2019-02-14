@@ -14,7 +14,9 @@ public class EnemyAI : MonoBehaviour
     float remaining;
     bool mageActive = false;
     bool bruteActive = false;
+    bool rangeAttack = false;
     GameObject[] waypoints;
+    Quaternion targetRotation;
 
     // Start is called before the first frame update
     void Start()
@@ -37,11 +39,12 @@ public class EnemyAI : MonoBehaviour
             //Stop moving if the enemy hasn't moved more than 10 of if the distance to the player is less than 7
             if (beginningDistance - remaining >= 10f || distance < 12f && distance > 7)
             {
-                remaining = 0;
                 agent.ResetPath();
+                remaining = 0;
                 mageActive = false;
-                Debug.Log("Done");
-                RangeAttack();
+                StartCoroutine(RangeAttackWait());
+                targetRotation = Quaternion.LookRotation(player.transform.position - transform.position, Vector3.up);
+                //RangeAttack();
             }
         }
 
@@ -57,6 +60,33 @@ public class EnemyAI : MonoBehaviour
                 agent.ResetPath();
                 bruteActive = false;
             }
+        }
+
+        if (rangeAttack)
+        {
+            //float random = Random.Range(-4, 4);
+            ////transform.LookAt(player.transform);
+            //Quaternion targetRotation = Quaternion.LookRotation(player.transform.position - transform.position, Vector3.up);
+            transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, 0.05f);
+            //transform.Rotate(0, random, 0);
+
+            //TODO - Find a way to check when done rotating
+
+            rangeAttack = false;
+            RaycastHit hit;
+            Debug.Log("asdfasdf");
+
+           if (Physics.Raycast(transform.position, transform.forward, out hit, 20f))
+           {
+
+               if (hit.collider.tag == "player")
+               {
+                    //Debug.Log("Random #: " + random);
+                    Debug.DrawLine(transform.position, hit.transform.position, Color.red, 5f);
+                    //Debug.Log("Hit Player");
+               }            
+           }
+            
         }
 
         if(beginningDistance == 0)
@@ -146,8 +176,7 @@ public class EnemyAI : MonoBehaviour
         }
 
         beginningDistance = agent.remainingDistance;
-        Debug.Log("Remaining Distance: " + beginningDistance);
-        Debug.Log("Distance" + distance);
+        //Debug.Log("Distance" + distance);
 
         mageActive = true; //Stays within range for range attacks
     }
@@ -155,20 +184,30 @@ public class EnemyAI : MonoBehaviour
     //Attack Player from a range
     private void RangeAttack()
     {
-        float random = Random.Range(-5, 5);
-        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(player.transform.position - transform.position), 0.15f);
-        //transform.LookAt(player.transform);
-        //transform.rotate.y +
+        float random = Random.Range(-4, 4);
+        ////transform.LookAt(player.transform);
+        Quaternion targetRotation = Quaternion.LookRotation(player.transform.position - transform.position, Vector3.up);
+        //transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 0.15f);
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, 5 * Time.deltaTime);
+        transform.Rotate(0, random, 0);
 
-        RaycastHit hit;
-
-        if(Physics.Raycast(transform.position, transform.forward, out hit, 20f))
+        if (Mathf.Abs(transform.rotation.y - targetRotation.y) < 1)
         {
-            Debug.DrawLine(transform.position, hit.transform.position, Color.red, 5f);
+            RaycastHit hit;
 
-            if(hit.collider.tag == "player")
+            if (Physics.Raycast(transform.position, transform.forward, out hit, 20f))
             {
-                Debug.Log("Hit Player");
+
+                if (hit.collider.tag == "player")
+                {
+                    //Debug.Log("Random #: " + random);
+                    Debug.DrawLine(transform.position, hit.transform.position, Color.red, 5f);
+                    //Debug.Log("Hit Player");
+                }
+                else
+                {
+                    //Debug.Log("Miss: " + random);
+                }
             }
         }
     }
@@ -177,5 +216,11 @@ public class EnemyAI : MonoBehaviour
     private void MeleeAttack()
     {
 
+    }
+
+    IEnumerator RangeAttackWait()
+    {
+        yield return new WaitForSeconds(0.4f);
+        rangeAttack = true;
     }
 }
