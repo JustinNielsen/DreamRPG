@@ -60,13 +60,16 @@ public class EnemyController : MonoBehaviour
             agent.enabled = false;
         }
     }
-
-    private void OnTriggerEnter(Collider other)
+    
+    private void OnCollisionEnter(Collision collision)
     {
-        if(other.gameObject.tag == "attack")
+     Debug.Log("Enemy Collision with: " + collision.gameObject.tag);
+        if(collision.gameObject.tag == "attack")
         {
-            Damage damage = other.gameObject.GetComponent<Damage>();
+            Damage damage = collision.gameObject.GetComponent<Damage>();
             enemyHealth -= damage.damage;
+            Debug.Log($"Enemy Health: {enemyHealth}");
         }
+        
     }
 }

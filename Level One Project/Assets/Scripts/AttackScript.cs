@@ -5,12 +5,12 @@ using UnityEngine;
 public class AttackScript : MonoBehaviour
 {
     //Boi is the child of the player
-    public GameObject boi;
+    private GameObject boi;
     private GameObject player;
     //prefab
     public GameObject[] prefab;
     //Collider
-    private Collider boiCollider;
+    public Collider boiCollider;
 
 
     //Start Function
@@ -31,8 +31,10 @@ public class AttackScript : MonoBehaviour
             {
                 case 1:
                     //Basic attack... Kind of.
-                    CallCollider(0, 0, 1, prefab[0]);
-                    
+                    //CallCollider(-2, .5f, -1.5f, prefab[0]);
+                    //CallCollider(-1, .5f, -1, prefab[0]);
+                    CallCollider(-2, 0.5f, 0, prefab[0]);
+
                     break;
 
             }
@@ -40,20 +42,24 @@ public class AttackScript : MonoBehaviour
         //Follows your mouse
         //Creates a ray of the current mouse position from the main camera
         Ray cameraRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+        int layerMask = 1 << 14;
         //Creates a plane for the 
-        Plane groundPlane = new Plane(Vector3.up, Vector3.zero);
-        float rayLength;
-
+        RaycastHit rayHit;
         //Fancy code to create a an intersection between the ray and plane
-        if (groundPlane.Raycast(cameraRay, out rayLength))
+        if (Physics.Raycast(cameraRay, out rayHit, Mathf.Infinity, layerMask))
+
         {
-            //This creates the world position where the ray currently is
-            Vector3 pointToLook = cameraRay.GetPoint(rayLength);
-            //This is for the programmers reference. Getting rid of it wouldn't change anything.
-            Debug.DrawLine(cameraRay.origin, pointToLook, Color.blue);
-            //Look at the ray point
-            player.transform.LookAt(pointToLook);
+            if(rayHit.collider.tag == "ground")
+            {
+                //This creates the world position where the ray currently is
+                Vector3 pointToLook = new Vector3(rayHit.point.x, transform.position.y, rayHit.point.z);
+                //This is for the programmers reference. Getting rid of it wouldn't change anything.
+                Debug.DrawLine(cameraRay.origin, pointToLook, Color.blue);
+                //Look at the ray point
+                player.transform.LookAt(pointToLook);
+            }
         }
+
         //This turns attack mode off.
         if (Input.GetKeyDown(KeyCode.Q))
         {
@@ -63,22 +69,22 @@ public class AttackScript : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.E))
         {
             boiCollider.enabled = true;
-            Destroy(boi);
+            Destroy(boi,1);
         }
 
     }
 
-    private void CallCollider(int offsetX, int offsetY, int offsetZ, GameObject prefab)
+    private void CallCollider(float offsetX, float offsetY, float offsetZ, GameObject prefab)
     {
         //Creates a vector at the player's current position.
-        Vector3 pos = new Vector3(player.transform.position.x + offsetX, player.transform.position.y + offsetY, 
-            player.transform.position.z + offsetZ);
+        Vector3 pos = player.transform.position + (transform.forward * 2);
+        pos.y += 0.5f;
         //Creates Collider at player's position, with the player as a parent.
-        boi = Instantiate(prefab, pos, Quaternion.identity, player.transform);
-
+        boi = Instantiate(prefab, pos, player.transform.rotation, player.transform);
         //Disables the collider
         boiCollider = boi.GetComponent<Collider>();
-        boiCollider.enabled = false;
     }
+
+
 
 }

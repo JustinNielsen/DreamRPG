@@ -11,6 +11,7 @@ TagManager:
   - waypoint
   - turn
   - attack
+  - ground
   layers:
   - Default
   - TransparentFX
@@ -25,8 +26,8 @@ TagManager:
   - Sphere
   - NavMesh
   - Level
-  - 
-  - 
+  - Attacks
+  - Ground
   - 
   - 
   - 

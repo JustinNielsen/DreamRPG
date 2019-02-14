@@ -46,15 +46,7 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
         //Let's you enter attack mode. Change when needed.
-        if (Input.GetKeyDown(KeyCode.R) && state == States.NavMesh)
-        {
-            state = States.Attacking;
-        }
-        else if (Input.GetKeyDown(KeyCode.Q) && state == States.Attacking)
-        {
-            state = States.NavMesh;
-            Destroy(attackScript.boi);
-        }
+
         if(playerHealth > 0)
         {
             //TODO Sets the gameover sequence
@@ -74,6 +66,14 @@ public class PlayerController : MonoBehaviour
                     break;
             }
         }
+        if (Input.GetKeyDown(KeyCode.R) && state == States.NavMesh)
+        {
+            state = States.Attacking;
+        }
+        else if ((Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.E)) && state == States.Attacking)
+        {
+            state = States.NavMesh;
+        }
     }
 
     //Triggers when entering a collider
@@ -91,8 +91,9 @@ public class PlayerController : MonoBehaviour
             state = States.NavMesh;
         }
         //TODO - Check if the tag is right, potentially change method of damage.
-        else if(other.gameObject.tag == "enemy?")
+        else if(other.gameObject.tag == "enemy")
         {
+            Debug.Log("HIT!");
             //If there are no shields, it will damage the player
             if(shieldHealth == 0)
             {

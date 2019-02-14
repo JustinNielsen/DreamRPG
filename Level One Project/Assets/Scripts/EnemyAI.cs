@@ -44,7 +44,7 @@ public class EnemyAI : MonoBehaviour
 
         if(beginningDistance == 0)
         {
-            beginningDistance = agent.remainingDistance;
+    //        beginningDistance = agent.remainingDistance;
         }
     }
 
