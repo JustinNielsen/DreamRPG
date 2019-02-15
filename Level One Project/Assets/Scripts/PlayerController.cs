@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+//These represent independent states that cannot coexist.
 public enum States { NavMesh, WASD, Attacking, Neutral };
 
 public class PlayerController : MonoBehaviour
@@ -16,6 +17,9 @@ public class PlayerController : MonoBehaviour
     private int playerHealth;
     private int shieldHealth;
     public AttackScript attackScript;
+    public List<GameObject> enemies;
+    private int playerLevel;
+    private int playerXP;
 
     private void Start()
     {
@@ -29,24 +33,29 @@ public class PlayerController : MonoBehaviour
         movement.agent.enabled = false;
         //Set the state to WASD at the beginning of the game
         state = States.WASD;
-        //Get the TurnBasedSystem script from the turnObj
+        //Get the TurnBasedSystem script
         turn = GameObject.FindGameObjectWithTag("turn").GetComponent<TurnBasedSystem>();
+        GameObject[] tempArray = GameObject.FindGameObjectsWithTag("enemy");
+        foreach(GameObject objects in tempArray)
+        {
+            enemies.Add(objects);
+        }
+
         //Sets it equal to whatever difficulty is selected.
         //********************TODO!***************************
         playerHealth = 1;
         shieldHealth = 1;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     void FixedUpdate()
     {
         //Let's you enter attack mode. Change when needed.
-
+        if(playerXP >= 100)
+        {
+            playerXP -= 100;
+            playerLevel++;
+            Debug.Log($"XP:{playerXP}, Level:{playerLevel}");
+        }
         if(playerHealth > 0)
         {
             //TODO Sets the gameover sequence
@@ -89,24 +98,39 @@ public class PlayerController : MonoBehaviour
             //turn on the navMeshAgent and set the state to NavMesh
             movement.agent.enabled = true;
             state = States.NavMesh;
+            other.enabled = false;
         }
         //TODO - Check if the tag is right, potentially change method of damage.
         else if(other.gameObject.tag == "enemy")
         {
-            Debug.Log("HIT!");
-            //If there are no shields, it will damage the player
-            if(shieldHealth == 0)
+            //This grabs the enemy's controller
+            EnemyController enemy = other.gameObject.GetComponent<EnemyController>();
+            
+            //If the enemy is dead
+            if(enemy.enemyHealth < 0)
             {
-                playerHealth--;
+                //Adds their XP - which is based on a public variable different for each enemy
+                playerXP += enemy.XP;
             }
-            else //Otherwise the shields will be hurt.
+            if (!active)
             {
-                shieldHealth--;
+                //Now we get the 
+                //If there are no shields, it will damage the player
+                if (shieldHealth == 0)
+                {
+                    playerHealth--;
+                }
+                else //Otherwise the shields will be hurt.
+                {
+                    shieldHealth--;
+                }
             }
+            Debug.Log(playerXP);
         }
     }
 
-    //Triggers when exiting a collider
+    /*May not need this block of code.
+     //Triggers when exiting a collider
     private void OnTriggerExit(Collider other)
     {
         //Turn off navMesh if exiting a collider with a tag of navMesh
@@ -116,7 +140,7 @@ public class PlayerController : MonoBehaviour
             movement.agent.enabled = false;
             state = States.WASD;
         }
-    } 
+    } */
 
     //Turns on and off the player according to the bool parameter
     public void TogglePlayer(bool isOn)

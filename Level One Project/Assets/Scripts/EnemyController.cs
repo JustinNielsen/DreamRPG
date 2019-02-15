@@ -14,6 +14,7 @@ public class EnemyController : MonoBehaviour
     private EnemyAI ai;
     private NavMeshAgent agent;
     public int enemyHealth;
+    public int XP;
     // Start is called before the first frame update
     void Start()
     {
@@ -29,10 +30,12 @@ public class EnemyController : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if(enemyHealth == 0)
+        if(enemyHealth < 0)
         {
             //This will destroy this object, therefore killing it. Potentially add animation before.
-            Destroy(this);
+            
+            Destroy(this.gameObject, 1);
+
         }
         if (active)
         {
@@ -61,15 +64,17 @@ public class EnemyController : MonoBehaviour
         }
     }
     
-    private void OnCollisionEnter(Collision collision)
+
+    public void OnTriggerEnter(Collider other)
     {
-     Debug.Log("Enemy Collision with: " + collision.gameObject.tag);
-        if(collision.gameObject.tag == "attack")
+        Debug.Log("Enemy Trigger with: " + other.tag);
+        if (other.tag == "attack" && !active)
         {
-            Damage damage = collision.gameObject.GetComponent<Damage>();
+            Damage damage = other.gameObject.GetComponent<Damage>();
             enemyHealth -= damage.damage;
             Debug.Log($"Enemy Health: {enemyHealth}");
         }
-        
+
     }
+
 }
