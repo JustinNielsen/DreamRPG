@@ -57,31 +57,35 @@ public class PlayerController : MonoBehaviour
     //Triggers when entering a collider
     private void OnTriggerEnter(Collider other)
     {
-        //Destroy the other object if its tag is waypoint
+        /*//Destroy the other object if its tag is waypoint
         if (other.gameObject.tag == "waypoint")
         {
             Destroy(other.gameObject);
-        } //Turn on the navmesh if the tag is navMesh
-        else if (other.gameObject.tag == "navMesh")
+        }*/
+        
+        //Turn on the navmesh if the tag is navMesh
+        if (other.gameObject.tag == "navMesh")
         {
             //turn on the navMeshAgent and set the state to NavMesh
             movement.agent.enabled = true;
             state = States.NavMesh;
+            other.enabled = false;
         }
     }
 
     //Triggers when exiting a collider
     private void OnTriggerExit(Collider other)
     {
-        //Turn off navMesh if exiting a collider with a tag of navMesh
+        /*//Turn off navMesh if exiting a collider with a tag of navMesh
         if (other.gameObject.tag == "navMesh")
         {
             movement.line.positionCount = 0;
             //turn off the navMeshAgent and set the state to WASD
             movement.agent.enabled = false;
             state = States.WASD;
-        }
-        else if(other.gameObject.tag == "projectile")
+        }*/
+
+        if (other.gameObject.tag == "projectile")
         {
             Destroy(other.gameObject);
             Debug.Log("Lose Health");

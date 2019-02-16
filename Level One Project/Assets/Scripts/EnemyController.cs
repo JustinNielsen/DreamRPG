@@ -14,6 +14,7 @@ public class EnemyController : MonoBehaviour
     private EnemyAI ai;
     private NavMeshAgent agent;
     public int enemyType = 1;
+    Rigidbody rb;
 
     // Start is called before the first frame update
     void Start()
@@ -24,6 +25,7 @@ public class EnemyController : MonoBehaviour
 
         ai = GetComponent<EnemyAI>();
         agent = GetComponent<NavMeshAgent>();
+        rb = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
@@ -36,6 +38,10 @@ public class EnemyController : MonoBehaviour
 
             //Left and right movement
             transform.position += transform.right * Time.deltaTime * movementSpeed * Input.GetAxis("Horizontal");
+        }
+        else
+        {
+            rb.velocity = Vector3.zero;
         }
     }
 

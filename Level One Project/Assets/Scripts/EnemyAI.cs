@@ -15,9 +15,11 @@ public class EnemyAI : MonoBehaviour
     float remaining;
     bool mageActive = false;
     bool bruteActive = false;
-    bool rangeAttack = false;
+    bool rotate = false;
     GameObject[] waypoints;
     Quaternion targetRotation;
+    int classType;
+    Vector3 distanceToPlayer;
 
     // Start is called before the first frame update
     void Start()
@@ -33,7 +35,7 @@ public class EnemyAI : MonoBehaviour
     {
         if (mageActive) //Activate if the enemy is a mage - Stays within distance to do range attacks to the player
         {
-            Vector3 distanceToPlayer = player.transform.position - transform.position;
+            distanceToPlayer = player.transform.position - transform.position;
             float distance = distanceToPlayer.magnitude;
             remaining = agent.remainingDistance;
 
@@ -44,56 +46,63 @@ public class EnemyAI : MonoBehaviour
                 remaining = 0;
                 mageActive = false;
                 targetRotation = Quaternion.LookRotation(player.transform.position - transform.position, Vector3.up);
-                StartCoroutine(RangeAttackWait());
-                //RangeAttack();
+                StartCoroutine(AttackWait());
             }
         }
 
         if (bruteActive) //Activates if the enemy is a brute
         {
-            Vector3 distanceToPlayer = player.transform.position - transform.position;           
+            distanceToPlayer = player.transform.position - transform.position;           
             float distance = distanceToPlayer.magnitude;
             remaining = agent.remainingDistance;
 
             if (beginningDistance - remaining >= 10f || distanceToPlayer.magnitude <= 3)
             {
-                remaining = 0;
                 agent.ResetPath();
+                remaining = 0;
                 bruteActive = false;
+                targetRotation = Quaternion.LookRotation(player.transform.position - transform.position, Vector3.up);
+                StartCoroutine(AttackWait());
             }
         }
 
-        if (rangeAttack)
+        if (rotate)
         {
             //float random = Random.Range(-4, 4);
             ////transform.LookAt(player.transform);
             //Quaternion targetRotation = Quaternion.LookRotation(player.transform.position - transform.position, Vector3.up);
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 0.05f);
             //transform.Rotate(0, random, 0);
 
-            //Debug.Log(Quaternion.Angle(targetRotation, transform.rotation));
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 0.05f);
 
-            //TODO - Find a way to check when done rotating
-            if (Quaternion.Angle(transform.rotation, targetRotation) <= 3.89f)
+            Debug.Log(Quaternion.Angle(transform.rotation, targetRotation));
+
+            if (classType == 1)
             {
-                transform.LookAt(player.transform);
-                float random = Random.Range(-6, 6);
-                transform.Rotate(0, random, 0);
-                rangeAttack = false;
-                RaycastHit hit;
-                Debug.Log(random);
-
-                if (Physics.Raycast(transform.position, transform.forward, out hit, 20f))
+                if (Quaternion.Angle(transform.rotation, targetRotation) <= 3.89f)
                 {
-                    if (hit.collider.tag == "player")
+                    transform.LookAt(player.transform);
+                    float random = Random.Range(-6, 6);
+                    transform.Rotate(0, random, 0);
+                    Debug.Log(random);
+
+                    rotate = false;
+
+                    RangeAttack();                    
+                }
+            }
+            else
+            {
+                if (Quaternion.Angle(transform.rotation, targetRotation) <= 9.26f)
+                {
+                    transform.LookAt(player.transform);
+                    rotate = false;
+
+                    if (distanceToPlayer.magnitude <= 3.5)
                     {
-                        //Debug.Log("Random #: " + random);
-                        Debug.DrawLine(transform.position, hit.transform.position, Color.red, 5f);
-                        //Debug.Log("Hit Player");
+                        MeleeAttack();
                     }
                 }
-
-                LaunchProjectile();
             }
             
         }
@@ -122,12 +131,14 @@ public class EnemyAI : MonoBehaviour
 
     private void MageAI()
     {
+        classType = 1;
         MageMove();
         //RangeAttack();
     }
 
     private void BruteAI()
     {
+        classType = 2;
         BruteMove();
         //MeleeAttack();
     }
@@ -148,6 +159,7 @@ public class EnemyAI : MonoBehaviour
 
     private void BruteMove()
     {
+        agent.ResetPath();
         agent.SetDestination(player.transform.position);
         beginningDistance = agent.remainingDistance;
         bruteActive = true; //Always moves towards the player and tries to attack him
@@ -193,7 +205,20 @@ public class EnemyAI : MonoBehaviour
     //Attack Player from a range
     private void RangeAttack()
     {
-        float random = Random.Range(-5, 5);
+        RaycastHit hit;
+
+        if (Physics.Raycast(transform.position, transform.forward, out hit, 20f))
+        {
+            if (hit.collider.tag == "player")
+            {
+                Debug.DrawLine(transform.position, hit.transform.position, Color.red, 5f);
+                //Debug.Log("Hit Player");
+            }
+        }
+
+        LaunchProjectile();
+
+        /*float random = Random.Range(-5, 5);
         ////transform.LookAt(player.transform);
         Quaternion targetRotation = Quaternion.LookRotation(player.transform.position - transform.position, Vector3.up);
         //transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 0.15f);
@@ -218,13 +243,26 @@ public class EnemyAI : MonoBehaviour
                     //Debug.Log("Miss: " + random);
                 }
             }
-        }
+        }*/
     }
 
     //Attack Player through close combat
     private void MeleeAttack()
     {
+        Vector3 distance = player.transform.position - transform.position;
 
+        if(distance.magnitude <= 3.5f)
+        {
+            int random = Random.Range(1, 5);
+            if(random < 3)
+            {
+                Debug.Log("Hit");
+            }
+            else
+            {
+                Debug.Log("Miss");
+            }
+        }
     }
 
     private void LaunchProjectile()
@@ -234,9 +272,9 @@ public class EnemyAI : MonoBehaviour
         Destroy(projectile, 4f);
     }
 
-    IEnumerator RangeAttackWait()
+    IEnumerator AttackWait()
     {
         yield return new WaitForSeconds(0.4f);
-        rangeAttack = true;
+        rotate = true;
     }
 }
