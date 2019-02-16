@@ -20,6 +20,7 @@ public class EnemyAI : MonoBehaviour
     Quaternion targetRotation;
     int classType;
     Vector3 distanceToPlayer;
+    float rangeDifference;
 
     // Start is called before the first frame update
     void Start()
@@ -68,41 +69,44 @@ public class EnemyAI : MonoBehaviour
 
         if (rotate)
         {
-            //float random = Random.Range(-4, 4);
-            ////transform.LookAt(player.transform);
-            //Quaternion targetRotation = Quaternion.LookRotation(player.transform.position - transform.position, Vector3.up);
-            //transform.Rotate(0, random, 0);
+            Vector3 targetDir = player.transform.position - transform.position;
+            float step = 2f * Time.deltaTime;
+            Vector3 newDir = Vector3.RotateTowards(transform.forward, targetDir, step, 0.0f);
+            transform.rotation = Quaternion.LookRotation(newDir);
+            Quaternion targetRotation = Quaternion.LookRotation(targetDir);
 
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 0.05f);
+            Debug.Log(Quaternion.Dot(transform.rotation, targetRotation));
 
-            Debug.Log(Quaternion.Angle(transform.rotation, targetRotation));
-
-            if (classType == 1)
+            if(classType == 1)
             {
-                if (Quaternion.Angle(transform.rotation, targetRotation) <= 3.89f)
+                rangeDifference = 0.0004f;
+            }
+            else
+            {
+                rangeDifference = 0.008f;
+            }
+
+            if (Mathf.Abs(Quaternion.Dot(transform.rotation, targetRotation)) >= 1f - rangeDifference)
+            {
+                Debug.Log("Test");
+                if (classType == 1)
                 {
                     transform.LookAt(player.transform);
-                    float random = Random.Range(-6, 6);
-                    transform.Rotate(0, random, 0);
-                    Debug.Log(random);
-
                     rotate = false;
 
                     RangeAttack();                    
                 }
-            }
-            else
-            {
-                if (Quaternion.Angle(transform.rotation, targetRotation) <= 9.26f)
+                else
                 {
-                    transform.LookAt(player.transform);
                     rotate = false;
 
                     if (distanceToPlayer.magnitude <= 3.5)
                     {
                         MeleeAttack();
                     }
+                
                 }
+
             }
             
         }
@@ -133,14 +137,12 @@ public class EnemyAI : MonoBehaviour
     {
         classType = 1;
         MageMove();
-        //RangeAttack();
     }
 
     private void BruteAI()
     {
         classType = 2;
         BruteMove();
-        //MeleeAttack();
     }
 
     private void AssassinAI()
@@ -217,33 +219,6 @@ public class EnemyAI : MonoBehaviour
         }
 
         LaunchProjectile();
-
-        /*float random = Random.Range(-5, 5);
-        ////transform.LookAt(player.transform);
-        Quaternion targetRotation = Quaternion.LookRotation(player.transform.position - transform.position, Vector3.up);
-        //transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 0.15f);
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, 5 * Time.deltaTime);
-        transform.Rotate(0, random, 0);
-
-        if (Mathf.Abs(transform.rotation.y - targetRotation.y) < 1)
-        {
-            RaycastHit hit;
-
-            if (Physics.Raycast(transform.position, transform.forward, out hit, 20f))
-            {
-
-                if (hit.collider.tag == "player")
-                {
-                    //Debug.Log("Random #: " + random);
-                    Debug.DrawLine(transform.position, hit.transform.position, Color.red, 5f);
-                    //Debug.Log("Hit Player");
-                }
-                else
-                {
-                    //Debug.Log("Miss: " + random);
-                }
-            }
-        }*/
     }
 
     //Attack Player through close combat
