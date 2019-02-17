@@ -14,7 +14,7 @@ public class EnemyController : MonoBehaviour
     private EnemyAI ai;
     private NavMeshAgent agent;
     public int enemyHealth;
-    public int XP;
+    public int level;
     // Start is called before the first frame update
     void Start()
     {

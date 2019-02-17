@@ -20,7 +20,7 @@ public class PlayerController : MonoBehaviour
     public List<GameObject> enemies;
     private int playerLevel;
     private int playerXP;
-
+    private bool attackingFlag;
     private void Start()
     {
         //Initialize cam to main camera
@@ -55,6 +55,7 @@ public class PlayerController : MonoBehaviour
             playerXP -= 100;
             playerLevel++;
             Debug.Log($"XP:{playerXP}, Level:{playerLevel}");
+            //TODO Add in the level up splash screen.
         }
         if(playerHealth > 0)
         {
@@ -71,9 +72,23 @@ public class PlayerController : MonoBehaviour
                     movement.KeyboardMovement();
                     break;
                 case States.Attacking:
-                    attackScript.Attack();
+                    //This should ensure that you can attack only once a turn.
+                    if(!attackingFlag)
+                    {
+                        attackScript.Attack();
+                    }
+                    else
+                    {
+                        //Resets the state
+                        state = States.NavMesh;
+                    }
                     break;
             }
+        }
+        else if(!active)
+        {
+            //This resets the attacking flag when it isn't the players turn.
+            attackingFlag = false;
         }
         if (Input.GetKeyDown(KeyCode.R) && state == States.NavMesh)
         {
@@ -81,7 +96,8 @@ public class PlayerController : MonoBehaviour
         }
         else if ((Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.E)) && state == States.Attacking)
         {
-            state = States.NavMesh;
+            //This will wait until the end of the frame before we change the state
+            StartCoroutine(NavMeshCoRountine());
         }
     }
 
@@ -100,18 +116,10 @@ public class PlayerController : MonoBehaviour
             state = States.NavMesh;
             other.enabled = false;
         }
-        //TODO - Check if the tag is right, potentially change method of damage.
-        else if(other.gameObject.tag == "enemy")
+        //Checks if the tag is right and that the player is in the right state
+        else if (other.gameObject.tag == "enemy" && (state == States.Attacking))
         {
-            //This grabs the enemy's controller
-            EnemyController enemy = other.gameObject.GetComponent<EnemyController>();
-            
-            //If the enemy is dead
-            if(enemy.enemyHealth < 0)
-            {
-                //Adds their XP - which is based on a public variable different for each enemy
-                playerXP += enemy.XP;
-            }
+            //Sees if the enemy is attacking or the player.
             if (!active)
             {
                 //Now we get the 
@@ -125,7 +133,23 @@ public class PlayerController : MonoBehaviour
                     shieldHealth--;
                 }
             }
-            Debug.Log(playerXP);
+            else
+            {
+                //This grabs the enemy's controller
+                EnemyController enemy = other.gameObject.GetComponent<EnemyController>();
+
+                //If the enemy is dead
+                if (enemy.enemyHealth < 0)
+                {
+                    //Adds to your xp which is based on the enemy level and the player level. We multiply by 50 to give a basis for XP.
+                    //So if you are level 1, and so are the enemies, you will get 50 xp each enemy, but if you are level 2 you only get 25 xp.
+                    playerXP += (enemy.level/playerLevel)*50;
+                }
+
+                Debug.Log(playerXP);
+                attackingFlag = true;
+            }
+            
         }
     }
 
@@ -155,5 +179,13 @@ public class PlayerController : MonoBehaviour
             active = false;
             movement.line.positionCount = 0;
         }
+    }
+
+    private IEnumerator NavMeshCoRountine()
+    {
+        yield return new WaitForEndOfFrame();
+
+        //Code needed
+        state = States.NavMesh;
     }
 }

@@ -84,14 +84,19 @@ public class TurnBasedSystem : MonoBehaviour
             //Deactivate everything
             foreach (Character classObj in charList)
             {
-                if (classObj.Obj.CompareTag("player"))
+                //Checks if the object is null
+                if(classObj.Obj != null)
                 {
-                    classObj.PController.TogglePlayer(false);
+                    if (classObj.Obj.CompareTag("player"))
+                    {
+                        classObj.PController.TogglePlayer(false);
+                    }
+                    else
+                    {
+                        classObj.EController.ToggleEnemy(false);
+                    }
                 }
-                else
-                {
-                    classObj.EController.ToggleEnemy(false);
-                }
+              
             }
 
             //Activate the object based on the turn using the charList
