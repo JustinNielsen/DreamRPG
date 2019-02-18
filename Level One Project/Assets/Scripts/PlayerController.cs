@@ -18,7 +18,7 @@ public class PlayerController : MonoBehaviour
     private int shieldHealth;
     public AttackScript attackScript;
     public List<GameObject> enemies;
-    private int playerLevel;
+    private int playerLevel = 1;
     private int playerXP;
     private bool attackingFlag;
     private void Start()
