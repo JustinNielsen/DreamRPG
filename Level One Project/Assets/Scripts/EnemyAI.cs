@@ -7,6 +7,7 @@ public class EnemyAI : MonoBehaviour
 {
     public bool actionDone = true;
     public GameObject mageShot;
+    public float maxMovementRange = 5f;
     GameObject player;
     EnemyController enemyController;
     NavMeshAgent agent;
@@ -21,11 +22,13 @@ public class EnemyAI : MonoBehaviour
     int classType;
     Vector3 distanceToPlayer;
     float rangeDifference;
+    PlayerController pController;
 
     // Start is called before the first frame update
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("player");
+        pController = player.GetComponent<PlayerController>();
         enemyController = GetComponent<EnemyController>();
         agent = GetComponent<NavMeshAgent>();
         waypoints = GameObject.FindGameObjectsWithTag("waypoint");
@@ -41,7 +44,7 @@ public class EnemyAI : MonoBehaviour
             remaining = agent.remainingDistance;
 
             //Stop moving if the enemy hasn't moved more than 10 of if the distance to the player is less than 7
-            if (beginningDistance - remaining >= 10f || distance < 12f && distance > 7)
+            if (beginningDistance - remaining >= maxMovementRange || distance < 12f && distance > 7)
             {
                 agent.ResetPath();
                 remaining = 0;
@@ -57,7 +60,7 @@ public class EnemyAI : MonoBehaviour
             float distance = distanceToPlayer.magnitude;
             remaining = agent.remainingDistance;
 
-            if (beginningDistance - remaining >= 10f || distanceToPlayer.magnitude <= 3)
+            if (beginningDistance - remaining >= maxMovementRange || distanceToPlayer.magnitude <= 3)
             {
                 agent.ResetPath();
                 remaining = 0;
@@ -75,7 +78,7 @@ public class EnemyAI : MonoBehaviour
             transform.rotation = Quaternion.LookRotation(newDir);
             Quaternion targetRotation = Quaternion.LookRotation(targetDir);
 
-            Debug.Log(Quaternion.Dot(transform.rotation, targetRotation));
+            //Debug.Log(Quaternion.Dot(transform.rotation, targetRotation));
 
             if(classType == 1)
             {
@@ -88,7 +91,6 @@ public class EnemyAI : MonoBehaviour
 
             if (Mathf.Abs(Quaternion.Dot(transform.rotation, targetRotation)) >= 1f - rangeDifference)
             {
-                Debug.Log("Test");
                 if (classType == 1)
                 {
                     transform.LookAt(player.transform);
@@ -215,10 +217,10 @@ public class EnemyAI : MonoBehaviour
             {
                 Debug.DrawLine(transform.position, hit.transform.position, Color.red, 5f);
                 //Debug.Log("Hit Player");
+                LaunchProjectile();
             }
         }
 
-        LaunchProjectile();
     }
 
     //Attack Player through close combat
@@ -228,14 +230,18 @@ public class EnemyAI : MonoBehaviour
 
         if(distance.magnitude <= 3.5f)
         {
-            int random = Random.Range(1, 5);
-            if(random < 3)
+            int random = Random.Range(1, pController.hitChance);
+
+            switch (random)
             {
-                Debug.Log("Hit");
-            }
-            else
-            {
-                Debug.Log("Miss");
+                case 1:
+                    Debug.Log("Hit");
+                    break;
+                case 2:
+                case 3:
+                case 4:
+                    Debug.Log("Miss");
+                    break;
             }
         }
     }
@@ -243,7 +249,7 @@ public class EnemyAI : MonoBehaviour
     private void LaunchProjectile()
     {
         Vector3 pos = transform.position + transform.forward;
-        GameObject projectile = Instantiate(mageShot, transform.position, transform.rotation);
+        GameObject projectile = Instantiate(mageShot, pos, transform.rotation);
         Destroy(projectile, 4f);
     }
 

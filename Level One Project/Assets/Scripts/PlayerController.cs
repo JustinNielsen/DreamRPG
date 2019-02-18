@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public enum States { NavMesh, WASD, Attacking, Neutral };
+public enum States { NavMesh, WASD, MeleeAttack, RangeAttack, Neutral };
 
 public class PlayerController : MonoBehaviour
 {
@@ -15,6 +15,8 @@ public class PlayerController : MonoBehaviour
     public PlayerMovement movement;
     public int level;
     public int health;
+    public int hitChance = 4;
+    RangeAttack rAttack;
     
     private void Start()
     {
@@ -28,12 +30,17 @@ public class PlayerController : MonoBehaviour
         state = States.WASD;
         //Get the TurnBasedSystem script from the turnObj
         turn = GameObject.FindGameObjectWithTag("turn").GetComponent<TurnBasedSystem>();
+        //Initilize range attack script
+        rAttack = GetComponent<RangeAttack>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.Y))
+        {
+            state = States.RangeAttack;
+        }
     }
 
     void FixedUpdate()
@@ -48,7 +55,10 @@ public class PlayerController : MonoBehaviour
                 case States.WASD:
                     movement.KeyboardMovement();
                     break;
-                case States.Attacking:
+                case States.MeleeAttack:
+                    break;
+                case States.RangeAttack:
+                    rAttack.active = true;
                     break;
             }
         }
@@ -88,7 +98,19 @@ public class PlayerController : MonoBehaviour
         if (other.gameObject.tag == "projectile")
         {
             Destroy(other.gameObject);
-            Debug.Log("Lose Health");
+            int random = Random.Range(1, hitChance);
+
+            switch (random)
+            {
+                case 1:
+                    Debug.Log("Hit");
+                    break;
+                case 2:
+                case 3:
+                case 4:
+                    Debug.Log("Miss");
+                    break;
+            }
         }
     } 
 

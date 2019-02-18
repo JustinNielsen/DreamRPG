@@ -12,6 +12,7 @@ TagManager:
   - turn
   - rotation
   - projectile
+  - ground
   layers:
   - Default
   - TransparentFX
@@ -27,7 +28,7 @@ TagManager:
   - NavMesh
   - Level
   - projectile
-  - 
+  - ground
   - 
   - 
   - 
