@@ -11,7 +11,10 @@ public class AttackScript : MonoBehaviour
     public GameObject[] prefab;
     //Collider
     public Collider boiCollider;
-
+    private int currentNum;
+    private int mouseNum = 1;
+    private int upperBound = 1;
+    private int lowerBound = 1;
 
     //Start Function
     private void Start()
@@ -25,16 +28,16 @@ public class AttackScript : MonoBehaviour
     public void Attack()
     {
         //Choose the attack. Runs once per R press /// TODOODODODODODOD
-        if (boi == null)
+        if (boi == null || mouseNum != currentNum)
         {
-            switch (1)
+            switch (mouseNum)
             {
                 case 1:
                     //Basic attack... Kind of.
                     //CallCollider(-2, .5f, -1.5f, prefab[0]);
                     //CallCollider(-1, .5f, -1, prefab[0]);
                     CallCollider(-2, 0.5f, 0, prefab[0]);
-
+                    currentNum = 1;
                     break;
 
             }
@@ -85,6 +88,28 @@ public class AttackScript : MonoBehaviour
         boiCollider = boi.GetComponent<Collider>();
     }
 
-
+    private void Update()
+    {
+        //Checks if you are scrolling up or down
+        if(Input.GetAxis("Mouse ScrollWheel") > 0)
+        {
+            //Up goes up
+            mouseNum++;
+            //Resets cycle
+            if(mouseNum > upperBound)
+            {
+                mouseNum = lowerBound;
+            }
+        }
+        //Same things
+        else if(Input.GetAxis("Mouse ScrollWheel") < 0)
+        {
+            mouseNum--;
+            if(mouseNum < lowerBound)
+            {
+                mouseNum = upperBound;
+            }
+        }
+    }
 
 }
