@@ -65,6 +65,8 @@ public class RangeAttack : MonoBehaviour
     {
         Vector3 pos = transform.position + transform.forward;
         GameObject projectile = Instantiate(mageShot, pos, transform.rotation);
+        active = false;
+        pController.state = States.NavMesh;
         Destroy(projectile, 4f);
     }
 }

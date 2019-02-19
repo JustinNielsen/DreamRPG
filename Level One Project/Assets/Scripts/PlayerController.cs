@@ -17,6 +17,8 @@ public class PlayerController : MonoBehaviour
     public int health;
     public int hitChance = 4;
     RangeAttack rAttack;
+    AttackScript mAttack;
+    bool attackingFlag = false;
     
     private void Start()
     {
@@ -32,6 +34,8 @@ public class PlayerController : MonoBehaviour
         turn = GameObject.FindGameObjectWithTag("turn").GetComponent<TurnBasedSystem>();
         //Initilize range attack script
         rAttack = GetComponent<RangeAttack>();
+        //Initialize melee attack script
+        mAttack = GetComponent<AttackScript>();
     }
 
     // Update is called once per frame
@@ -40,6 +44,11 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Y))
         {
             state = States.RangeAttack;
+        }
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            state = States.MeleeAttack;
         }
     }
 
@@ -56,6 +65,16 @@ public class PlayerController : MonoBehaviour
                     movement.KeyboardMovement();
                     break;
                 case States.MeleeAttack:
+                    //This should ensure that you can attack only once a turn.
+                    if (!attackingFlag)
+                    {
+                        mAttack.Attack();
+                    }
+                    else
+                    {
+                        //Resets the state
+                        state = States.NavMesh;
+                    }
                     break;
                 case States.RangeAttack:
                     rAttack.active = true;
@@ -66,13 +85,7 @@ public class PlayerController : MonoBehaviour
 
     //Triggers when entering a collider
     private void OnTriggerEnter(Collider other)
-    {
-        /*//Destroy the other object if its tag is waypoint
-        if (other.gameObject.tag == "waypoint")
-        {
-            Destroy(other.gameObject);
-        }*/
-        
+    {       
         //Turn on the navmesh if the tag is navMesh
         if (other.gameObject.tag == "navMesh")
         {
@@ -86,15 +99,6 @@ public class PlayerController : MonoBehaviour
     //Triggers when exiting a collider
     private void OnTriggerExit(Collider other)
     {
-        /*//Turn off navMesh if exiting a collider with a tag of navMesh
-        if (other.gameObject.tag == "navMesh")
-        {
-            movement.line.positionCount = 0;
-            //turn off the navMeshAgent and set the state to WASD
-            movement.agent.enabled = false;
-            state = States.WASD;
-        }*/
-
         if (other.gameObject.tag == "projectile")
         {
             Destroy(other.gameObject);
