@@ -11,14 +11,14 @@ public class PlayerMovement : MonoBehaviour
     GameObject waypoint;
     GameObject waypointPrefab;
     public float movementSpeed = 8f;
-    bool isMoving = false;
+    public bool isMoving = false;
     Vector3 movingTarget;
     Vector3 clickedTarget;
     public NavMeshPath path;
     float pathLength;
     public LineRenderer line;
     PlayerController pControl;
-    float maxDistance;
+    public float maxDistance;
     GameObject moveDirection;
     Vector3 moveInput;
     Vector3 moveVelocity;
@@ -96,12 +96,14 @@ public class PlayerMovement : MonoBehaviour
         //Check if the player is done moving
         if (maxDistance < 0.5f && agent.pathStatus == NavMeshPathStatus.PathComplete && agent.remainingDistance == 0 && Vector3.Distance(transform.position, agent.destination) <= 1f)
         {
-            //Sets the maxDistance back to 10 but doesn't update the scele of the range indicator yet.
-            maxDistance = 10.0f;
+            //Sets the maxDistance back to 10
+            //maxDistance = 10.0f;
             //Hides Line
-            line.enabled = false;
+            line.positionCount = 0;
             //Switch Turns
-            pControl.turn.SwitchTurn();
+            //pControl.turn.SwitchTurn();
+
+            Debug.Log("Out of the movement");
         }
 
         if (Vector3.Distance(transform.position, agent.destination) <= 1f)
@@ -112,6 +114,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (clickedTarget != null)
         {
+            line.material.color = Color.yellow;
             //Updates the path
             NavMesh.CalculatePath(transform.position, clickedTarget, NavMesh.AllAreas, path);
             //Draws updated path
@@ -182,9 +185,6 @@ public class PlayerMovement : MonoBehaviour
                 //Draws the path
                 DrawPath(path, 2);
             }
-
-            //Debug.Log("Path Length: " + pathLength.ToString("n2"));
-            //Debug.Log("Max Distance: " + maxDistance);
         }
 
         return hit.point;
@@ -210,15 +210,6 @@ public class PlayerMovement : MonoBehaviour
                 //Draws the path
                 DrawPath(path, 1);
 
-                //Check if a waypoint is already placed. If so Destroy it.
-                //if (waypoint != null)
-                //{
-                //    Destroy(waypoint);
-                //}
-
-                //Place a waypoint
-                //waypoint = Instantiate(waypointPrefab, clickedTarget, Quaternion.identity);
-
                 //Subtract the distance moved from the maxDistance
                 maxDistance -= pathLength;
 
@@ -236,9 +227,6 @@ public class PlayerMovement : MonoBehaviour
                 //Draws the path
                 DrawPath(path, 2);
             }
-
-            //Debug.Log("Path Length: " + pathLength.ToString("n2"));
-            //Debug.Log("Max Distance: " + maxDistance);
         }
     }
 
@@ -301,16 +289,14 @@ public class PlayerMovement : MonoBehaviour
     //Turns on or off the navMesh according to the bool parameter
     private void ToggleNavMesh(bool isOn)
     {
-        //if isOn = true then turn on the range circle indicator, the players NavMeshAgent, and sets bool navMesh to true.
+        //if isOn = true then turn on the players NavMeshAgent, and sets bool navMesh to true.
         if (isOn)
         {
-            //NavMeshAgent and 
             agent.enabled = true;
             pControl.state = States.NavMesh;
         }
         else //Sets everything stated above to false if isOn = false
         {
-            //rangeRen.enabled = false;
             agent.enabled = false;
             pControl.state = States.Neutral;
         }

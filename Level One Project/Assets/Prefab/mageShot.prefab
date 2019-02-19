@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6685051359240516150}
   - component: {fileID: 8886154599138439932}
   - component: {fileID: 3946371506569411858}
+  - component: {fileID: 4274063266791988564}
   m_Layer: 0
   m_Name: mageShot
   m_TagString: projectile
@@ -104,4 +105,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96c2bbdde5dc2174da1c54a6bcc2e25f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0.1
+  speed: 0.2
+--- !u!114 &4274063266791988564
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 853863414628630651}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 420a491acc216734a83f061d6c3adb18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 1
+  percentChance: 0

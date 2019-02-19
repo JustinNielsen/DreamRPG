@@ -15,6 +15,7 @@ public class EnemyController : MonoBehaviour
     private NavMeshAgent agent;
     public int enemyType = 1;
     Rigidbody rb;
+    int enemyHealth;
 
     // Start is called before the first frame update
     void Start()
@@ -26,6 +27,16 @@ public class EnemyController : MonoBehaviour
         ai = GetComponent<EnemyAI>();
         agent = GetComponent<NavMeshAgent>();
         rb = GetComponent<Rigidbody>();
+
+        enemyHealth = 1;
+    }
+
+    void Update()
+    {
+        if(enemyHealth <= 0)
+        {
+            Destroy(this.gameObject);
+        }
     }
 
     // Update is called once per frame
@@ -67,6 +78,15 @@ public class EnemyController : MonoBehaviour
         if(other.tag == "projectile")
         {
             Destroy(other.gameObject);
+            Damage damage = other.gameObject.GetComponent<Damage>();
+            enemyHealth -= damage.damage;
+        }
+
+        if (other.tag == "attack" && !active)
+        {
+            Damage damage = other.gameObject.GetComponent<Damage>();
+            enemyHealth -= damage.damage;
+            Debug.Log($"Enemy Health: {enemyHealth}");
         }
     }
 }

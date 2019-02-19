@@ -7,7 +7,7 @@ public enum States { NavMesh, WASD, MeleeAttack, RangeAttack, Neutral };
 
 public class PlayerController : MonoBehaviour
 {
-    private Camera cam;
+    public Camera cam;
     public float maxDistance;
     public bool active = true;
     public TurnBasedSystem turn;
@@ -16,9 +16,10 @@ public class PlayerController : MonoBehaviour
     public int level;
     public int health;
     public int hitChance = 4;
-    RangeAttack rAttack;
-    AttackScript mAttack;
+    AttackScript Attack;
     bool attackingFlag = false;
+    int mouseWheelLocation;
+    States[] mouseWheelStates;
     
     private void Start()
     {
@@ -32,10 +33,12 @@ public class PlayerController : MonoBehaviour
         state = States.WASD;
         //Get the TurnBasedSystem script from the turnObj
         turn = GameObject.FindGameObjectWithTag("turn").GetComponent<TurnBasedSystem>();
-        //Initilize range attack script
-        rAttack = GetComponent<RangeAttack>();
-        //Initialize melee attack script
-        mAttack = GetComponent<AttackScript>();
+        //Initialize attack script
+        Attack = GetComponent<AttackScript>();
+        //Set the mouse wheel point to 0
+        mouseWheelLocation = 0;
+        //Initilize the mouseWheelStates array
+        mouseWheelStates = new States[3] { States.NavMesh, States.MeleeAttack, States.RangeAttack };
     }
 
     // Update is called once per frame
@@ -50,6 +53,19 @@ public class PlayerController : MonoBehaviour
         {
             state = States.MeleeAttack;
         }
+
+        //Only allow the scroll wheel to change states in combat mode
+        if (state != States.WASD && !movement.isMoving)
+        {
+            if (Input.GetAxis("Mouse ScrollWheel") > 0)
+            {
+                ScrollWheel(true);
+            }
+            else if (Input.GetAxis("Mouse ScrollWheel") < 0)
+            {
+                ScrollWheel(false);
+            }
+        }
     }
 
     void FixedUpdate()
@@ -60,27 +76,65 @@ public class PlayerController : MonoBehaviour
             {
                 case States.NavMesh:
                     movement.NavMeshMovement();
+                    mouseWheelLocation = 0;
                     break;
                 case States.WASD:
                     movement.KeyboardMovement();
                     break;
                 case States.MeleeAttack:
-                    //This should ensure that you can attack only once a turn.
-                    if (!attackingFlag)
-                    {
-                        mAttack.Attack();
-                    }
-                    else
-                    {
-                        //Resets the state
-                        state = States.NavMesh;
-                    }
+                    Attack.MeleeAttackMode();
+                    mouseWheelLocation = 1;
                     break;
                 case States.RangeAttack:
-                    rAttack.active = true;
+                    Attack.RangeAttackMode();
+                    mouseWheelLocation = 2;
                     break;
             }
         }
+        else
+        {
+            movement.maxDistance = 10f;
+        }
+    }
+
+    private void ScrollWheel(bool up)
+    {
+        if (up)//Scrolled up
+        {
+            //Make sure the location is less than the max length of the array
+            if(mouseWheelLocation == mouseWheelStates.Length - 1)
+            {
+                mouseWheelLocation = 0;
+            }
+            else
+            {
+                mouseWheelLocation++;
+            }
+        }
+        else //Scrolled down
+        {
+            //Make sure the location is greater than 0
+            if(mouseWheelLocation == 0)
+            {
+                mouseWheelLocation = mouseWheelStates.Length - 1;
+            }
+            else
+            {
+                mouseWheelLocation--;
+            }
+        }
+
+        //Switch the state to the indicated integer location
+        SwitchStates();
+    }
+
+    private void SwitchStates()
+    {
+        //Reset line and destroy hitbox
+        movement.line.positionCount = 0;
+        Destroy(Attack.hitbox);
+        //Set the state to the indicated location
+        state = mouseWheelStates[mouseWheelLocation];
     }
 
     //Triggers when entering a collider
@@ -91,8 +145,12 @@ public class PlayerController : MonoBehaviour
         {
             //turn on the navMeshAgent and set the state to NavMesh
             movement.agent.enabled = true;
+            mouseWheelLocation = 0;
             state = States.NavMesh;
             other.enabled = false;
+
+            //Delete the collider
+            Destroy(other.gameObject);
         }
     }
 

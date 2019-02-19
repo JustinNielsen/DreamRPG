@@ -61,6 +61,42 @@ public class RangeAttack : MonoBehaviour
         }
     }
 
+    public void RangeAttackMode()
+    {
+        Ray cameraRay = cam.ScreenPointToRay(Input.mousePosition);
+        int layerMask = 1 << 14;
+
+        RaycastHit rayHit;
+
+        if (Physics.Raycast(cameraRay, out rayHit, Mathf.Infinity, layerMask))
+        {
+            if (rayHit.collider.tag == "ground")
+            {
+                Vector3 pointToLook = new Vector3(rayHit.point.x, transform.position.y, rayHit.point.z);
+                player.transform.LookAt(pointToLook);
+            }
+        }
+
+        line.positionCount = 2;
+        line.SetPosition(0, transform.position);
+        //line.SetPosition(1, transform.forward * 20 + transform.position);
+        RaycastHit hit;
+
+        if (Physics.Raycast(transform.position, transform.forward, out hit, 20f))
+        {
+            line.SetPosition(1, hit.point);
+        }
+        else
+        {
+            line.SetPosition(1, transform.forward * 20 + transform.position);
+        }
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            LaunchProjectile();
+        }
+    }
+
     private void LaunchProjectile()
     {
         Vector3 pos = transform.position + transform.forward;
