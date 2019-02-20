@@ -48,7 +48,8 @@ public class AttackScript : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             hitboxCollider.enabled = true;
-            Destroy(hitbox, 1);
+            //Destroy(hitbox, 1);
+            Destroy(hitbox);
             pController.state = States.NavMesh;
         }
 

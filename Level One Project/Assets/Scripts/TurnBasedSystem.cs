@@ -13,10 +13,7 @@ public class TurnBasedSystem : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
-        InitializeTurnArray();
-        //Create an empty list for charList
-        charList = new List<Character>();
-        InitializeCharacterList();
+
     }
 
     private void Update() 
@@ -25,6 +22,14 @@ public class TurnBasedSystem : MonoBehaviour
         {
             SwitchTurn();
         }
+    }
+
+    public void ResetArrays()
+    {
+        InitializeTurnArray();
+        //Create an empty list for charList
+        charList = new List<Character>();
+        InitializeCharacterList();
     }
 
     private void InitializeCharacterList()

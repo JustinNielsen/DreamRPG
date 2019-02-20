@@ -9,6 +9,7 @@ public enum States { NavMesh, WASD, MeleeAttack, RangeAttack, Neutral };
 public class PlayerController : MonoBehaviour
 {
     public Camera cam;
+    public Vector3[] checkpointLocations;
     public float maxDistance;
     public bool active = true;
     public TurnBasedSystem turn;
@@ -40,6 +41,8 @@ public class PlayerController : MonoBehaviour
         mouseWheelLocation = 0;
         //Initilize the mouseWheelStates array
         mouseWheelStates = new States[3] { States.NavMesh, States.MeleeAttack, States.RangeAttack };
+        //Initilize checkpoints
+        checkpointLocations = new Vector3[3] { new Vector3(8.43f, 9.2f, -0.92f), new Vector3(), new Vector3() };
     }
 
     // Update is called once per frame
