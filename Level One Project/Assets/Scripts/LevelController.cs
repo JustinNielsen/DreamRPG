@@ -8,8 +8,8 @@ public enum Levels { MainMenu, Level1, Level2, Level3 };
 
 public class LevelController : MonoBehaviour
 {
-    private GameObject player;
-    private MeshRenderer pRenderer;
+    public GameObject player;
+    public GameObject hud;
 
     //This enum will be used to track the level it should be
     public Levels levels;
@@ -20,15 +20,12 @@ public class LevelController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //Gets a reference to the player and sets the levels enum
-        player = GameObject.FindGameObjectWithTag("player");
+        //sets the levels enum
         levels = Levels.MainMenu;
         //Gets a reference to the playerController
         pController = player.GetComponent<PlayerController>();
         //Gets a reference to the turnBasedSystemScript in the playerController
         turn = pController.turn;
-        //Gets a refernece to the meshRenderer on the player
-        pRenderer = player.GetComponent<MeshRenderer>();
     }
 
     // Update is called once per frame
@@ -45,33 +42,30 @@ public class LevelController : MonoBehaviour
                         //Loads scene and sets the current level so it is correct.
                         SceneManager.LoadScene("MainMenu", LoadSceneMode.Additive);
                         currentLevel = levels;
-                        pRenderer.enabled = false;
+                        player.SetActive(false);
+                        hud.SetActive(false);
                         break;
                     }
                 case Levels.Level1:
                     {
-                        player.transform.position = pController.checkpointLocations[0];
                         SceneManager.LoadScene("Level1", LoadSceneMode.Additive);
                         currentLevel = levels;
                         //This will reactivate the player, which was deactivated for the main menu, set the players position, and initilize turn arrays
-                        pRenderer.enabled = true;
-                        turn.ResetArrays();
+                        InitilizeLevel(1);
                         break;
                     }
                 case Levels.Level2:
                     {
                         SceneManager.LoadScene("Level2", LoadSceneMode.Additive);
                         currentLevel = levels;
-                        player.transform.position = pController.checkpointLocations[1];
-                        turn.ResetArrays();
+                        InitilizeLevel(2);
                         break;
                     }
                 case Levels.Level3:
                     {
                         SceneManager.LoadScene("Level3", LoadSceneMode.Additive);
                         currentLevel = levels;
-                        player.transform.position = pController.checkpointLocations[2];
-                        turn.ResetArrays();
+                        InitilizeLevel(3);
                         break;
                     }
             }
@@ -83,5 +77,14 @@ public class LevelController : MonoBehaviour
             levels = Levels.Level1;
         }
        
+    }
+
+    //Moves the player to checkpoint location, enables the players renderer, activiates the hud, and resets the turn arrays
+    private void InitilizeLevel(int level)
+    {
+        player.SetActive(true);
+        player.transform.position = pController.checkpointLocations[level - 1];
+        hud.SetActive(true);
+        turn.ResetArrays();
     }
 }

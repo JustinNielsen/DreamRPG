@@ -13,6 +13,8 @@ TagManager:
   - rotation
   - projectile
   - ground
+  - attack
+  - HUD
   layers:
   - Default
   - TransparentFX
