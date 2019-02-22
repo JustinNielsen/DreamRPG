@@ -23,7 +23,8 @@ public class PlayerController : MonoBehaviour
     bool attackingFlag = false;
     int mouseWheelLocation;
     States[] mouseWheelStates;
-
+    private int playerXP;
+    private int playerLevel;
     
     private void Start()
     {
@@ -47,21 +48,14 @@ public class PlayerController : MonoBehaviour
         checkpointLocations = new Vector3[3] { new Vector3(8.43f, 9.2f, -0.92f), new Vector3(), new Vector3() };
         //Initilize level controller
         lController = GameObject.FindGameObjectWithTag("turn").GetComponent<LevelController>();
+        //Sets the player level to 1 and xp to 0
+        playerLevel = 1;
+        playerXP = 0;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Y))
-        {
-            state = States.RangeAttack;
-        }
-
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            state = States.MeleeAttack;
-        }
-
         //Only allow the scroll wheel to change states in combat mode
         if (state != States.WASD && !movement.isMoving)
         {
@@ -73,6 +67,15 @@ public class PlayerController : MonoBehaviour
             {
                 ScrollWheel(false);
             }
+        }
+
+        //Checks the player level
+        if(playerXP > 100)
+        {
+            //Removes the xp and adds to the the player level.
+            playerXP -= 100;
+            playerLevel++;
+            //TODO Add in level up screen.
         }
     }
 
@@ -160,6 +163,27 @@ public class PlayerController : MonoBehaviour
 
             //Delete the collider
             Destroy(other.gameObject);
+        }
+        //Hit by the enemy
+        if(other.gameObject.tag == "enemy")
+        {
+            if (!active)
+            {
+                //Currently, we will just have every enemy do one damage.
+                health--;
+            }
+            else
+            {
+                //Grabs the enemy controller
+                EnemyController enemyController = other.gameObject.GetComponent<EnemyController>();
+                //Checks to see if the enemy has health left
+                if(enemyController.enemyHealth < 0)
+                {
+                    //Uses a simple formula to find the xp. It should work for the most part.
+                    playerXP += enemyController.enemyLevel / playerLevel * 50;
+                    Debug.Log($"Player XP: {playerXP}");
+                }
+            }
         }
     }
 
