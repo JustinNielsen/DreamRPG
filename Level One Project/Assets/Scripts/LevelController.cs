@@ -10,12 +10,23 @@ public class LevelController : MonoBehaviour
 {
     public GameObject player;
     public GameObject hud;
+    public Camera cam;
 
     //This enum will be used to track the level it should be
     public Levels levels;
     private Levels currentLevel;
     private TurnBasedSystem turn;
     private PlayerController pController;
+
+    //Audio things
+    AudioSource backAudio;
+    public AudioClip mainMenu;
+    public AudioClip level1;
+    public AudioClip level2;
+    public AudioClip level3;
+    public AudioClip fightSong;
+
+    bool fightSongActive = false;
 
     // Start is called before the first frame update
     void Start()
@@ -25,7 +36,9 @@ public class LevelController : MonoBehaviour
         //Gets a reference to the playerController
         pController = player.GetComponent<PlayerController>();
         //Gets a reference to the turnBasedSystemScript in the playerController
-        turn = pController.turn;
+        turn = GameObject.FindGameObjectWithTag("turn").GetComponent<TurnBasedSystem>();
+        currentLevel = Levels.Level1;
+        backAudio = cam.GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -44,6 +57,9 @@ public class LevelController : MonoBehaviour
                         currentLevel = levels;
                         player.SetActive(false);
                         hud.SetActive(false);
+                        backAudio.clip = mainMenu;
+                        backAudio.Play();
+                        fightSongActive = false;
                         break;
                     }
                 case Levels.Level1:
@@ -52,6 +68,9 @@ public class LevelController : MonoBehaviour
                         currentLevel = levels;
                         //This will reactivate the player, which was deactivated for the main menu, set the players position, and initilize turn arrays
                         InitilizeLevel(1);
+                        backAudio.clip = level1;
+                        backAudio.Play();
+                        fightSongActive = false;
                         break;
                     }
                 case Levels.Level2:
@@ -59,6 +78,9 @@ public class LevelController : MonoBehaviour
                         SceneManager.LoadScene("Level2", LoadSceneMode.Additive);
                         currentLevel = levels;
                         InitilizeLevel(2);
+                        backAudio.clip = level2;
+                        backAudio.Play();
+                        fightSongActive = false;
                         break;
                     }
                 case Levels.Level3:
@@ -66,6 +88,9 @@ public class LevelController : MonoBehaviour
                         SceneManager.LoadScene("Level3", LoadSceneMode.Additive);
                         currentLevel = levels;
                         InitilizeLevel(3);
+                        backAudio.clip = level3;
+                        backAudio.Play();
+                        fightSongActive = false;
                         break;
                     }
             }
@@ -77,6 +102,12 @@ public class LevelController : MonoBehaviour
             levels = Levels.Level1;
         }
        
+        if(pController.state != States.WASD && !fightSongActive)
+        {
+            fightSongActive = true;
+            backAudio.clip = fightSong;
+            backAudio.Play();
+        }
     }
 
     //Moves the player to checkpoint location, enables the players renderer, activiates the hud, and resets the turn arrays
@@ -85,6 +116,5 @@ public class LevelController : MonoBehaviour
         player.SetActive(true);
         player.transform.position = pController.checkpointLocations[level - 1];
         hud.SetActive(true);
-        turn.ResetArrays();
     }
 }

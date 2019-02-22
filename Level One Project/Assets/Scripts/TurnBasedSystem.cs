@@ -9,7 +9,6 @@ public class TurnBasedSystem : MonoBehaviour
     public int turn = 0;
     public List<Character> charList;
 
-
     // Start is called before the first frame update
     private void Start()
     {

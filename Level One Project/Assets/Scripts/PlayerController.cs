@@ -152,6 +152,7 @@ public class PlayerController : MonoBehaviour
             mouseWheelLocation = 0;
             state = States.NavMesh;
             other.enabled = false;
+            turn.ResetArrays();
 
             //Delete the collider
             Destroy(other.gameObject);
