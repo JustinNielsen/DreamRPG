@@ -15,6 +15,8 @@ public class LevelController : MonoBehaviour
     //This enum will be used to track the level it should be
     public Levels levels;
     private Levels currentLevel;
+    int sceneIndex;
+
     private TurnBasedSystem turn;
     private PlayerController pController;
 
@@ -52,8 +54,11 @@ public class LevelController : MonoBehaviour
             {
                 case Levels.MainMenu:
                     {
+                        //Unloads previous scene
+                        SceneManager.UnloadSceneAsync(sceneIndex);
                         //Loads scene and sets the current level so it is correct.
                         SceneManager.LoadScene("MainMenu", LoadSceneMode.Additive);
+                        sceneIndex = 1;
                         currentLevel = levels;
                         player.SetActive(false);
                         hud.SetActive(false);
@@ -64,33 +69,45 @@ public class LevelController : MonoBehaviour
                     }
                 case Levels.Level1:
                     {
+                        //Unloads previous scene
+                        SceneManager.UnloadSceneAsync(sceneIndex);
                         SceneManager.LoadScene("Level1", LoadSceneMode.Additive);
+                        sceneIndex = 2;
                         currentLevel = levels;
                         //This will reactivate the player, which was deactivated for the main menu, set the players position, and initilize turn arrays
                         InitilizeLevel(1);
                         backAudio.clip = level1;
                         backAudio.Play();
                         fightSongActive = false;
+                        SavePlayer();
                         break;
                     }
                 case Levels.Level2:
                     {
+                        //Unloads previous scene
+                        SceneManager.UnloadSceneAsync(sceneIndex);
                         SceneManager.LoadScene("Level2", LoadSceneMode.Additive);
+                        sceneIndex = 3;
                         currentLevel = levels;
                         InitilizeLevel(2);
                         backAudio.clip = level2;
                         backAudio.Play();
                         fightSongActive = false;
+                        SavePlayer();
                         break;
                     }
                 case Levels.Level3:
                     {
+                        //Unloads previous scene
+                        SceneManager.UnloadSceneAsync(sceneIndex);
                         SceneManager.LoadScene("Level3", LoadSceneMode.Additive);
+                        sceneIndex = 4;
                         currentLevel = levels;
                         InitilizeLevel(3);
                         backAudio.clip = level3;
                         backAudio.Play();
                         fightSongActive = false;
+                        SavePlayer();
                         break;
                     }
             }
@@ -116,5 +133,21 @@ public class LevelController : MonoBehaviour
         player.SetActive(true);
         player.transform.position = pController.checkpointLocations[level - 1];
         hud.SetActive(true);
+    }
+
+    public void SavePlayer()
+    {
+        Checkpoint.SavePlayer(this);
+    }
+
+    public void LoadPlayer()
+    {
+        //Get Player data
+        Data data = Checkpoint.LoadPlayer();
+        //if there is a save file load the level
+        if (data != null)
+        {
+            levels = data.level;
+        }
     }
 }

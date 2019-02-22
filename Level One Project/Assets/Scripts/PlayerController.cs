@@ -15,13 +15,15 @@ public class PlayerController : MonoBehaviour
     public TurnBasedSystem turn;
     public States state;
     public PlayerMovement movement;
-    public int level;
+    public Levels level;
     public int health;
     public int hitChance = 4;
-    AttackScript Attack;
+    public AttackScript Attack;
+    public LevelController lController;
     bool attackingFlag = false;
     int mouseWheelLocation;
     States[] mouseWheelStates;
+
     
     private void Start()
     {
@@ -43,6 +45,8 @@ public class PlayerController : MonoBehaviour
         mouseWheelStates = new States[3] { States.NavMesh, States.MeleeAttack, States.RangeAttack };
         //Initilize checkpoints
         checkpointLocations = new Vector3[3] { new Vector3(8.43f, 9.2f, -0.92f), new Vector3(), new Vector3() };
+        //Initilize level controller
+        lController = GameObject.FindGameObjectWithTag("turn").GetComponent<LevelController>();
     }
 
     // Update is called once per frame
@@ -196,6 +200,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    /*
     public void SavePlayer()
     {
         Checkpoint.SavePlayer(this);
@@ -203,14 +208,14 @@ public class PlayerController : MonoBehaviour
 
     public void LoadPlayer()
     {
+        //Get Player data
         Data data = Checkpoint.LoadPlayer();
-        level = data.level;
-        health = data.health;
-
-        Vector3 positon;
-        positon.x = data.position[0];
-        positon.y = data.position[1];
-        positon.z = data.position[2];
-        transform.position = positon;
+        //if there is a save file load the level
+        if (data != null)
+        {
+            level = data.level;
+            lController.levels = level;
+        }
     }
+    */
 }

@@ -5,16 +5,16 @@ using UnityEngine;
 [System.Serializable]
 public class Data
 {
-    public int level;
-    public int health;
-    public float[] position;
+    public Levels level;
+    //public int health;
+    //public float[] position;
 
-    public Data(PlayerController player)
+    public Data(LevelController player)
     {
-        level = player.level;
-        health = player.health;
-        position[0] = player.transform.position.x;
-        position[1] = player.transform.position.y;
-        position[2] = player.transform.position.z;
+        level = player.levels;
+        //health = player.health;
+        //position[0] = player.transform.position.x;
+        //position[1] = player.transform.position.y;
+        //position[2] = player.transform.position.z;
     }
 }

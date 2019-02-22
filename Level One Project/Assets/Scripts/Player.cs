@@ -27,6 +27,7 @@ public class Player : MonoBehaviour
         //Checkpoint.SavePlayer(this);
     }
 
+    /*
     public void LoadPlayer ()
     {
         Data data = Checkpoint.LoadPlayer();
@@ -39,5 +40,6 @@ public class Player : MonoBehaviour
         positon.z = data.position[2];
         transform.position = positon;
     }
+    */
     
 }
