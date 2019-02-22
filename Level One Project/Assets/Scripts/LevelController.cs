@@ -54,10 +54,10 @@ public class LevelController : MonoBehaviour
             {
                 case Levels.MainMenu:
                     {
-                        //Unloads previous scene
-                        SceneManager.UnloadSceneAsync(sceneIndex);
                         //Loads scene and sets the current level so it is correct.
                         SceneManager.LoadScene("MainMenu", LoadSceneMode.Additive);
+                        //Unloads previous scene
+                        SceneManager.UnloadSceneAsync(sceneIndex);
                         sceneIndex = 1;
                         currentLevel = levels;
                         player.SetActive(false);
@@ -70,8 +70,8 @@ public class LevelController : MonoBehaviour
                 case Levels.Level1:
                     {
                         //Unloads previous scene
-                        SceneManager.UnloadSceneAsync(sceneIndex);
                         SceneManager.LoadScene("Level1", LoadSceneMode.Additive);
+                        SceneManager.UnloadSceneAsync(sceneIndex);
                         sceneIndex = 2;
                         currentLevel = levels;
                         //This will reactivate the player, which was deactivated for the main menu, set the players position, and initilize turn arrays
@@ -85,8 +85,8 @@ public class LevelController : MonoBehaviour
                 case Levels.Level2:
                     {
                         //Unloads previous scene
-                        SceneManager.UnloadSceneAsync(sceneIndex);
                         SceneManager.LoadScene("Level2", LoadSceneMode.Additive);
+                        SceneManager.UnloadSceneAsync(sceneIndex);
                         sceneIndex = 3;
                         currentLevel = levels;
                         InitilizeLevel(2);
@@ -99,8 +99,8 @@ public class LevelController : MonoBehaviour
                 case Levels.Level3:
                     {
                         //Unloads previous scene
-                        SceneManager.UnloadSceneAsync(sceneIndex);
                         SceneManager.LoadScene("Level3", LoadSceneMode.Additive);
+                        SceneManager.UnloadSceneAsync(sceneIndex);
                         sceneIndex = 4;
                         currentLevel = levels;
                         InitilizeLevel(3);
@@ -114,12 +114,22 @@ public class LevelController : MonoBehaviour
         }
 
         //Switches scene - Testing purposes only
-        if (Input.GetKeyDown(KeyCode.L))
+        if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             levels = Levels.Level1;
         }
-       
-        if(pController.state != States.WASD && !fightSongActive)
+
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            levels = Levels.Level2;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            levels = Levels.Level3;
+        }
+
+        if (pController.state != States.WASD && !fightSongActive)
         {
             fightSongActive = true;
             backAudio.clip = fightSong;

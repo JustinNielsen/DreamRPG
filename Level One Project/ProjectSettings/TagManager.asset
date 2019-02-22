@@ -15,6 +15,7 @@ TagManager:
   - ground
   - attack
   - HUD
+  - Door
   layers:
   - Default
   - TransparentFX
