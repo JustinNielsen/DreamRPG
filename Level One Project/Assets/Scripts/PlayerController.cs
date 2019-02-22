@@ -25,6 +25,7 @@ public class PlayerController : MonoBehaviour
     States[] mouseWheelStates;
     private int playerXP;
     private int playerLevel;
+    public bool alreadyAttacked = false;
     
     private void Start()
     {
@@ -59,13 +60,18 @@ public class PlayerController : MonoBehaviour
         //Only allow the scroll wheel to change states in combat mode
         if (state != States.WASD && !movement.isMoving)
         {
-            if (Input.GetAxis("Mouse ScrollWheel") > 0)
+            //Makes sure you haven't already attacked.
+            if (!alreadyAttacked)
             {
-                ScrollWheel(true);
-            }
-            else if (Input.GetAxis("Mouse ScrollWheel") < 0)
-            {
-                ScrollWheel(false);
+                if (Input.GetAxis("Mouse ScrollWheel") > 0)
+                {
+                    ScrollWheel(true);
+                }
+                else if (Input.GetAxis("Mouse ScrollWheel") < 0)
+                {
+                    ScrollWheel(false);
+                }
+
             }
         }
 
@@ -105,6 +111,7 @@ public class PlayerController : MonoBehaviour
         else
         {
             movement.maxDistance = 10f;
+            alreadyAttacked = false;
         }
     }
 

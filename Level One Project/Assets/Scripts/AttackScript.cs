@@ -50,15 +50,12 @@ public class AttackScript : MonoBehaviour
             hitboxCollider.enabled = true;
             //Destroy(hitbox, 1);
             Destroy(hitbox);
+            //switch to the navMesh
             pController.state = States.NavMesh;
+            //Already attacked is true. Should allow only one attack.
+            pController.alreadyAttacked = true;
         }
 
-        //This turns attack mode off.
-        if (Input.GetMouseButtonDown(1))
-        {
-            Destroy(hitbox);
-            pController.state = States.NavMesh;
-        }
     }
 
     public void RangeAttackMode()
@@ -91,11 +88,6 @@ public class AttackScript : MonoBehaviour
             LaunchProjectile();
         }
 
-        if (Input.GetMouseButtonDown(1))
-        {
-            pController.state = States.NavMesh;
-            line.positionCount = 0;
-        }
     }
 
     private void LookAtMouse()
@@ -131,10 +123,20 @@ public class AttackScript : MonoBehaviour
     {
         Vector3 pos = transform.position + transform.forward;
         GameObject projectile = Instantiate(mageShot, pos, transform.rotation);
-        pController.state = States.NavMesh;
+        StartCoroutine(SwitchToNav(1));
         Destroy(projectile, 4f);
+        //Already attacked is true. Should make only one attack per turn.
+        pController.alreadyAttacked = true;
     }
 
+    //For a coroutine
+    IEnumerator SwitchToNav(float delay)
+    {
+        //Waits the delay
+        yield return new WaitForSeconds(delay);
+        //Switches the state
+        pController.state = States.NavMesh;
+    }
 
 
 }
