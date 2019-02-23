@@ -57,6 +57,7 @@ public class LevelController : MonoBehaviour
             {
                 case Levels.MainMenu:
                     {
+                        camBrain.m_DefaultBlend.m_Style = CinemachineBlendDefinition.Style.Cut;
                         //Loads scene and sets the current level so it is correct.
                         SceneManager.LoadScene("MainMenu", LoadSceneMode.Additive);
                         //Unloads previous scene
