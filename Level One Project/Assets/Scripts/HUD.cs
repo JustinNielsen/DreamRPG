@@ -31,7 +31,7 @@ public class HUD : MonoBehaviour
 
     public void QuitGame()
     {
-        Debug.Log("Quitting Game...");
+        Resume();
         lController.levels = Levels.MainMenu;
     }
 
