@@ -58,9 +58,4 @@ public class QuitButton : MonoBehaviour
 
         Application.Quit();
     }
-
-    private void RoomCam()
-    {
-
-    }
 }
