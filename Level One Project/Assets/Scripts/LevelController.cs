@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Cinemachine;
 
 //Creates an enum for each level scene
 public enum Levels { MainMenu, Level1, Level2, Level3 };
@@ -11,6 +12,7 @@ public class LevelController : MonoBehaviour
     public GameObject player;
     public GameObject hud;
     public Camera cam;
+    private CinemachineBrain camBrain;
 
     //This enum will be used to track the level it should be
     public Levels levels;
@@ -41,6 +43,7 @@ public class LevelController : MonoBehaviour
         turn = GameObject.FindGameObjectWithTag("turn").GetComponent<TurnBasedSystem>();
         currentLevel = Levels.Level1;
         backAudio = cam.GetComponent<AudioSource>();
+        camBrain = cam.GetComponent<CinemachineBrain>();
     }
 
     // Update is called once per frame
@@ -69,6 +72,7 @@ public class LevelController : MonoBehaviour
                     }
                 case Levels.Level1:
                     {
+                        camBrain.m_DefaultBlend.m_Style = CinemachineBlendDefinition.Style.Cut;
                         //Unloads previous scene
                         SceneManager.LoadScene("Level1", LoadSceneMode.Additive);
                         SceneManager.UnloadSceneAsync(sceneIndex);
@@ -84,6 +88,7 @@ public class LevelController : MonoBehaviour
                     }
                 case Levels.Level2:
                     {
+                        camBrain.m_DefaultBlend.m_Style = CinemachineBlendDefinition.Style.Cut;
                         //Unloads previous scene
                         SceneManager.LoadScene("Level2", LoadSceneMode.Additive);
                         SceneManager.UnloadSceneAsync(sceneIndex);
@@ -98,6 +103,7 @@ public class LevelController : MonoBehaviour
                     }
                 case Levels.Level3:
                     {
+                        camBrain.m_DefaultBlend.m_Style = CinemachineBlendDefinition.Style.Cut;
                         //Unloads previous scene
                         SceneManager.LoadScene("Level3", LoadSceneMode.Additive);
                         SceneManager.UnloadSceneAsync(sceneIndex);

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.SceneManagement;
+using Cinemachine;
 
 public enum States { NavMesh, WASD, MeleeAttack, RangeAttack, Neutral };
 
@@ -24,7 +25,8 @@ public class PlayerController : MonoBehaviour
     int mouseWheelLocation;
     States[] mouseWheelStates;
 
-    
+    CinemachineBrain camBrain;
+
     private void Start()
     {
         //Initialize cam to main camera
@@ -47,6 +49,8 @@ public class PlayerController : MonoBehaviour
         checkpointLocations = new Vector3[3] { new Vector3(8.43f, 9.2f, -0.92f), new Vector3(-347.35f, 300.6f, -635.83f), new Vector3(1.67f, 2.39f, -14.38f) };
         //Initilize level controller
         lController = GameObject.FindGameObjectWithTag("turn").GetComponent<LevelController>();
+        //Initilize camBrain
+        camBrain = cam.GetComponent<CinemachineBrain>();
     }
 
     // Update is called once per frame
@@ -160,6 +164,8 @@ public class PlayerController : MonoBehaviour
 
             //Delete the collider
             Destroy(other.gameObject);
+            //Change camera blend mode to ease
+            camBrain.m_DefaultBlend.m_Style = CinemachineBlendDefinition.Style.EaseInOut;
         }
     }
 
