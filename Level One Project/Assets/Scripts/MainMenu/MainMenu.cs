@@ -16,18 +16,24 @@ public class MainMenu : MonoBehaviour
     public void PlayGame()
     {
         lController.levels = Levels.Level1;
-        start.computerCam.Priority = 15;
+        StartCoroutine(CamPriority());
     }
 
     public void LoadGame()
     {
         lController.LoadPlayer();
-        start.computerCam.Priority = 15;
+        StartCoroutine(CamPriority());
     }
 
     public void QuitGame()
     {
         Debug.Log("Quitting Game");
         Application.Quit();
+    }
+
+    IEnumerator CamPriority()
+    {
+        yield return new WaitForSeconds(1f);
+        start.computerCam.Priority = 15;
     }
 }
