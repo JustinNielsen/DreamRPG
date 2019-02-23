@@ -8,8 +8,10 @@ public class HUD : MonoBehaviour
 {
     public static bool GameIsPaused = false;
     public GameObject pauseMenuUI;
+    public GameObject settingMenu;
     public PlayerMovement pMovement;
     public Image manaBar;
+    public LevelController lController;
 
     private float remainingMana;
 
@@ -30,20 +32,28 @@ public class HUD : MonoBehaviour
     public void QuitGame()
     {
         Debug.Log("Quitting Game...");
-        Application.Quit();
+        lController.levels = Levels.MainMenu;
     }
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (GameIsPaused)
+            if (settingMenu.activeSelf == false)
             {
-                Resume();
+                if (GameIsPaused)
+                {
+                    Resume();
+                }
+                else
+                {
+                    Pause();
+                }
             }
             else
             {
-                Pause();
+                settingMenu.SetActive(false);
+                Resume();
             }
         }
 
