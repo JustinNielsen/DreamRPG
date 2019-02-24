@@ -71,35 +71,79 @@ public class TurnBasedSystem : MonoBehaviour
         //If turn = 0 activate the player object and deactivate the enemy objects
         if(turn == 0)
         {
-            foreach(Character classObj in charList)
+            for (int i = 0; i < charList.Count; i++)
             {
-                if (classObj.Obj.CompareTag("player"))
+                //Grabs the character wanted
+                Character classObj = charList[i];
+                //Makes sure that the object grabbed isn't destroyed. If it is destroyed, it will just ignore it.
+                if (classObj.Obj != null)
                 {
-                    classObj.PController.TogglePlayer(true);
+                    if (classObj.Obj.CompareTag("player"))
+                    {
+                        classObj.PController.TogglePlayer(true);
+                    }
+                    else
+                    {
+                        classObj.EController.ToggleEnemy(false);
+                    }
+
                 }
                 else
                 {
-                    classObj.EController.ToggleEnemy(false);
+                    //This will remove the troublesome character.
+                    charList.Remove(classObj);
                 }
             }
         }
         else //Otherwise if turn != 0 deactivate everything and activate the object whose turn it is
         {
             //Deactivate everything
-            foreach (Character classObj in charList)
+
+            for (int i = 0; i < charList.Count; i++)
             {
-                if (classObj.Obj.CompareTag("player"))
+                //Grabs the character wanted
+                Character classObj = charList[i];
+                //Makes sure that the object grabbed isn't destroyed. If it is destroted, it will just ignore it.
+                if (classObj.Obj != null)
                 {
-                    classObj.PController.TogglePlayer(false);
+                    if (classObj.Obj.CompareTag("player"))
+                    {
+                        classObj.PController.TogglePlayer(false);
+                    }
+                    else
+                    {
+                        classObj.EController.ToggleEnemy(false);
+                    }
+
                 }
                 else
                 {
-                    classObj.EController.ToggleEnemy(false);
+                    //This will remove the troublesome character.
+                    charList.Remove(classObj);
                 }
+
             }
 
-            //Activate the object based on the turn using the charList
-            charList[turn].EController.ToggleEnemy(true);
+            try
+            {
+                //Activate the object based on the turn using the charList
+                if (charList[turn] == null)
+                {
+                    Debug.Log("Dead, but in");
+                    SwitchTurn();
+                }
+                else
+                {
+                    Debug.Log("In");
+                    //Switches to the first available turn.
+                    charList[turn].EController.ToggleEnemy(true);
+                }
+            }
+            catch
+            {
+                Debug.Log("Dead");
+                SwitchTurn();
+            }
         }
     }
 }

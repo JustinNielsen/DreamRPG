@@ -11,7 +11,7 @@ public class EnemyController : MonoBehaviour
     float movementSpeed = 5.0f;
     private CinemachineVirtualCamera cam;
     public CinemachineVirtualCamera camPrefab;
-    private EnemyAI ai;
+    public EnemyAI ai;
     private NavMeshAgent agent;
     public int enemyType = 1;
     Rigidbody rb;
