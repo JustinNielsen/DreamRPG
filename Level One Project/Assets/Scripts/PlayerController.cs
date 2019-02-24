@@ -25,6 +25,16 @@ public class PlayerController : MonoBehaviour
     int mouseWheelLocation;
     States[] mouseWheelStates;
 
+    public int playerLevel;
+    public int playerXP;
+
+    //Bool to check if the melee attack has already been used this turn
+    public bool meleeAttacked;
+
+    //Keeps track of the maxMana and remainingMana
+    public float maxMana;
+    public float remainingMana;
+
     CinemachineBrain camBrain;
 
     private void Start()
@@ -51,21 +61,18 @@ public class PlayerController : MonoBehaviour
         lController = GameObject.FindGameObjectWithTag("turn").GetComponent<LevelController>();
         //Initilize camBrain
         camBrain = cam.GetComponent<CinemachineBrain>();
+        //Sets the player level to 1 and xp to 0
+        playerLevel = 1;
+        playerXP = 0;
+        meleeAttacked = false;
+        //Initilize maxMana and remaining mana
+        maxMana = 100f;
+        remainingMana = maxMana;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Y))
-        {
-            state = States.RangeAttack;
-        }
-
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            state = States.MeleeAttack;
-        }
-
         //Only allow the scroll wheel to change states in combat mode
         if (state != States.WASD && !movement.isMoving)
         {
@@ -78,13 +85,29 @@ public class PlayerController : MonoBehaviour
                 ScrollWheel(false);
             }
         }
+
+        //Checks if the player should level up
+        if(playerXP >= 100)
+        {
+            //Removes the xp and adds to the player level
+            playerXP -= 100;
+            playerLevel++;
+            SavePlayer();
+
+            //TODO Add in Level Up Screen
+        }
+
+        if(health == 0)
+        {
+            //TODO - Add a game over screen
+        }
     }
 
     void FixedUpdate()
     {
         if (active)
         {
-            switch (state)
+            switch (state) //Switch states if active
             {
                 case States.NavMesh:
                     movement.NavMeshMovement();
@@ -105,7 +128,9 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
+            //Reset max move distance and meleeAttacked after turn is done
             movement.maxDistance = 10f;
+            meleeAttacked = false;
         }
     }
 
@@ -170,13 +195,16 @@ public class PlayerController : MonoBehaviour
 
         if (other.gameObject.tag == "enemyProjectile")
         {
-            Destroy(other.gameObject);
+            //Gets a random hit chance
             int random = Random.Range(1, hitChance);
 
             switch (random)
             {
                 case 1:
                     Debug.Log("Hit");
+
+                    //Damage the player according to level of enemy
+                    DamagePlayer(other.gameObject.transform.parent.GetComponent<EnemyController>());
                     break;
                 case 2:
                 case 3:
@@ -184,6 +212,9 @@ public class PlayerController : MonoBehaviour
                     Debug.Log("Miss");
                     break;
             }
+
+            //Destroys the projectile
+            Destroy(other.gameObject);
         }
 
         //Change level if you walk into door collider
@@ -205,6 +236,31 @@ public class PlayerController : MonoBehaviour
                     break;*/
             }
         }
+
+        if (other.gameObject.CompareTag("enemy"))
+        {
+            if (!active)
+            {
+                //Currently, we will just have every enemy do one damage
+                health--;
+            }
+
+            /*
+            else
+            {
+                //Grabs the enemy controller
+                EnemyController eController = other.gameObject.GetComponent<EnemyController>();
+
+                //Checks to see if the enemy has health left
+                if(eController.enemyHealth < 0)
+                {
+                    //Uses a simple formula to find the xp. It should work for the most part
+                    playerXP += eController.enemyLevel / playerLevel * 50;
+                    Debug.Log($"Player XP: {playerXP}");
+                }
+            }
+            */
+        }
     }
 
     //Turns on and off the player according to the bool parameter
@@ -222,22 +278,32 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    /*
+    //Damages the player
+    public void DamagePlayer(EnemyController enemy)
+    {
+        //TODO - Implement a better damage system based on the level of the enemy
+        health--;
+    }
+
     public void SavePlayer()
     {
         Checkpoint.SavePlayer(this);
     }
 
-    public void LoadPlayer()
+    public Levels LoadPlayer()
     {
         //Get Player data
         Data data = Checkpoint.LoadPlayer();
         //if there is a save file load the level
         if (data != null)
         {
-            level = data.level;
-            lController.levels = level;
+            //levels = data.level;
+            return data.level;
+        }
+        else
+        {
+            return Levels.MainMenu;
         }
     }
-    */
+
 }

@@ -11,6 +11,9 @@ public enum Levels { MainMenu, Level1, Level2, Level3 };
 public class LevelController : MonoBehaviour
 {
     public GameObject player;
+    MeshRenderer pRenderer;
+    Rigidbody playerRB;
+
     public GameObject hud;
     public Camera cam;
     private CinemachineBrain camBrain;
@@ -21,7 +24,7 @@ public class LevelController : MonoBehaviour
     int sceneIndex;
 
     private TurnBasedSystem turn;
-    private PlayerController pController;
+    public PlayerController pController;
 
     //Audio things
     AudioSource backAudio;
@@ -44,6 +47,9 @@ public class LevelController : MonoBehaviour
         levels = Levels.MainMenu;
         //Gets a reference to the playerController
         pController = player.GetComponent<PlayerController>();
+        //Gets the players mesh renderer and rigidbody
+        pRenderer = player.GetComponent<MeshRenderer>();
+        playerRB = player.GetComponent<Rigidbody>();
         //Gets a reference to the turnBasedSystemScript in the playerController
         turn = GameObject.FindGameObjectWithTag("turn").GetComponent<TurnBasedSystem>();
         currentLevel = Levels.Level1;
@@ -170,11 +176,14 @@ public class LevelController : MonoBehaviour
     //Moves the player to checkpoint location, enables the players renderer, activiates the hud, and resets the turn arrays
     private void InitilizeLevel(int level)
     {
-        player.SetActive(true);
+        //player.SetActive(true);
+        pRenderer.enabled = true;
+        playerRB.isKinematic = false;
         player.transform.position = pController.checkpointLocations[level - 1];
         hud.SetActive(true);
     }
 
+    /*
     public void SavePlayer()
     {
         Checkpoint.SavePlayer(this);
@@ -194,8 +203,8 @@ public class LevelController : MonoBehaviour
         {
             return Levels.MainMenu;
         }
-
     }
+    */
 
     IEnumerator FadeIn()
     {
@@ -226,7 +235,9 @@ public class LevelController : MonoBehaviour
                     StartCoroutine(FadeOut());
                     sceneIndex = 1;
                     //currentLevel = levels;
-                    player.SetActive(false);
+                    //player.SetActive(false);
+                    pRenderer.enabled = false;
+                    playerRB.isKinematic = true;
                     hud.SetActive(false);
                     backAudio.clip = mainMenu;
                     backAudio.Play();
@@ -246,7 +257,7 @@ public class LevelController : MonoBehaviour
                     backAudio.clip = level1;
                     backAudio.Play();
                     fightSongActive = false;
-                    SavePlayer();
+                    pController.SavePlayer();
                     break;
                 }
             case Levels.Level2:
@@ -261,7 +272,7 @@ public class LevelController : MonoBehaviour
                     backAudio.clip = level2;
                     backAudio.Play();
                     fightSongActive = false;
-                    SavePlayer();
+                    pController.SavePlayer();
                     break;
                 }
             case Levels.Level3:
@@ -276,7 +287,7 @@ public class LevelController : MonoBehaviour
                     backAudio.clip = level3;
                     backAudio.Play();
                     fightSongActive = false;
-                    SavePlayer();
+                    pController.SavePlayer();
                     break;
                 }
         }

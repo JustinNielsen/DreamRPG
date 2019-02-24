@@ -14,6 +14,8 @@ public class AttackScript : MonoBehaviour
     PlayerController pController;
     public GameObject mageShot;
     LineRenderer line;
+    HUD hud;
+    float spellCost;
 
     //Start Function
     private void Start()
@@ -24,6 +26,10 @@ public class AttackScript : MonoBehaviour
         pController = GetComponent<PlayerController>();
         //Initilize LineRendrer
         line = player.GetComponent<LineRenderer>();
+        //Initilize HUD script
+        hud = GameObject.FindGameObjectWithTag("HUD").GetComponent<HUD>();
+        //Initilize spell cost to 25
+        spellCost = 25;
     }
 
     //The main attacking function
@@ -47,7 +53,16 @@ public class AttackScript : MonoBehaviour
         //Enables the collider
         if (Input.GetMouseButtonDown(0))
         {
-            StartCoroutine(Hit());
+            //If the player hasn't melee attacked yet attack otherwise don't attack
+            if (!pController.meleeAttacked)
+            {
+                StartCoroutine(Hit());
+            }
+            else
+            {
+                //TODO notify person playing game that they can't attack again
+                Debug.Log("Already Melee Attacked");
+            }
 
             //hitboxCollider.enabled = true;
             //Destroy(hitbox, 1);
@@ -80,10 +95,23 @@ public class AttackScript : MonoBehaviour
             line.SetPosition(1, transform.forward * 20 + transform.position);
         }
 
+        //TODO - If we add more spells have method that changes this based on picked spell
+        //TODO - Regenerate some mana each turn
+
         //Shoot the projectile in the players forward direction
         if (Input.GetMouseButtonDown(0))
         {
-            LaunchProjectile();
+            //Only cast spell if the player has enough mana
+            if(pController.remainingMana < spellCost)
+            {
+                LaunchProjectile();
+                hud.DecreaseManaBar(spellCost);
+            }
+            else
+            {
+                Debug.Log("Not enough Mana");
+                //TODO - Notify player when they don't have enoguh mana to cast a spell
+            }
         }
     }
 
@@ -128,6 +156,9 @@ public class AttackScript : MonoBehaviour
         hitboxCollider.enabled = true;
         yield return new WaitForEndOfFrame();
         hitboxCollider.enabled = false;
+
+        //Bool stops the player from melee attacking again
+        pController.meleeAttacked = true;
     }
 
 

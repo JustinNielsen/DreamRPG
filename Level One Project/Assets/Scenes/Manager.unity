@@ -150,6 +150,7 @@ MonoBehaviour:
   pMovement: {fileID: 361929345}
   manaBar: {fileID: 1317897690}
   lController: {fileID: 2139108041}
+  pController: {fileID: 0}
 --- !u!114 &54816946
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -602,7 +603,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!120 &361929341
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -708,7 +709,7 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 1
@@ -795,6 +796,11 @@ MonoBehaviour:
   hitChance: 4
   Attack: {fileID: 0}
   lController: {fileID: 0}
+  playerLevel: 0
+  playerXP: 0
+  meleeAttacked: 0
+  maxMana: 0
+  remainingMana: 0
 --- !u!136 &361929347
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -816,7 +822,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 361929340}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -2605,7 +2611,7 @@ AudioSource:
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -3467,6 +3473,7 @@ MonoBehaviour:
   hud: {fileID: 54816944}
   cam: {fileID: 1439865593}
   levels: 0
+  pController: {fileID: 0}
   mainMenu: {fileID: 8300000, guid: c0bf2fa81300f8e4f8e66034f4cc8d21, type: 3}
   level1: {fileID: 8300000, guid: 639540b4bd061764da301511d7764ff2, type: 3}
   level2: {fileID: 8300000, guid: a78298716ca868a4abeb8b727749f9ee, type: 3}

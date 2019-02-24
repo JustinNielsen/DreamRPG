@@ -15,8 +15,10 @@ public class EnemyController : MonoBehaviour
     private NavMeshAgent agent;
     public int enemyType = 1;
     Rigidbody rb;
-    int enemyHealth;
+    public int enemyHealth;
+    public int enemyLevel;
     TurnBasedSystem turn;
+    PlayerController pController;
 
     // Start is called before the first frame update
     void Start()
@@ -29,10 +31,9 @@ public class EnemyController : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         rb = GetComponent<Rigidbody>();
 
-        enemyHealth = 1;
-
         //Initlize turn based system script
         turn = GameObject.FindGameObjectWithTag("turn").GetComponent<TurnBasedSystem>();
+        pController = GameObject.FindGameObjectWithTag("player").GetComponent<PlayerController>();
     }
 
     void Update()
@@ -40,6 +41,9 @@ public class EnemyController : MonoBehaviour
         if(enemyHealth <= 0)
         {
             turn.ResetArrays();
+
+            //Uses a simple formula to find the xp. It should work for the most part
+            pController.playerXP += enemyLevel / pController.playerLevel * 50;
             Destroy(this.gameObject);
         }
     }
@@ -80,6 +84,7 @@ public class EnemyController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        //Activates when the players projectile hits the enemy
         if(other.tag == "playerProjectile")
         {
             Destroy(other.gameObject);
@@ -87,6 +92,7 @@ public class EnemyController : MonoBehaviour
             enemyHealth -= damage.damage;
         }
 
+        //Activates when the player hits the enemy
         if (other.tag == "attack" && !active)
         {
             Damage damage = other.gameObject.GetComponent<Damage>();

@@ -5,28 +5,30 @@ using UnityEngine;
 public class MainMenu : MonoBehaviour
 {
     public LevelController lController;
+    public PlayerController pController;
     public StartButton start;
 
     // Start is called before the first frame update
     void Start()
     {
         lController = GameObject.FindGameObjectWithTag("turn").GetComponent<LevelController>();
+        pController = lController.pController;
     }
 
     public void PlayGame()
     {
-        lController.levels = Levels.Level1;
+        pController.lController.levels = Levels.Level1;
         //StartCoroutine(CamPriority());
     }
 
     public void LoadGame()
     {
-        Levels l = lController.LoadPlayer();
+        Levels l = pController.LoadPlayer();
 
         if(l != Levels.MainMenu)
         {
-            lController.player.SetActive(true);
-            lController.levels = l;
+            pController.gameObject.SetActive(true);
+            pController.lController.levels = l;
         }
         else
         {

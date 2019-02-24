@@ -12,8 +12,12 @@ public class HUD : MonoBehaviour
     public PlayerMovement pMovement;
     public Image manaBar;
     public LevelController lController;
+    public PlayerController pController;
 
-    private float remainingMana;
+    private void Start()
+    {
+
+    }
 
     public void Resume()
     {
@@ -33,6 +37,14 @@ public class HUD : MonoBehaviour
     {
         Resume();
         lController.levels = Levels.MainMenu;
+    }
+
+    public void DecreaseManaBar(float spellCost)
+    {
+        float incrementAmount = 0.25f / pController.maxMana;
+        pController.remainingMana -= spellCost;
+
+        manaBar.fillAmount -= incrementAmount * spellCost;
     }
 
     void Update()
@@ -57,10 +69,10 @@ public class HUD : MonoBehaviour
             }
         }
 
-        if (pMovement.maxDistance != remainingMana)
+        /*if (pMovement.maxDistance != remainingMana)
         {
             manaBar.fillAmount = (pMovement.maxDistance * 0.025f) + 0.25f;
             remainingMana = pMovement.maxDistance;
-        }
+        }*/
     }
 }

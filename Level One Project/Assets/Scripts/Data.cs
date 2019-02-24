@@ -6,13 +6,16 @@ using UnityEngine;
 public class Data
 {
     public Levels level;
-    //public int health;
-    //public float[] position;
+    public int health;
+    public int playerLevel;
+    public int playerXP;
 
-    public Data(LevelController player)
+    public Data(PlayerController player)
     {
-        level = player.levels;
-        //health = player.health;
+        level = player.lController.levels;
+        playerLevel = player.playerLevel;
+        playerXP = player.playerXP;
+        health = player.health;
         //position[0] = player.transform.position.x;
         //position[1] = player.transform.position.y;
         //position[2] = player.transform.position.z;

@@ -233,9 +233,10 @@ public class EnemyAI : MonoBehaviour
             int random = Random.Range(1, pController.hitChance);
 
             switch (random)
-            {
+            { //TODO - Notify player when an attack hits or misses
                 case 1:
                     Debug.Log("Hit");
+                    pController.DamagePlayer(this.gameObject.GetComponent<EnemyController>());
                     break;
                 case 2:
                 case 3:
@@ -249,7 +250,7 @@ public class EnemyAI : MonoBehaviour
     private void LaunchProjectile()
     {
         Vector3 pos = transform.position + transform.forward;
-        GameObject projectile = Instantiate(mageShot, pos, transform.rotation);
+        GameObject projectile = Instantiate(mageShot, pos, transform.rotation, this.transform);
         Destroy(projectile, 4f);
     }
 

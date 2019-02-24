@@ -4,7 +4,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 public static class Checkpoint
 {
-    public static void SavePlayer (LevelController player)
+    public static void SavePlayer (PlayerController player)
     {
         BinaryFormatter formatter = new BinaryFormatter();
         string path = Application.persistentDataPath + "/player.checkpoint";
