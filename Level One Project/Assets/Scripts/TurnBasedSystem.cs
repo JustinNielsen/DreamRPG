@@ -8,11 +8,12 @@ public class TurnBasedSystem : MonoBehaviour
     public GameObject[] turnArr;
     public int turn = 0;
     public List<Character> charList;
+    public PlayerController pController;
 
     // Start is called before the first frame update
     private void Start()
     {
-
+        
     }
 
     private void Update() 
@@ -25,10 +26,12 @@ public class TurnBasedSystem : MonoBehaviour
 
     public void ResetArrays()
     {
-        InitializeTurnArray();
+        StartCoroutine(Reset(0.1f));
+
+        //InitializeTurnArray();
         //Create an empty list for charList
-        charList = new List<Character>();
-        InitializeCharacterList();
+        //charList = new List<Character>();
+        //InitializeCharacterList();
     }
 
     private void InitializeCharacterList()
@@ -52,6 +55,12 @@ public class TurnBasedSystem : MonoBehaviour
         for(int i = 1; i < turnArr.Length; i++)
         {
             turnArr[i] = enemies[i - 1];
+        }
+
+        //If all the enemies are gone change state to WASD
+        if(turnArr.Length == 1)
+        {
+            pController.movement.ToggleNavMesh(false);
         }
     }
     
@@ -101,5 +110,15 @@ public class TurnBasedSystem : MonoBehaviour
             //Activate the object based on the turn using the charList
             charList[turn].EController.ToggleEnemy(true);
         }
+    }
+
+    IEnumerator Reset(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+
+        InitializeTurnArray();
+        //Create an empty list for charList
+        charList = new List<Character>();
+        InitializeCharacterList();
     }
 }

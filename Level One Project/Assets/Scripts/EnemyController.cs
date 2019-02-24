@@ -16,6 +16,7 @@ public class EnemyController : MonoBehaviour
     public int enemyType = 1;
     Rigidbody rb;
     int enemyHealth;
+    TurnBasedSystem turn;
 
     // Start is called before the first frame update
     void Start()
@@ -29,12 +30,16 @@ public class EnemyController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
 
         enemyHealth = 1;
+
+        //Initlize turn based system script
+        turn = GameObject.FindGameObjectWithTag("turn").GetComponent<TurnBasedSystem>();
     }
 
     void Update()
     {
         if(enemyHealth <= 0)
         {
+            turn.ResetArrays();
             Destroy(this.gameObject);
         }
     }
@@ -75,7 +80,7 @@ public class EnemyController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "projectile")
+        if(other.tag == "playerProjectile")
         {
             Destroy(other.gameObject);
             Damage damage = other.gameObject.GetComponent<Damage>();

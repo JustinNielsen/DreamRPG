@@ -167,12 +167,8 @@ public class PlayerController : MonoBehaviour
             //Change camera blend mode to ease
             camBrain.m_DefaultBlend.m_Style = CinemachineBlendDefinition.Style.EaseInOut;
         }
-    }
 
-    //Triggers when exiting a collider
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject.tag == "projectile")
+        if (other.gameObject.tag == "enemyProjectile")
         {
             Destroy(other.gameObject);
             int random = Random.Range(1, hitChance);
@@ -189,7 +185,27 @@ public class PlayerController : MonoBehaviour
                     break;
             }
         }
-    } 
+
+        //Change level if you walk into door collider
+        if (other.gameObject.CompareTag("Door"))
+        {
+            switch (lController.levels)
+            {
+                case Levels.Level1:
+                    lController.levels = Levels.Level2;
+                    break;
+                case Levels.Level2:
+                    lController.levels = Levels.Level3;
+                    break;
+                /*case Levels.Level3:
+                    lController.levels = Levels.Level4;
+                    break;
+                case Levels.Level4:
+                    lController.levels = Levels.EndCredits;
+                    break;*/
+            }
+        }
+    }
 
     //Turns on and off the player according to the bool parameter
     public void TogglePlayer(bool isOn)

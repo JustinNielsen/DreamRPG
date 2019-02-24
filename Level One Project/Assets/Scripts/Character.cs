@@ -13,8 +13,16 @@ public class Character : MonoBehaviour
     public Character(GameObject obj)
     {
         _obj = obj;
-        _pController = obj.GetComponent<PlayerController>();
-        _eController = obj.GetComponent<EnemyController>();
+
+        //Get the playerController if the object is the player otherwise get the enemyController
+        if (obj.CompareTag("player"))
+        {
+            _pController = obj.GetComponent<PlayerController>();
+        }
+        else
+        {
+            _eController = obj.GetComponent<EnemyController>();
+        }
     }
 
     public GameObject Obj

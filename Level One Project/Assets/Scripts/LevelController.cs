@@ -31,7 +31,7 @@ public class LevelController : MonoBehaviour
     public AudioClip level3;
     public AudioClip fightSong;
 
-    bool fightSongActive = false;
+    public bool fightSongActive = false;
 
     public GameObject fadePanel;
     Image fade;
@@ -180,15 +180,21 @@ public class LevelController : MonoBehaviour
         Checkpoint.SavePlayer(this);
     }
 
-    public void LoadPlayer()
+    public Levels LoadPlayer()
     {
         //Get Player data
         Data data = Checkpoint.LoadPlayer();
         //if there is a save file load the level
         if (data != null)
         {
-            levels = data.level;
+            //levels = data.level;
+            return data.level;
         }
+        else
+        {
+            return Levels.MainMenu;
+        }
+
     }
 
     IEnumerator FadeIn()
@@ -217,7 +223,7 @@ public class LevelController : MonoBehaviour
                     SceneManager.LoadScene("MainMenu", LoadSceneMode.Additive);
                     //Unloads previous scene
                     SceneManager.UnloadSceneAsync(sceneIndex);
-                    //StartCoroutine(FadeOut());
+                    StartCoroutine(FadeOut());
                     sceneIndex = 1;
                     //currentLevel = levels;
                     player.SetActive(false);

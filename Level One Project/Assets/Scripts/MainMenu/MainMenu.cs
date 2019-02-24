@@ -16,13 +16,23 @@ public class MainMenu : MonoBehaviour
     public void PlayGame()
     {
         lController.levels = Levels.Level1;
-        StartCoroutine(CamPriority());
+        //StartCoroutine(CamPriority());
     }
 
     public void LoadGame()
     {
-        lController.LoadPlayer();
-        StartCoroutine(CamPriority());
+        Levels l = lController.LoadPlayer();
+
+        if(l != Levels.MainMenu)
+        {
+            lController.player.SetActive(true);
+            lController.levels = l;
+        }
+        else
+        {
+            Debug.Log("No Save File");
+        }
+        //StartCoroutine(CamPriority());
     }
 
     public void QuitGame()

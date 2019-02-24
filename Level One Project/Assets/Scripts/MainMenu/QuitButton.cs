@@ -22,12 +22,10 @@ public class QuitButton : MonoBehaviour
     {
         text.color = hoverColor.color;
         hover = true;
-        Debug.Log("in");
     }
 
     private void OnMouseOver()
     {
-        Debug.Log("over");
         //Change camera on click and button color
         if (Input.GetMouseButtonDown(0))
         {
@@ -40,7 +38,6 @@ public class QuitButton : MonoBehaviour
     {
         text.color = normalColor.color;
         hover = false;
-        Debug.Log("out");
     }
 
     IEnumerator QuitGame()

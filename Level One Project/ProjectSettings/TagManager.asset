@@ -11,11 +11,12 @@ TagManager:
   - waypoint
   - turn
   - rotation
-  - projectile
   - ground
   - attack
   - HUD
   - Door
+  - enemyProjectile
+  - playerProjectile
   layers:
   - Default
   - TransparentFX

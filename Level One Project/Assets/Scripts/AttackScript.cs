@@ -47,17 +47,12 @@ public class AttackScript : MonoBehaviour
         //Enables the collider
         if (Input.GetMouseButtonDown(0))
         {
-            hitboxCollider.enabled = true;
-            //Destroy(hitbox, 1);
-            Destroy(hitbox);
-            pController.state = States.NavMesh;
-        }
+            StartCoroutine(Hit());
 
-        //This turns attack mode off.
-        if (Input.GetMouseButtonDown(1))
-        {
-            Destroy(hitbox);
-            pController.state = States.NavMesh;
+            //hitboxCollider.enabled = true;
+            //Destroy(hitbox, 1);
+            //Destroy(hitbox);
+            //pController.state = States.NavMesh;
         }
     }
 
@@ -89,12 +84,6 @@ public class AttackScript : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             LaunchProjectile();
-        }
-
-        if (Input.GetMouseButtonDown(1))
-        {
-            pController.state = States.NavMesh;
-            line.positionCount = 0;
         }
     }
 
@@ -131,10 +120,15 @@ public class AttackScript : MonoBehaviour
     {
         Vector3 pos = transform.position + transform.forward;
         GameObject projectile = Instantiate(mageShot, pos, transform.rotation);
-        pController.state = States.NavMesh;
         Destroy(projectile, 4f);
     }
 
+    IEnumerator Hit()
+    {
+        hitboxCollider.enabled = true;
+        yield return new WaitForEndOfFrame();
+        hitboxCollider.enabled = false;
+    }
 
 
 }

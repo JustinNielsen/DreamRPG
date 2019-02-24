@@ -287,7 +287,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
     //Turns on or off the navMesh according to the bool parameter
-    private void ToggleNavMesh(bool isOn)
+    public void ToggleNavMesh(bool isOn)
     {
         //if isOn = true then turn on the players NavMeshAgent, and sets bool navMesh to true.
         if (isOn)
@@ -298,7 +298,10 @@ public class PlayerMovement : MonoBehaviour
         else //Sets everything stated above to false if isOn = false
         {
             agent.enabled = false;
-            pControl.state = States.Neutral;
+            pControl.state = States.WASD;
+            line.positionCount = 0;
+            Destroy(pControl.Attack.hitbox);
+            pControl.lController.fightSongActive = false;
         }
     }
 }

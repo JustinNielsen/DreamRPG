@@ -23,18 +23,17 @@ public class StartButton : MonoBehaviour
         text = GetComponent<TextMeshPro>();
         cam = Camera.main;
         camBrain = cam.GetComponent<CinemachineBrain>();
+        computerCam.Priority = 15;
     }
 
     private void OnMouseEnter()
     {
         text.color = hoverColor.color;
         hover = true;
-        Debug.Log("in");
     }
 
     private void OnMouseOver()
     {
-        Debug.Log("over");
         //Change camera on click and button color
         if (Input.GetMouseButtonDown(0))
         {
@@ -49,7 +48,6 @@ public class StartButton : MonoBehaviour
     {
         text.color = normalColor.color;
         hover = false;
-        Debug.Log("out");
     }
 
     IEnumerator NormalColor()

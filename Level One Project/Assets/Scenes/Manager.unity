@@ -44,7 +44,7 @@ RenderSettings:
 LightmapSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 11
-  m_GIWorkflowMode: 0
+  m_GIWorkflowMode: 1
   m_GISettings:
     serializedVersion: 2
     m_BounceScale: 1
@@ -88,7 +88,8 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaIndirect: 2
     m_PVRFilteringAtrousPositionSigmaAO: 1
     m_ShowResolutionOverlay: 1
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: 198f52705a9f54f4f972b1bc446bb279,
+    type: 2}
   m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
@@ -718,7 +719,7 @@ NavMeshAgent:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 361929340}
-  m_Enabled: 1
+  m_Enabled: 0
   m_AgentTypeID: 0
   m_Radius: 0.5000001
   m_Speed: 3.5
@@ -3435,6 +3436,7 @@ MonoBehaviour:
   turnArr: []
   turn: 0
   charList: []
+  pController: {fileID: 361929346}
 --- !u!4 &2139108040
 Transform:
   m_ObjectHideFlags: 0
@@ -3470,4 +3472,5 @@ MonoBehaviour:
   level2: {fileID: 8300000, guid: a78298716ca868a4abeb8b727749f9ee, type: 3}
   level3: {fileID: 8300000, guid: 01f0eb15c73fee64baad006e7fb54ded, type: 3}
   fightSong: {fileID: 8300000, guid: 2950ffa1ce83d914388eae6514c3044e, type: 3}
+  fightSongActive: 0
   fadePanel: {fileID: 1313960512}
