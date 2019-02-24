@@ -14,20 +14,18 @@ public class AttackScript : MonoBehaviour
     PlayerController pController;
     public GameObject mageShot;
     LineRenderer line;
-    HUD hud;
+    public HUD hud;
     float spellCost;
 
     //Start Function
     private void Start()
     {
         //Initialize the boi game object
-        player = GameObject.FindGameObjectWithTag("player");
+        player = this.gameObject;
         //Initilaize player controller
         pController = GetComponent<PlayerController>();
         //Initilize LineRendrer
         line = player.GetComponent<LineRenderer>();
-        //Initilize HUD script
-        hud = GameObject.FindGameObjectWithTag("HUD").GetComponent<HUD>();
         //Initilize spell cost to 25
         spellCost = 25;
     }
@@ -102,7 +100,7 @@ public class AttackScript : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             //Only cast spell if the player has enough mana
-            if(pController.remainingMana < spellCost)
+            if(pController.remainingMana >= spellCost)
             {
                 LaunchProjectile();
                 hud.DecreaseManaBar(spellCost);

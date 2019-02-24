@@ -101,6 +101,11 @@ public class PlayerController : MonoBehaviour
         {
             //TODO - Add a game over screen
         }
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            state = States.RangeAttack;
+        }
     }
 
     void FixedUpdate()

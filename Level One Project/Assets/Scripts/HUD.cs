@@ -36,6 +36,7 @@ public class HUD : MonoBehaviour
     public void QuitGame()
     {
         Resume();
+        pController.movement.ToggleNavMesh(false);
         lController.levels = Levels.MainMenu;
     }
 
@@ -44,7 +45,7 @@ public class HUD : MonoBehaviour
         float incrementAmount = 0.25f / pController.maxMana;
         pController.remainingMana -= spellCost;
 
-        manaBar.fillAmount -= incrementAmount * spellCost;
+        manaBar.fillAmount = (pController.remainingMana * incrementAmount) + 0.25f;
     }
 
     void Update()
