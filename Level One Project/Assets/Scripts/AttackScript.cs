@@ -36,13 +36,10 @@ public class AttackScript : MonoBehaviour
         //Choose the attack. Runs once per R press /// TODOODODODODODOD
         if (hitbox == null)
         {
-            switch (1)
-            {
-                case 1:
-                    //Basic attack... Kind of.
-                    CallCollider(-2, 0.5f, 0, prefab[0]);
-                    break;
-            }
+
+            //Basic attack... Kind of.
+            CallCollider(-2, 0.5f, 0, prefab[0]);
+
         }
 
         //Turns the player towards the mouse pointer
@@ -51,6 +48,8 @@ public class AttackScript : MonoBehaviour
         //Enables the collider
         if (Input.GetMouseButtonDown(0))
         {
+            //Note: The following code is only slightly useful if we want to make it so you only melee attack once per turn.
+            Debug.Log(pController.meleeAttacked);
             //If the player hasn't melee attacked yet attack otherwise don't attack
             if (!pController.meleeAttacked)
             {
@@ -145,7 +144,7 @@ public class AttackScript : MonoBehaviour
     private void LaunchProjectile()
     {
         Vector3 pos = transform.position + transform.forward;
-        GameObject projectile = Instantiate(mageShot, pos, transform.rotation);
+        GameObject projectile = Instantiate(mageShot, pos, transform.rotation, player.transform);
         Destroy(projectile, 4f);
     }
 
@@ -153,7 +152,6 @@ public class AttackScript : MonoBehaviour
     {
         hitboxCollider.enabled = true;
         yield return new WaitForEndOfFrame();
-        hitboxCollider.enabled = false;
 
         //Bool stops the player from melee attacking again
         pController.meleeAttacked = true;

@@ -21,7 +21,6 @@ public class PlayerController : MonoBehaviour
     public int hitChance = 4;
     public AttackScript Attack;
     public LevelController lController;
-    bool attackingFlag = false;
     int mouseWheelLocation;
     States[] mouseWheelStates;
 
@@ -29,7 +28,7 @@ public class PlayerController : MonoBehaviour
     public int playerXP;
 
     //Bool to check if the melee attack has already been used this turn
-    public bool meleeAttacked;
+    public bool meleeAttacked = false;
 
     //Keeps track of the maxMana and remainingMana
     public float maxMana;
@@ -93,7 +92,7 @@ public class PlayerController : MonoBehaviour
             playerXP -= 100;
             playerLevel++;
             SavePlayer();
-
+            Debug.Log($"Level: {playerLevel}");
             //TODO Add in Level Up Screen
         }
 
@@ -141,30 +140,35 @@ public class PlayerController : MonoBehaviour
 
     private void ScrollWheel(bool up)
     {
-        if (up)//Scrolled up
-        {
-            //Make sure the location is less than the max length of the array
-            if(mouseWheelLocation == mouseWheelStates.Length - 1)
+        //This makes it so you can only attack once per turn... For any attack. 
+        //If we would rather let you range attack as many times as you want per turn, we can change it.
+        
+            if (up)//Scrolled up
             {
-                mouseWheelLocation = 0;
+                //Make sure the location is less than the max length of the array
+                if (mouseWheelLocation == mouseWheelStates.Length - 1)
+                {
+                    mouseWheelLocation = 0;
+                }
+                else
+                {
+                    mouseWheelLocation++;
+                }
             }
-            else
+            else //Scrolled down
             {
-                mouseWheelLocation++;
+                //Make sure the location is greater than 0
+                if (mouseWheelLocation == 0)
+                {
+                    mouseWheelLocation = mouseWheelStates.Length - 1;
+                }
+                else
+                {
+                    mouseWheelLocation--;
+                }
             }
-        }
-        else //Scrolled down
-        {
-            //Make sure the location is greater than 0
-            if(mouseWheelLocation == 0)
-            {
-                mouseWheelLocation = mouseWheelStates.Length - 1;
-            }
-            else
-            {
-                mouseWheelLocation--;
-            }
-        }
+        
+       
 
         //Switch the state to the indicated integer location
         SwitchStates();
@@ -244,27 +248,21 @@ public class PlayerController : MonoBehaviour
 
         if (other.gameObject.CompareTag("enemy"))
         {
-            if (!active)
-            {
-                //Currently, we will just have every enemy do one damage
-                health--;
-            }
-
-            /*
-            else
-            {
+            
+                Debug.Log("killing");
                 //Grabs the enemy controller
                 EnemyController eController = other.gameObject.GetComponent<EnemyController>();
 
                 //Checks to see if the enemy has health left
-                if(eController.enemyHealth < 0)
+                if(eController.enemyHealth <= 0)
                 {
                     //Uses a simple formula to find the xp. It should work for the most part
                     playerXP += eController.enemyLevel / playerLevel * 50;
                     Debug.Log($"Player XP: {playerXP}");
+                
                 }
-            }
-            */
+            
+            
         }
     }
 
