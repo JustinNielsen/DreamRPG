@@ -246,24 +246,6 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if (other.gameObject.CompareTag("enemy"))
-        {
-            
-                Debug.Log("killing");
-                //Grabs the enemy controller
-                EnemyController eController = other.gameObject.GetComponent<EnemyController>();
-
-                //Checks to see if the enemy has health left
-                if(eController.enemyHealth <= 0)
-                {
-                    //Uses a simple formula to find the xp. It should work for the most part
-                    playerXP += eController.enemyLevel / playerLevel * 50;
-                    Debug.Log($"Player XP: {playerXP}");
-                
-                }
-            
-            
-        }
     }
 
     //Turns on and off the player according to the bool parameter
