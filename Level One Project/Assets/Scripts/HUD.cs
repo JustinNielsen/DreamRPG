@@ -14,6 +14,8 @@ public class HUD : MonoBehaviour
     public LevelController lController;
     public PlayerController pController;
 
+
+
     private void Start()
     {
 
@@ -46,6 +48,29 @@ public class HUD : MonoBehaviour
         pController.remainingMana -= spellCost;
 
         manaBar.fillAmount = (pController.remainingMana * incrementAmount) + 0.25f;
+    }
+
+    private void InitializeHealth()
+    {
+
+        /*
+        We will use this if we implement difficulty
+
+        switch (difficulty)
+        {
+            case 1:
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+        }
+        */
+    }
+
+    public void Health()
+    {
+
     }
 
     void Update()

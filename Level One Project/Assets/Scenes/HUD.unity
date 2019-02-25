@@ -736,6 +736,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pauseMenuUI: {fileID: 568787320}
+  settingMenu: {fileID: 0}
+  pMovement: {fileID: 0}
+  manaBar: {fileID: 0}
+  lController: {fileID: 0}
+  pController: {fileID: 0}
 --- !u!114 &444896681
 MonoBehaviour:
   m_ObjectHideFlags: 0

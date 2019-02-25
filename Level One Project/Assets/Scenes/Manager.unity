@@ -132,7 +132,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &54816945
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -910,7 +910,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 126, y: 13.299988}
+  m_AnchoredPosition: {x: 125, y: 14}
   m_SizeDelta: {x: 40, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &387250172
@@ -1107,7 +1107,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &586609513
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1283,7 +1283,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 180.70001, y: 13.299988}
+  m_AnchoredPosition: {x: 175, y: 14}
   m_SizeDelta: {x: 40, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &643834088
@@ -1426,7 +1426,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 153.20001, y: 13.299988}
+  m_AnchoredPosition: {x: 100, y: 14}
   m_SizeDelta: {x: 40, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &982034896
@@ -2211,7 +2211,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: -0.2000122}
+  m_AnchoredPosition: {x: 0, y: -0.20007324}
   m_SizeDelta: {x: 239.3, y: 280.8}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1317897690
@@ -2234,7 +2234,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 4588f1fa8bcf05f4eac0c4c31df196de, type: 3}
+  m_Sprite: {fileID: 21300000, guid: abc6a9fe523f0fe42bb42ccc0d64af21, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2566,7 +2566,7 @@ Camera:
     height: 1
   near clip plane: 0.1
   far clip plane: 5000
-  field of view: 40
+  field of view: 75
   orthographic: 0
   orthographic size: 10
   m_Depth: -1
@@ -2591,8 +2591,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1439865590}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0.2686498, y: 0.7303985, z: -0.42169577, w: -0.46531504}
+  m_LocalPosition: {x: -83.02, y: 21.2, z: 2.08}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -2728,7 +2728,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 98.25, y: 13.299988}
+  m_AnchoredPosition: {x: 150, y: 14}
   m_SizeDelta: {x: 40, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1569843715
@@ -2781,7 +2781,7 @@ GameObject:
   - component: {fileID: 1738419306}
   m_Layer: 5
   m_Name: PlayerTurn
-  m_TagString: Untagged
+  m_TagString: playerTurn
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2802,7 +2802,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -19, y: -23}
+  m_AnchoredPosition: {x: -20, y: -20}
   m_SizeDelta: {x: 40, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1738419306
@@ -3100,7 +3100,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: -0.2000122}
+  m_AnchoredPosition: {x: 0, y: -0.20007324}
   m_SizeDelta: {x: 239.3, y: 280.8}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2046436964
@@ -3444,6 +3444,17 @@ MonoBehaviour:
   turn: 0
   charList: []
   pController: {fileID: 361929346}
+  turnTextures: []
+  player: {fileID: 2800000, guid: ccf1f92ba7060ec40b1fbb05a90abb24, type: 3}
+  enemy1: {fileID: 2800000, guid: e2562d9ed13594c4da329818c115f77a, type: 3}
+  enemy2: {fileID: 2800000, guid: 7c6d8956ec97bd048bf28449b58b76e5, type: 3}
+  enemy3: {fileID: 2800000, guid: ea0a19130d79ee247a6db2277786d34f, type: 3}
+  enemy4: {fileID: 2800000, guid: 934211f429a06b845bf66ea031882c9f, type: 3}
+  turnOrderPrefab: {fileID: 8883030588061057439, guid: 8d3169d10290b77409b70129738008c5,
+    type: 3}
+  hud: {fileID: 586609512}
+  turnOrder:
+  - {fileID: 1738419304}
 --- !u!4 &2139108040
 Transform:
   m_ObjectHideFlags: 0

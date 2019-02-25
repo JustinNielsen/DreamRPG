@@ -33,7 +33,7 @@ public class LevelController : MonoBehaviour
     public AudioClip level2;
     public AudioClip level3;
     public AudioClip fightSong;
-
+    AudioClip[] songs;
     public bool fightSongActive = false;
 
     public GameObject fadePanel;
@@ -57,6 +57,8 @@ public class LevelController : MonoBehaviour
         camBrain = cam.GetComponent<CinemachineBrain>();
         //Gets the image component from fade panel
         fade = fadePanel.GetComponent<Image>();
+        //Initilize songs array
+        songs = new AudioClip[5] { mainMenu, level1, level2, level3, fightSong};
     }
 
     // Update is called once per frame
@@ -162,6 +164,14 @@ public class LevelController : MonoBehaviour
             backAudio.clip = fightSong;
             backAudio.Play();
         }
+
+        if(pController.state == States.WASD && backAudio.clip != songs[sceneIndex - 1])
+        {
+            fightSongActive = false;
+            backAudio.clip = songs[sceneIndex - 1];
+            backAudio.Play();
+        }
+
         /*
         if (fading)
         {

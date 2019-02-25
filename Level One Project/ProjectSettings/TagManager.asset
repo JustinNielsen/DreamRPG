@@ -17,6 +17,8 @@ TagManager:
   - Door
   - enemyProjectile
   - playerProjectile
+  - enemyTurn
+  - playerTurn
   layers:
   - Default
   - TransparentFX
