@@ -14,11 +14,19 @@ public class HUD : MonoBehaviour
     public LevelController lController;
     public PlayerController pController;
 
+    //Heart images
+    public Sprite heart1;
+    public Sprite heart2;
+    public Sprite heart3;
+    public Sprite shield;
 
+    //Health array
+    List<Sprite> healthList;
 
     private void Start()
     {
-
+        InitializeHealth();
+        healthList = new List<Sprite>() { heart1, heart2, heart3 };
     }
 
     public void Resume()
@@ -52,25 +60,22 @@ public class HUD : MonoBehaviour
 
     private void InitializeHealth()
     {
-
-        /*
-        We will use this if we implement difficulty
-
-        switch (difficulty)
-        {
-            case 1:
-                break;
-            case 2:
-                break;
-            case 3:
-                break;
-        }
-        */
+        healthList.Add(heart1);
+        healthList.Add(heart2);
+        healthList.Add(heart3);
     }
 
-    public void Health()
+    public void HUDHealth()
     {
+        Vector3 initialPos = new Vector3(100, 14, 0);
 
+        for(int i = 0; i < healthList.Count; i++)
+        {
+            Vector3 pos = new Vector3(100 + (i * 25), 14, 0);
+
+            Sprite health = Instantiate(healthList[i], pos, Quaternion.identity);
+
+        }
     }
 
     void Update()
