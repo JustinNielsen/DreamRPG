@@ -21,9 +21,11 @@ public class PlayerController : MonoBehaviour
     public int hitChance = 4;
     public AttackScript Attack;
     public LevelController lController;
-    int mouseWheelLocation;
+    private int mouseWheelLocation;
     States[] mouseWheelStates;
-
+    //In loving memory of Matt...
+    public AudioSource matt;
+    public AudioClip[] mattVoiceArray;
     public int playerLevel;
     public int playerXP;
 
@@ -200,6 +202,29 @@ public class PlayerController : MonoBehaviour
             Destroy(other.gameObject);
             //Change camera blend mode to ease
             camBrain.m_DefaultBlend.m_Style = CinemachineBlendDefinition.Style.EaseInOut;
+            //Switches based on the level so that we know what clip to play, as they are level based.
+            switch (level)
+            {
+                case Levels.Level1:
+                    {
+                        MattVoiceOver(1);
+                        break;
+                    }
+                case Levels.Level2:
+                    {
+                        MattVoiceOver(4);
+                        break;  
+                    }
+                case Levels.Level3:
+                    {
+                        MattVoiceOver(8);
+                        break;
+                    }
+
+
+
+            }
+
         }
 
         if (other.gameObject.tag == "enemyProjectile")
@@ -214,6 +239,7 @@ public class PlayerController : MonoBehaviour
 
                     //Damage the player according to level of enemy
                     DamagePlayer(other.gameObject.transform.parent.GetComponent<EnemyController>());
+
                     break;
                 case 2:
                 case 3:
@@ -289,6 +315,15 @@ public class PlayerController : MonoBehaviour
         {
             return Levels.MainMenu;
         }
+    }
+
+    //Used to determine which voice over bit to play
+    public void MattVoiceOver(int i)
+    {
+        //Goes through each needed audio clip
+        matt.clip = mattVoiceArray[i - 1];
+        //PLAY THAT SUCKA!
+        matt.Play();
     }
 
 }

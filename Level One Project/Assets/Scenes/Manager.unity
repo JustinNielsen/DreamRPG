@@ -962,6 +962,25 @@ MonoBehaviour:
   hitChance: 4
   Attack: {fileID: 0}
   lController: {fileID: 0}
+  matt: {fileID: 0}
+  mattVoiceArray:
+  - {fileID: 8300000, guid: 07438aaa598fba4438c1e981c0affb56, type: 3}
+  - {fileID: 8300000, guid: 26d014a1269f14b47a4cb34b193cc085, type: 3}
+  - {fileID: 8300000, guid: 98d6ab23cba87ed4faa5b93762e0d313, type: 3}
+  - {fileID: 8300000, guid: 144169bbb57277c4a9a750adbc460ea8, type: 3}
+  - {fileID: 8300000, guid: bb9747c876f567743b2726aed5ccd84d, type: 3}
+  - {fileID: 8300000, guid: 94814532ad020f447898ff979f8771a2, type: 3}
+  - {fileID: 8300000, guid: 544d809fbb29aad4ca310cf27f46cf4a, type: 3}
+  - {fileID: 8300000, guid: 95b722dd1436fad44a945e382e2df5ea, type: 3}
+  - {fileID: 8300000, guid: c72848ac918b9a245951e547a97cc0f5, type: 3}
+  - {fileID: 8300000, guid: 23417dbd7d6991945a02c7f0bdc94cf8, type: 3}
+  - {fileID: 8300000, guid: f57e029c1d2e371408e0717214af208b, type: 3}
+  - {fileID: 8300000, guid: 07438aaa598fba4438c1e981c0affb56, type: 3}
+  - {fileID: 8300000, guid: c3069413e834e8f4893adfdebcd4118c, type: 3}
+  - {fileID: 8300000, guid: c0ebf8ce246425a48bb0f18b54d6ed17, type: 3}
+  - {fileID: 8300000, guid: 1142b3a594feb5845bc95275479fb083, type: 3}
+  - {fileID: 8300000, guid: 9fc2a4141f66ffa468ee13758dbf4bd8, type: 3}
+  - {fileID: 8300000, guid: cc972fb53b21f504fab65842d7f88074, type: 3}
   playerLevel: 0
   playerXP: 0
   meleeAttacked: 0
@@ -2905,7 +2924,7 @@ Camera:
     height: 1
   near clip plane: 0.1
   far clip plane: 5000
-  field of view: 40
+  field of view: 75
   orthographic: 0
   orthographic size: 10
   m_Depth: -1
@@ -2930,8 +2949,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1439865590}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0.2686498, y: 0.7303985, z: -0.42169577, w: -0.46531504}
+  m_LocalPosition: {x: -83.02, y: 21.2, z: 2.08}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
