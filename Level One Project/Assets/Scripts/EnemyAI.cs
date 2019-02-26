@@ -82,7 +82,7 @@ public class EnemyAI : MonoBehaviour
 
             if(classType == 1)
             {
-                rangeDifference = 0.0004f;
+                rangeDifference = 0.001f;
             }
             else
             {
@@ -105,6 +105,10 @@ public class EnemyAI : MonoBehaviour
                     if (distanceToPlayer.magnitude <= 3.5)
                     {
                         MeleeAttack();
+                    }
+                    else
+                    {
+                        StartCoroutine(SwitchTurn());
                     }
                 
                 }
@@ -219,6 +223,14 @@ public class EnemyAI : MonoBehaviour
                 //Debug.Log("Hit Player");
                 LaunchProjectile();
             }
+            else
+            {
+                StartCoroutine(SwitchTurn());
+            }
+        }
+        else
+        {
+            StartCoroutine(SwitchTurn());
         }
 
     }
@@ -245,6 +257,8 @@ public class EnemyAI : MonoBehaviour
                     break;
             }
         }
+
+        StartCoroutine(SwitchTurn());
     }
 
     private void LaunchProjectile()
@@ -258,5 +272,12 @@ public class EnemyAI : MonoBehaviour
     {
         yield return new WaitForSeconds(0.4f);
         rotate = true;
+    }
+
+    IEnumerator SwitchTurn()
+    {
+        yield return new WaitForSeconds(1f);
+
+        pController.turn.SwitchTurn();
     }
 }

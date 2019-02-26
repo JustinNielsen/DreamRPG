@@ -165,7 +165,7 @@ public class LevelController : MonoBehaviour
             backAudio.Play();
         }
 
-        if(pController.state == States.WASD && backAudio.clip != songs[sceneIndex - 1])
+        if(!fightSongActive && backAudio.clip == songs[4])
         {
             fightSongActive = false;
             backAudio.clip = songs[sceneIndex - 1];
@@ -190,6 +190,8 @@ public class LevelController : MonoBehaviour
         pRenderer.enabled = true;
         playerRB.isKinematic = false;
         player.transform.position = pController.checkpointLocations[level - 1];
+        //Initilize health on the hud
+        pController.hud.HUDHealth();
         hud.SetActive(true);
     }
 

@@ -23,6 +23,7 @@ public class TurnBasedSystem : MonoBehaviour
     public GameObject hud;
     int oldCount;
     public List<GameObject> turnOrder;
+    public RectTransform turnArrow;
 
     // Start is called before the first frame update
     private void Start()
@@ -33,7 +34,7 @@ public class TurnBasedSystem : MonoBehaviour
 
     private void Update() 
     {
-        if (Input.GetKeyDown(KeyCode.T))
+        if (Input.GetKeyUp(KeyCode.T))
         {
             SwitchTurn();
         }
@@ -75,6 +76,7 @@ public class TurnBasedSystem : MonoBehaviour
         //If all the enemies are gone change state to WASD
         if(turnArr.Length == 1)
         {
+            pController.lController.fightSongActive = false;
             pController.movement.ToggleNavMesh(false);
             pController.lController.fightSongActive = false;
         }
@@ -92,6 +94,9 @@ public class TurnBasedSystem : MonoBehaviour
         {
             turn++;
         }
+
+        //Change turn arrow indicator location
+        turnArrow.anchoredPosition = new Vector3(-40.1f, (-20f + (-32f * turn)), 0f);
 
         //If turn = 0 activate the player object and deactivate the enemy objects
         if(turn == 0)

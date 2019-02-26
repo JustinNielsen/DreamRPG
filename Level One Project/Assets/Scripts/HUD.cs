@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using TMPro;
 
 public class HUD : MonoBehaviour
 {
@@ -13,20 +14,28 @@ public class HUD : MonoBehaviour
     public Image manaBar;
     public LevelController lController;
     public PlayerController pController;
+    public GameObject hud;
 
     //Heart images
     public Sprite heart1;
     public Sprite heart2;
     public Sprite heart3;
     public Sprite shield;
+    public GameObject heartPrefab;
 
-    //Health array
-    List<Sprite> healthList;
+    Sprite[] heartSprites;
+    //Health list
+    List<GameObject> healthList;
+    bool healthInitialized = false;
+
+    //Text that shows what state the player is in
+    public TextMeshProUGUI stateIndicator;
 
     private void Start()
     {
-        InitializeHealth();
-        healthList = new List<Sprite>() { heart1, heart2, heart3 };
+        //heartSprites = new Sprite[4] { heart1, heart2, heart3, shield };
+        //healthList = new List<GameObject>();
+        //HUDHealth();
     }
 
     public void Resume()
@@ -58,23 +67,39 @@ public class HUD : MonoBehaviour
         manaBar.fillAmount = (pController.remainingMana * incrementAmount) + 0.25f;
     }
 
-    private void InitializeHealth()
+    private void InitilizeHealth()
     {
-        healthList.Add(heart1);
-        healthList.Add(heart2);
-        healthList.Add(heart3);
+        heartSprites = new Sprite[4] { heart3, heart2, heart1, shield };
+        healthList = new List<GameObject>();
+        healthInitialized = true;
     }
 
     public void HUDHealth()
     {
+        if (!healthInitialized)
+        {
+            InitilizeHealth();
+        }
+
+        GameObject[] hearts = GameObject.FindGameObjectsWithTag("hearts");
+        foreach(GameObject obj in hearts)
+        {
+            healthList.Remove(obj);
+            Destroy(obj);
+        }
+
         Vector3 initialPos = new Vector3(100, 14, 0);
 
-        for(int i = 0; i < healthList.Count; i++)
+        for(int i = 0; i < pController.health; i++)
         {
             Vector3 pos = new Vector3(100 + (i * 25), 14, 0);
 
-            Sprite health = Instantiate(healthList[i], pos, Quaternion.identity);
+            GameObject health = Instantiate(heartPrefab, pos, Quaternion.identity);
+            health.transform.SetParent(hud.transform, false);
+            health.GetComponent<Image>().sprite = heartSprites[i];
 
+            //Adds the object to healthList
+            healthList.Add(health);
         }
     }
 

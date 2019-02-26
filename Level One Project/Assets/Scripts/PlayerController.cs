@@ -21,6 +21,7 @@ public class PlayerController : MonoBehaviour
     public int hitChance = 4;
     public AttackScript Attack;
     public LevelController lController;
+    public HUD hud;
     bool attackingFlag = false;
     int mouseWheelLocation;
     States[] mouseWheelStates;
@@ -68,6 +69,8 @@ public class PlayerController : MonoBehaviour
         //Initilize maxMana and remaining mana
         maxMana = 100f;
         remainingMana = maxMana;
+        //Initilize player health
+        health = 4;
     }
 
     // Update is called once per frame
@@ -117,17 +120,21 @@ public class PlayerController : MonoBehaviour
                 case States.NavMesh:
                     movement.NavMeshMovement();
                     mouseWheelLocation = 0;
+                    hud.stateIndicator.text = "Combat Movement";
                     break;
                 case States.WASD:
                     movement.KeyboardMovement();
+                    hud.stateIndicator.text = "WASD Movement";
                     break;
                 case States.MeleeAttack:
                     Attack.MeleeAttackMode();
                     mouseWheelLocation = 1;
+                    hud.stateIndicator.text = "Melee Attack";
                     break;
                 case States.RangeAttack:
                     Attack.RangeAttackMode();
                     mouseWheelLocation = 2;
+                    hud.stateIndicator.text = "Mage Attack";
                     break;
             }
         }
@@ -220,6 +227,8 @@ public class PlayerController : MonoBehaviour
 
             //Destroys the projectile
             Destroy(other.gameObject);
+
+            StartCoroutine(SwitchTurn());
         }
 
         //Change level if you walk into door collider
@@ -242,6 +251,7 @@ public class PlayerController : MonoBehaviour
             }
         }
 
+        /*
         if (other.gameObject.CompareTag("enemy"))
         {
             if (!active)
@@ -250,7 +260,7 @@ public class PlayerController : MonoBehaviour
                 health--;
             }
 
-            /*
+            
             else
             {
                 //Grabs the enemy controller
@@ -264,8 +274,8 @@ public class PlayerController : MonoBehaviour
                     Debug.Log($"Player XP: {playerXP}");
                 }
             }
-            */
-        }
+            
+        }*/
     }
 
     //Turns on and off the player according to the bool parameter
@@ -288,6 +298,8 @@ public class PlayerController : MonoBehaviour
     {
         //TODO - Implement a better damage system based on the level of the enemy
         health--;
+
+        hud.HUDHealth();
     }
 
     public void SavePlayer()
@@ -309,6 +321,13 @@ public class PlayerController : MonoBehaviour
         {
             return Levels.MainMenu;
         }
+    }
+
+    IEnumerator SwitchTurn()
+    {
+        yield return new WaitForSeconds(1f);
+
+        turn.SwitchTurn();
     }
 
 }

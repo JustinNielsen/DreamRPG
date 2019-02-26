@@ -19,6 +19,8 @@ TagManager:
   - playerProjectile
   - enemyTurn
   - playerTurn
+  - hearts
+  - turnArrow
   layers:
   - Default
   - TransparentFX
