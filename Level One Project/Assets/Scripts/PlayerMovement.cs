@@ -223,6 +223,7 @@ public class PlayerMovement : MonoBehaviour
             else
             {
                 Debug.Log("Out of Range");
+                StartCoroutine(pControl.hud.DisplayError("Too Far Away"));
 
                 //Draws the path
                 DrawPath(path, 2);

@@ -58,8 +58,9 @@ public class AttackScript : MonoBehaviour
             }
             else
             {
-                //TODO notify person playing game that they can't attack again
                 Debug.Log("Already Melee Attacked");
+                //Notify person playing game that they can't attack again
+                StartCoroutine(hud.DisplayError("Out of Melee Attacks"));
             }
 
             //hitboxCollider.enabled = true;
@@ -108,7 +109,8 @@ public class AttackScript : MonoBehaviour
             else
             {
                 Debug.Log("Not enough Mana");
-                //TODO - Notify player when they don't have enoguh mana to cast a spell
+                //Notify player when they don't have enoguh mana to cast a spell
+                StartCoroutine(hud.DisplayError("Not Enough Mana"));
             }
         }
     }

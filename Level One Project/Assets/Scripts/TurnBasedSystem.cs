@@ -32,14 +32,6 @@ public class TurnBasedSystem : MonoBehaviour
         //turnOrder.Add(GameObject.FindGameObjectWithTag("playerTurn"));
     }
 
-    private void Update() 
-    {
-        if (Input.GetKeyUp(KeyCode.T))
-        {
-            SwitchTurn();
-        }
-    }
-
     public void ResetArrays()
     {
         StartCoroutine(Reset(0.1f));

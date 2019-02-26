@@ -31,6 +31,9 @@ public class HUD : MonoBehaviour
     //Text that shows what state the player is in
     public TextMeshProUGUI stateIndicator;
 
+    //Text that shows messages for the player
+    public TextMeshProUGUI errorMessage;
+
     private void Start()
     {
         //heartSprites = new Sprite[4] { heart1, heart2, heart3, shield };
@@ -101,6 +104,23 @@ public class HUD : MonoBehaviour
             //Adds the object to healthList
             healthList.Add(health);
         }
+
+        if (pController.shieldActive)
+        {
+            Vector3 pos = new Vector3(100 + (pController.health * 25), 14, 0);
+
+            GameObject health = Instantiate(heartPrefab, pos, Quaternion.identity);
+            health.transform.SetParent(hud.transform, false);
+            health.GetComponent<Image>().sprite = heartSprites[3];
+        }
+    }
+
+    public IEnumerator DisplayError(string error)
+    {
+        errorMessage.text = error;
+        errorMessage.CrossFadeAlpha(1, 0.5f, false);
+        yield return new WaitForSeconds(1f);
+        errorMessage.CrossFadeAlpha(0, 0.5f, false);
     }
 
     void Update()

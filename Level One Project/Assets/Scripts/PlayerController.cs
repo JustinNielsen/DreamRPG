@@ -18,6 +18,7 @@ public class PlayerController : MonoBehaviour
     public PlayerMovement movement;
     public Levels level;
     public int health;
+    public bool shieldActive;
     public int hitChance = 4;
     public AttackScript Attack;
     public LevelController lController;
@@ -70,7 +71,9 @@ public class PlayerController : MonoBehaviour
         maxMana = 100f;
         remainingMana = maxMana;
         //Initilize player health
-        health = 4;
+        health = 3;
+        //Initilize the shield to false
+        shieldActive = false;
     }
 
     // Update is called once per frame
@@ -105,9 +108,15 @@ public class PlayerController : MonoBehaviour
             //TODO - Add a game over screen
         }
 
+        if (active && Input.GetKeyDown(KeyCode.Return))
+        {
+            turn.SwitchTurn();
+        }
+
         if (Input.GetKeyDown(KeyCode.R))
         {
-            state = States.RangeAttack;
+            shieldActive = true;
+            hud.HUDHealth();
         }
     }
 
@@ -297,7 +306,19 @@ public class PlayerController : MonoBehaviour
     public void DamagePlayer(EnemyController enemy)
     {
         //TODO - Implement a better damage system based on the level of the enemy
-        health--;
+        if (!shieldActive)
+        {
+            health--;
+        }
+        else
+        {
+            shieldActive = false;
+        }
+
+        if(health == 0)
+        {
+            //Activate GameOver Screen
+        }
 
         hud.HUDHealth();
     }
