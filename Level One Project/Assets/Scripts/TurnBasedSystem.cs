@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TurnBasedSystem : MonoBehaviour
 {
@@ -10,18 +11,25 @@ public class TurnBasedSystem : MonoBehaviour
     public List<Character> charList;
     public PlayerController pController;
 
+    //Get textures for the turn order
+    public Texture[] turnTextures;
+    public Texture player;
+    public Texture enemy1;
+    public Texture enemy2;
+    public Texture enemy3;
+    public Texture enemy4;
+
+    public GameObject turnOrderPrefab;
+    public GameObject hud;
+    int oldCount;
+    public List<GameObject> turnOrder;
+    public RectTransform turnArrow;
+
     // Start is called before the first frame update
     private void Start()
     {
-        
-    }
-
-    private void Update() 
-    {
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            SwitchTurn();
-        }
+        turnTextures = new Texture[5] { player, enemy1, enemy2, enemy3, enemy4 };
+        //turnOrder.Add(GameObject.FindGameObjectWithTag("playerTurn"));
     }
 
     public void ResetArrays()
@@ -60,7 +68,9 @@ public class TurnBasedSystem : MonoBehaviour
         //If all the enemies are gone change state to WASD
         if(turnArr.Length == 1)
         {
+            pController.lController.fightSongActive = false;
             pController.movement.ToggleNavMesh(false);
+            pController.lController.fightSongActive = false;
         }
     }
     
@@ -77,8 +87,11 @@ public class TurnBasedSystem : MonoBehaviour
             turn++;
         }
 
+        //Change turn arrow indicator location
+        turnArrow.anchoredPosition = new Vector3(-40.1f, (-20f + (-32f * turn)), 0f);
+
         //If turn = 0 activate the player object and deactivate the enemy objects
-        if(turn == 0)
+        if (turn == 0)
         {
             foreach(Character classObj in charList)
             {
@@ -112,6 +125,33 @@ public class TurnBasedSystem : MonoBehaviour
         }
     }
 
+    private void InitilizeTurnOrderHud()
+    {
+        //Destroy previous enemy turn indicators
+        GameObject[] enemyTurns = GameObject.FindGameObjectsWithTag("enemyTurn");
+        foreach (GameObject obj in enemyTurns)
+        {
+            turnOrder.Remove(obj);
+            Destroy(obj);
+        }
+
+        Vector3 initialPos = new Vector3(-20, -20, 0);
+        int enemyType;
+
+        for (int i = 1; i < charList.Count; i++)
+        {
+            enemyType = charList[i].EController.enemyType;
+            Vector3 enemyPos = new Vector3(initialPos.x, initialPos.y - (32 * i), initialPos.z);
+
+            GameObject turnIndicator = Instantiate(turnOrderPrefab, enemyPos, Quaternion.identity);
+            turnIndicator.transform.SetParent(hud.transform, false);
+            turnIndicator.GetComponent<RawImage>().texture = turnTextures[enemyType];
+
+            //Add object to turnOrder list
+            turnOrder.Add(turnIndicator);
+        }
+    }
+
     IEnumerator Reset(float delay)
     {
         yield return new WaitForSeconds(delay);
@@ -120,5 +160,6 @@ public class TurnBasedSystem : MonoBehaviour
         //Create an empty list for charList
         charList = new List<Character>();
         InitializeCharacterList();
+        InitilizeTurnOrderHud();
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using TMPro;
 
 public class HUD : MonoBehaviour
 {
@@ -13,10 +14,29 @@ public class HUD : MonoBehaviour
     public Image manaBar;
     public LevelController lController;
     public PlayerController pController;
+    public GameObject hud;
+
+    //Heart images
+    public Sprite heart1;
+    public Sprite heart2;
+    public Sprite heart3;
+    public Sprite shield;
+    public GameObject heartPrefab;
+
+    Sprite[] heartSprites;
+    //Health list
+    List<GameObject> healthList;
+    bool healthInitialized = false;
+
+    //Text that shows what state the player is in
+    public TextMeshProUGUI stateIndicator;
+
+    //Text that shows messages for the player
+    public TextMeshProUGUI errorMessage;
 
     private void Start()
     {
-
+        
     }
 
     public void Resume()
@@ -46,6 +66,57 @@ public class HUD : MonoBehaviour
         pController.remainingMana -= spellCost;
 
         manaBar.fillAmount = (pController.remainingMana * incrementAmount) + 0.25f;
+    }
+
+    private void InitializeHealth()
+    {
+        heartSprites = new Sprite[4] { heart3, heart2, heart1, shield };
+        healthList = new List<GameObject>();
+        healthInitialized = true;
+    }
+
+    public void HUDHealth()
+    {
+        if (!healthInitialized)
+        {
+            InitializeHealth();
+        }
+
+        GameObject[] hearts = GameObject.FindGameObjectsWithTag("hearts");
+        foreach (GameObject obj in hearts)
+        {
+            healthList.Remove(obj);
+            Destroy(obj);
+        }
+
+        for (int i = 0; i < pController.health; i++)
+        {
+            Vector3 pos = new Vector3(100 + (i * 25), 14, 0);
+
+            GameObject health = Instantiate(heartPrefab, pos, Quaternion.identity);
+            health.transform.SetParent(hud.transform, false);
+            health.GetComponent<Image>().sprite = heartSprites[i];
+
+            //Adds the object to healthList
+            healthList.Add(health);
+        }
+
+        if (pController.shieldActive)
+        {
+            Vector3 pos = new Vector3(100 + (pController.health * 25), 14, 0);
+
+            GameObject health = Instantiate(heartPrefab, pos, Quaternion.identity);
+            health.transform.SetParent(hud.transform, false);
+            health.GetComponent<Image>().sprite = heartSprites[3];
+        }
+    }
+
+    public IEnumerator DisplayError(string error)
+    {
+        errorMessage.text = error;
+        errorMessage.CrossFadeAlpha(1, 0.5f, false);
+        yield return new WaitForSeconds(1f);
+        errorMessage.CrossFadeAlpha(0, 0.5f, false);
     }
 
     void Update()

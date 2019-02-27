@@ -224,6 +224,9 @@ public class PlayerMovement : MonoBehaviour
             {
                 Debug.Log("Out of Range");
 
+                //Notifies the player that they can't move to that location
+                StartCoroutine(pControl.hud.DisplayError("Too Far Away"));
+
                 //Draws the path
                 DrawPath(path, 2);
             }
