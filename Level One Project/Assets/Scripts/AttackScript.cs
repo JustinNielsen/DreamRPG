@@ -148,7 +148,7 @@ public class AttackScript : MonoBehaviour
     private void LaunchProjectile()
     {
         Vector3 pos = transform.position + transform.forward;
-        GameObject projectile = Instantiate(mageShot, pos, transform.rotation, player.transform);
+        GameObject projectile = Instantiate(mageShot, pos, transform.rotation);
         Destroy(projectile, 4f);
     }
 
