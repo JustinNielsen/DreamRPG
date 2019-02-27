@@ -36,7 +36,6 @@ public class AttackScript : MonoBehaviour
         //Choose the attack. Runs once per R press /// TODOODODODODODOD
         if (hitbox == null)
         {
-
             //Basic attack... Kind of.
             CallCollider(-2, 0.5f, 0, prefab[0]);
 
@@ -156,6 +155,7 @@ public class AttackScript : MonoBehaviour
     {
         hitboxCollider.enabled = true;
         yield return new WaitForEndOfFrame();
+        hitboxCollider.enabled = false;
 
         //Bool stops the player from melee attacking again
         pController.meleeAttacked = true;

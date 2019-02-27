@@ -26,6 +26,10 @@ public class PlayerController : MonoBehaviour
     int mouseWheelLocation;
     States[] mouseWheelStates;
 
+    //In loving memory of Matt...
+    public AudioSource matt;
+    public AudioClip[] mattVoiceArray;
+
     public int playerLevel;
     public int playerXP;
 
@@ -201,7 +205,7 @@ public class PlayerController : MonoBehaviour
 
     //Triggers when entering a collider
     private void OnTriggerEnter(Collider other)
-    {       
+    {
         //Turn on the navmesh if the tag is navMesh
         if (other.gameObject.tag == "navMesh")
         {
@@ -216,6 +220,26 @@ public class PlayerController : MonoBehaviour
             Destroy(other.gameObject);
             //Change camera blend mode to ease
             camBrain.m_DefaultBlend.m_Style = CinemachineBlendDefinition.Style.EaseInOut;
+
+            //Switches based on the level so that we know what clip to play, as they are level based.
+            switch (level)
+            {
+                case Levels.Level1:
+                    {
+                        MattVoiceOver(1);
+                        break;
+                    }
+                case Levels.Level2:
+                    {
+                        MattVoiceOver(4);
+                        break;
+                    }
+                case Levels.Level3:
+                    {
+                        MattVoiceOver(8);
+                        break;
+                    }
+            }
         }
 
         if (other.gameObject.tag == "enemyProjectile")
@@ -263,23 +287,15 @@ public class PlayerController : MonoBehaviour
                     break;*/
             }
         }
+    }
 
-        /*if (other.gameObject.CompareTag("enemy"))
-        {
-            
-                Debug.Log("killing");
-                //Grabs the enemy controller
-                EnemyController eController = other.gameObject.GetComponent<EnemyController>();
-
-                //Checks to see if the enemy has health left
-                if(eController.enemyHealth <= 0)
-                {
-                    //Uses a simple formula to find the xp. It should work for the most part
-                    playerXP += eController.enemyLevel / playerLevel * 50;
-                    Debug.Log($"Player XP: {playerXP}");
-                
-                }
-        }*/
+    //Used to determine which voice over bit to play
+    public void MattVoiceOver(int i)
+    {
+        //Goes through each needed audio clip
+        matt.clip = mattVoiceArray[i - 1];
+        //PLAY THAT SUCKA!
+        matt.Play();
     }
 
     //Turns on and off the player according to the bool parameter
