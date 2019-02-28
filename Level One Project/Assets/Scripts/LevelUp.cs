@@ -8,10 +8,17 @@ public class LevelUp : MonoBehaviour
 
     public GameObject levelUpMenu;
 
+    float spellReductionCost;
+
+    private void Start()
+    {
+        spellReductionCost = hud.pController.attack.spellCost * 0.1f;
+    }
+
     public void MagicClick()
     {
         //Decrese spell cost by 10% and return to the game
-        hud.pController.attack.spellCost *= 0.1f;
+        hud.pController.attack.spellCost -= spellReductionCost;
 
         //Resume game
         Time.timeScale = 1f;

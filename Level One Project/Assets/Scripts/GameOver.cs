@@ -11,10 +11,12 @@ public class GameOver : MonoBehaviour
     {
         pController.health = 3;
         pController.movement.ToggleNavMesh(false);
-        Time.timeScale = 1f;
+        pController.hud.DisplayStats();
+        pController.turn.ResetArrays();
         //gameOver.SetActive(false);
         pController.lController.levels = pController.LoadPlayer();
         pController.lController.gameOverLoadPlayer = true;
+        Time.timeScale = 1f;
         gameOver.SetActive(false);
     }
 

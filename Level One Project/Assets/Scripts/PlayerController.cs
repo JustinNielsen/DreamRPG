@@ -100,7 +100,7 @@ public class PlayerController : MonoBehaviour
         }
 
         //Checks if the player should level up
-        if(playerXP >= 100)
+        if(playerXP >= 100 || Input.GetKeyDown(KeyCode.L))
         {
             //Removes the xp and adds to the player level
             playerXP -= 100;

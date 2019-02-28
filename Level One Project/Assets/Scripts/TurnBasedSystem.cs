@@ -70,7 +70,6 @@ public class TurnBasedSystem : MonoBehaviour
         {
             pController.lController.fightSongActive = false;
             pController.movement.ToggleNavMesh(false);
-            pController.lController.fightSongActive = false;
         }
     }
     
@@ -85,6 +84,11 @@ public class TurnBasedSystem : MonoBehaviour
         else //Otherwise advance turn by 1
         {
             turn++;
+        }
+
+        if(pController.state == States.WASD)
+        {
+            turn = 0;
         }
 
         //Change turn arrow indicator location
@@ -133,6 +137,11 @@ public class TurnBasedSystem : MonoBehaviour
         {
             turnOrder.Remove(obj);
             Destroy(obj);
+        }
+
+        if(pController.state == States.WASD)
+        {
+            return;
         }
 
         Vector3 initialPos = new Vector3(-20, -20, 0);

@@ -845,7 +845,7 @@ MonoBehaviour:
   level: 0
   health: 0
   shieldActive: 0
-  hitChance: 4
+  hitChance: 2
   gameOver: {fileID: 1599442455}
   matt: {fileID: 361929351}
   mattVoiceArray:
@@ -6190,3 +6190,4 @@ MonoBehaviour:
   fightSong: {fileID: 8300000, guid: 2950ffa1ce83d914388eae6514c3044e, type: 3}
   fightSongActive: 0
   fadePanel: {fileID: 1313960512}
+  gameOverLoadPlayer: 0

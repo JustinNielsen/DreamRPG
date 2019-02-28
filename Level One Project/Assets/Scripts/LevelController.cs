@@ -122,6 +122,9 @@ public class LevelController : MonoBehaviour
         pController.hud.HUDHealth();
         hud.SetActive(true);
         hud.GetComponent<HUD>().errorMessage.CrossFadeAlpha(0, 0.01f, false);
+        pController.state = States.WASD;
+        pController.hud.DisplayStats();
+        //pController.turn.ResetArrays();
     }
 
     IEnumerator FadeIn()
