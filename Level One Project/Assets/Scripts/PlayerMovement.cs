@@ -23,6 +23,11 @@ public class PlayerMovement : MonoBehaviour
     Vector3 moveInput;
     Vector3 moveVelocity;
     Rigidbody rb;
+    bool checkingIfStuck;
+
+    //Test
+    Vector3 previousPosition;
+    float curSpeed;
     
     // Start is called before the first frame update
     void Start()
@@ -47,6 +52,23 @@ public class PlayerMovement : MonoBehaviour
         moveDirection = GameObject.FindGameObjectWithTag("turn");
         //Get the rigidbody from the player object
         rb = player.GetComponent<Rigidbody>();
+        //Initialize checking if stuck to false
+        checkingIfStuck = false;
+    }
+
+    private void FixedUpdate()
+    {
+        Vector3 curMove = transform.position - previousPosition;
+        curSpeed = curMove.magnitude / Time.deltaTime;
+        previousPosition = transform.position;
+        Debug.Log(curSpeed);
+
+        if (pControl.state == States.NavMesh && agent.path != null && curSpeed < 1f && isMoving && !checkingIfStuck)
+        {
+            checkingIfStuck = true;
+            StartCoroutine(StuckCheck());
+            Debug.Log(curSpeed);
+        }
     }
 
     void Update()
@@ -83,7 +105,7 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             rb.velocity = Vector3.zero;
-        }
+        }       
     }
 
     public void NavMeshMovement()
@@ -181,6 +203,10 @@ public class PlayerMovement : MonoBehaviour
                 //Draws the path
                 DrawPath(path, 2);
             }
+        }
+        else
+        {
+            line.positionCount = 0;
         }
 
         return hit.point;
@@ -302,5 +328,18 @@ public class PlayerMovement : MonoBehaviour
             Destroy(pControl.attack.hitbox);
             pControl.lController.fightSongActive = false;
         }
+    }
+
+    IEnumerator StuckCheck()
+    {
+        yield return new WaitForSeconds(1f);
+
+        if(pControl.state == States.NavMesh && agent.path != null && curSpeed < 1f && isMoving)
+        {
+            maxDistance += agent.remainingDistance;
+            agent.ResetPath();
+        }
+
+        checkingIfStuck = false;
     }
 }

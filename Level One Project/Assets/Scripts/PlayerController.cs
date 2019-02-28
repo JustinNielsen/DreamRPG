@@ -130,6 +130,17 @@ public class PlayerController : MonoBehaviour
             shieldActive = true;
             hud.HUDHealth();
         }
+
+        //Testing purposes only
+        if (Input.GetKeyDown(KeyCode.N))
+        {
+            movement.agent.enabled = true;
+            mouseWheelLocation = 0;
+            state = States.NavMesh;
+
+            //Change camera blend mode to ease
+            camBrain.m_DefaultBlend.m_Style = CinemachineBlendDefinition.Style.EaseInOut;
+        }
     }
 
     void FixedUpdate()
