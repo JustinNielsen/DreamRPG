@@ -6,7 +6,7 @@ using Cinemachine;
 using UnityEngine.UI;
 
 //Creates an enum for each level scene
-public enum Levels { MainMenu, Level1, Level2, Level3 };
+public enum Levels { MainMenu = 99999, Level1 = 1, Level2 = 4, Level3 = 7, Level4 = 10 };
 
 public class LevelController : MonoBehaviour
 {
@@ -207,6 +207,7 @@ public class LevelController : MonoBehaviour
 
         yield return new WaitForSeconds(1.5f);
         fade.CrossFadeAlpha(0, 1f, true);
+        Debug.Log((int)levels);
         pController.MattVoiceOver((int)levels);
     }
 }

@@ -158,6 +158,7 @@ MonoBehaviour:
   shield: {fileID: 21300000, guid: 5d52c9bdf5278354784dedf51ff79b95, type: 3}
   heartPrefab: {fileID: 7245708598766036481, guid: c0d21f959d0dafb49a905f2e3d5ab4bc,
     type: 3}
+  playerStats: {fileID: 1381622164}
   stateIndicator: {fileID: 1462608392}
   errorMessage: {fileID: 1161397923}
   instructions: {fileID: 1500181594}
@@ -765,6 +766,7 @@ MonoBehaviour:
   - {fileID: 4789346798523910084, guid: 640cc9c9991fb7f4197d528d49cc86ad, type: 3}
   mageShot: {fileID: 853863414628630651, guid: e3d7b4736891b3d46b6810c4966e55e0, type: 3}
   hud: {fileID: 54816945}
+  spellCost: 0
 --- !u!114 &361929345
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -808,9 +810,28 @@ MonoBehaviour:
   health: 0
   shieldActive: 0
   hitChance: 4
-  Attack: {fileID: 0}
+  attack: {fileID: 0}
   lController: {fileID: 0}
   hud: {fileID: 54816945}
+  matt: {fileID: 361929351}
+  mattVoiceArray:
+  - {fileID: 8300000, guid: 07438aaa598fba4438c1e981c0affb56, type: 3}
+  - {fileID: 8300000, guid: 26d014a1269f14b47a4cb34b193cc085, type: 3}
+  - {fileID: 8300000, guid: 98d6ab23cba87ed4faa5b93762e0d313, type: 3}
+  - {fileID: 8300000, guid: 144169bbb57277c4a9a750adbc460ea8, type: 3}
+  - {fileID: 8300000, guid: bb9747c876f567743b2726aed5ccd84d, type: 3}
+  - {fileID: 8300000, guid: 94814532ad020f447898ff979f8771a2, type: 3}
+  - {fileID: 8300000, guid: 544d809fbb29aad4ca310cf27f46cf4a, type: 3}
+  - {fileID: 8300000, guid: 95b722dd1436fad44a945e382e2df5ea, type: 3}
+  - {fileID: 8300000, guid: c72848ac918b9a245951e547a97cc0f5, type: 3}
+  - {fileID: 8300000, guid: 23417dbd7d6991945a02c7f0bdc94cf8, type: 3}
+  - {fileID: 8300000, guid: f57e029c1d2e371408e0717214af208b, type: 3}
+  - {fileID: 8300000, guid: 07438aaa598fba4438c1e981c0affb56, type: 3}
+  - {fileID: 8300000, guid: c3069413e834e8f4893adfdebcd4118c, type: 3}
+  - {fileID: 8300000, guid: c0ebf8ce246425a48bb0f18b54d6ed17, type: 3}
+  - {fileID: 8300000, guid: 1142b3a594feb5845bc95275479fb083, type: 3}
+  - {fileID: 8300000, guid: 9fc2a4141f66ffa468ee13758dbf4bd8, type: 3}
+  - {fileID: 8300000, guid: cc972fb53b21f504fab65842d7f88074, type: 3}
   playerLevel: 0
   playerXP: 0
   meleeAttacked: 0
@@ -2578,9 +2599,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_text: 'Player Level: 1
 
-    XP: 0
-
-    Damage: 0'
+    XP: 0'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 291665bbad4875249b4cf72eca8f5efd, type: 2}
   m_sharedMaterial: {fileID: 21361119817268870, guid: 291665bbad4875249b4cf72eca8f5efd,
@@ -2650,12 +2669,12 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 1381622164}
-    characterCount: 31
+    characterCount: 21
     spriteCount: 0
-    spaceCount: 6
-    wordCount: 7
+    spaceCount: 4
+    wordCount: 5
     linkCount: 0
-    lineCount: 3
+    lineCount: 2
     pageCount: 1
     materialCount: 1
   m_havePropertiesChanged: 0
@@ -3766,7 +3785,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &2073330959
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -303,7 +303,7 @@ public class PlayerMovement : MonoBehaviour
             agent.enabled = false;
             pControl.state = States.WASD;
             line.positionCount = 0;
-            Destroy(pControl.Attack.hitbox);
+            Destroy(pControl.attack.hitbox);
             pControl.lController.fightSongActive = false;
         }
     }

@@ -20,7 +20,7 @@ public class PlayerController : MonoBehaviour
     public int health;
     public bool shieldActive;
     public int hitChance = 4;
-    public AttackScript Attack;
+    public AttackScript attack;
     public LevelController lController;
     public HUD hud;
     int mouseWheelLocation;
@@ -55,7 +55,7 @@ public class PlayerController : MonoBehaviour
         //Get the TurnBasedSystem script from the turnObj
         turn = GameObject.FindGameObjectWithTag("turn").GetComponent<TurnBasedSystem>();
         //Initialize attack script
-        Attack = GetComponent<AttackScript>();
+        attack = GetComponent<AttackScript>();
         //Set the mouse wheel point to 0
         mouseWheelLocation = 0;
         //Initilize the mouseWheelStates array
@@ -139,16 +139,19 @@ public class PlayerController : MonoBehaviour
                     hud.stateIndicator.text = "WASD Movement";
                     break;
                 case States.MeleeAttack:
-                    Attack.MeleeAttackMode();
+                    attack.MeleeAttackMode();
                     mouseWheelLocation = 1;
                     hud.stateIndicator.text = "Melee Attack";
                     break;
                 case States.RangeAttack:
-                    Attack.RangeAttackMode();
+                    attack.RangeAttackMode();
                     mouseWheelLocation = 2;
                     hud.stateIndicator.text = "Mage Attack";
                     break;
             }
+
+            //Display the stats for the current state
+            hud.DisplayStats();
         }
         else
         {
@@ -198,7 +201,7 @@ public class PlayerController : MonoBehaviour
     {
         //Reset line and destroy hitbox
         movement.line.positionCount = 0;
-        Destroy(Attack.hitbox);
+        Destroy(attack.hitbox);
         //Set the state to the indicated location
         state = mouseWheelStates[mouseWheelLocation];
     }
@@ -292,10 +295,13 @@ public class PlayerController : MonoBehaviour
     //Used to determine which voice over bit to play
     public void MattVoiceOver(int i)
     {
-        //Goes through each needed audio clip
-        matt.clip = mattVoiceArray[i - 1];
-        //PLAY THAT SUCKA!
-        matt.Play();
+        if (i < mattVoiceArray.Length)
+        {
+            //Goes through each needed audio clip
+            matt.clip = mattVoiceArray[i - 1];
+            //PLAY THAT SUCKA!
+            matt.Play();
+        }
     }
 
     //Turns on and off the player according to the bool parameter
