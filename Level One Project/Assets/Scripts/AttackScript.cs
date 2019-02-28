@@ -16,6 +16,7 @@ public class AttackScript : MonoBehaviour
     LineRenderer line;
     public HUD hud;
     public float spellCost;
+    public int damage;
 
     //Start Function
     private void Start()
@@ -28,6 +29,8 @@ public class AttackScript : MonoBehaviour
         line = player.GetComponent<LineRenderer>();
         //Initilize spell cost to 25
         spellCost = 25;
+        //Initilize player damage to 1
+        damage = 1;
     }
 
     //The main attacking function
@@ -133,6 +136,7 @@ public class AttackScript : MonoBehaviour
         }
     }
 
+    //TODO - Instead of instatiating the hitbox have it as a child of the player and enable/disable the mesh renderer when in melee attack state
     private void CallCollider(float offsetX, float offsetY, float offsetZ, GameObject prefab)
     {
         //Creates a vector at the player's current position.
@@ -142,6 +146,8 @@ public class AttackScript : MonoBehaviour
         hitbox = Instantiate(prefab, pos, player.transform.rotation, player.transform);
         //Disables the collider
         hitboxCollider = hitbox.GetComponent<Collider>();
+        //Sets the damage of the melee attack
+        hitbox.GetComponent<Damage>().damage = damage;
     }
 
     private void LaunchProjectile()

@@ -96,14 +96,10 @@ public class PlayerMovement : MonoBehaviour
         //Check if the player is done moving
         if (maxDistance < 0.5f && agent.pathStatus == NavMeshPathStatus.PathComplete && agent.remainingDistance == 0 && Vector3.Distance(transform.position, agent.destination) <= 1f)
         {
-            //Sets the maxDistance back to 10
-            //maxDistance = 10.0f;
             //Hides Line
             line.positionCount = 0;
-            //Switch Turns
-            //pControl.turn.SwitchTurn();
 
-            Debug.Log("Out of the movement");
+            //Debug.Log("Out of the movement");
         }
 
         if (Vector3.Distance(transform.position, agent.destination) <= 1f)
@@ -222,7 +218,7 @@ public class PlayerMovement : MonoBehaviour
             }
             else
             {
-                Debug.Log("Out of Range");
+                //Debug.Log("Out of Range");
 
                 //Notifies the player that they can't move to that location
                 StartCoroutine(pControl.hud.DisplayError("Too Far Away"));

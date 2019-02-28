@@ -43,6 +43,9 @@ public class LevelController : MonoBehaviour
     Image fade;
     bool fading = true;
 
+    //Check if the player is trying to restart a level
+    public bool gameOverLoadPlayer = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -68,8 +71,10 @@ public class LevelController : MonoBehaviour
     void Update()
     {
         //This will make sure that the scene is loaded only once.
-        if(levels != currentLevel)
+        if(levels != currentLevel || gameOverLoadPlayer)
         {
+            gameOverLoadPlayer = false;
+            pController.gameOver.SetActive(false);
             StartCoroutine(SwitchLevels());
             currentLevel = levels;
             camBrain.m_DefaultBlend.m_Style = CinemachineBlendDefinition.Style.Cut;
@@ -141,10 +146,10 @@ public class LevelController : MonoBehaviour
             case Levels.MainMenu:
                 {
                     camBrain.m_DefaultBlend.m_Style = CinemachineBlendDefinition.Style.Cut;
-                    //Loads scene and sets the current level so it is correct.
-                    SceneManager.LoadScene("MainMenu", LoadSceneMode.Additive);
                     //Unloads previous scene
                     SceneManager.UnloadSceneAsync(sceneIndex);
+                    //Loads scene and sets the current level so it is correct.
+                    SceneManager.LoadScene("MainMenu", LoadSceneMode.Additive);
                     StartCoroutine(FadeOut());
                     sceneIndex = 1;
                     //currentLevel = levels;
@@ -152,6 +157,7 @@ public class LevelController : MonoBehaviour
                     pRenderer.enabled = false;
                     playerRB.isKinematic = true;
                     hud.SetActive(false);
+                    pController.gameOver.SetActive(false);
                     backAudio.clip = mainMenu;
                     backAudio.Play();
                     fightSongActive = false;
@@ -161,8 +167,8 @@ public class LevelController : MonoBehaviour
                 {
                     camBrain.m_DefaultBlend.m_Style = CinemachineBlendDefinition.Style.Cut;
                     //Unloads previous scene
-                    SceneManager.LoadScene("Level1", LoadSceneMode.Additive);
                     SceneManager.UnloadSceneAsync(sceneIndex);
+                    SceneManager.LoadScene("Level1", LoadSceneMode.Additive);
                     sceneIndex = 2;
                     //currentLevel = levels;
                     //This will reactivate the player, which was deactivated for the main menu, set the players position, and initilize turn arrays
@@ -177,8 +183,8 @@ public class LevelController : MonoBehaviour
                 {
                     camBrain.m_DefaultBlend.m_Style = CinemachineBlendDefinition.Style.Cut;
                     //Unloads previous scene
-                    SceneManager.LoadScene("Level2", LoadSceneMode.Additive);
                     SceneManager.UnloadSceneAsync(sceneIndex);
+                    SceneManager.LoadScene("Level2", LoadSceneMode.Additive);
                     sceneIndex = 3;
                     //currentLevel = levels;
                     InitilizeLevel(2);
@@ -192,8 +198,8 @@ public class LevelController : MonoBehaviour
                 {
                     camBrain.m_DefaultBlend.m_Style = CinemachineBlendDefinition.Style.Cut;
                     //Unloads previous scene
-                    SceneManager.LoadScene("Level3", LoadSceneMode.Additive);
                     SceneManager.UnloadSceneAsync(sceneIndex);
+                    SceneManager.LoadScene("Level3", LoadSceneMode.Additive);
                     sceneIndex = 4;
                     //currentLevel = levels;
                     InitilizeLevel(3);

@@ -131,7 +131,7 @@ public class HUD : MonoBehaviour
                 break;
             case States.MeleeAttack:
                 //TODO - Implement change in damage on stats
-                playerStats.text = $"Player Level: {pController.playerLevel}\nXP: {pController.playerXP}\nDamage: 1";
+                playerStats.text = $"Player Level: {pController.playerLevel}\nXP: {pController.playerXP}\nDamage: {pController.attack.damage}";
                 break;
             case States.RangeAttack:
                 playerStats.text = $"Player Level: {pController.playerLevel}\nXP: {pController.playerXP}\nRemaining Mana: {pController.remainingMana}\nSpell Cost: {pController.attack.spellCost}";

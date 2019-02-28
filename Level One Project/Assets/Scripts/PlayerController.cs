@@ -11,18 +11,21 @@ public class PlayerController : MonoBehaviour
 {
     public Camera cam;
     public Vector3[] checkpointLocations;
-    public float maxDistance;
-    public bool active = true;
-    public TurnBasedSystem turn;
-    public States state;
-    public PlayerMovement movement;
-    public Levels level;
-    public int health;
-    public bool shieldActive;
-    public int hitChance = 4;
     public AttackScript attack;
     public LevelController lController;
     public HUD hud;
+    public PlayerMovement movement;
+    public TurnBasedSystem turn;
+    public float maxDistance;
+    public bool active = true;
+    public States state;
+    public Levels level;
+
+    public int health;
+    public bool shieldActive;
+    public int hitChance = 4;
+    public GameObject gameOver;
+
     int mouseWheelLocation;
     States[] mouseWheelStates;
 
@@ -32,6 +35,7 @@ public class PlayerController : MonoBehaviour
 
     public int playerLevel;
     public int playerXP;
+    public GameObject levelUpMenu;
 
     //Bool to check if the melee attack has already been used this turn
     public bool meleeAttacked = false;
@@ -103,12 +107,17 @@ public class PlayerController : MonoBehaviour
             playerLevel++;
             SavePlayer();
             Debug.Log($"Level: {playerLevel}");
-            //TODO Add in Level Up Screen
+
+            //pause game and show level up screen
+            levelUpMenu.SetActive(true);
+            Time.timeScale = 0f;
         }
 
-        if(health == 0)
+        if(health == 0 && gameOver.activeSelf == false)
         {
-            //TODO - Add a game over screen
+            //Show game over screen and pause the game
+            gameOver.SetActive(true);
+            Time.timeScale = 0f;
         }
 
         if (active && Input.GetKeyDown(KeyCode.Return))
