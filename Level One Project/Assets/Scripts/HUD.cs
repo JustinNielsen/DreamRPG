@@ -38,6 +38,8 @@ public class HUD : MonoBehaviour
     public TextMeshProUGUI errorMessage;
 
     public TextMeshProUGUI instructions;
+
+    public TextMeshProUGUI enemyStats;
     //The number is used to differentiate between instruction pieces.
     private int instructionNumber;
     //The flag is used to determine if we actually need to continue the instructions.

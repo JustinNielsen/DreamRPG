@@ -20,7 +20,6 @@ public class EnemyController : MonoBehaviour
     public int enemyLevel;
     TurnBasedSystem turn;
     PlayerController pController;
-    public TextMeshProUGUI enemyStats;
     // Start is called before the first frame update
     void Start()
     {
@@ -35,6 +34,7 @@ public class EnemyController : MonoBehaviour
         //Initlize turn based system script
         turn = GameObject.FindGameObjectWithTag("turn").GetComponent<TurnBasedSystem>();
         pController = GameObject.FindGameObjectWithTag("player").GetComponent<PlayerController>();
+        
     }
 
     void Update()
@@ -107,6 +107,14 @@ public class EnemyController : MonoBehaviour
 
     private void OnMouseOver()
     {
-        
+        //Updates the enemyStates text.
+        pController.hud.enemyStats.text = $"Enemy Health: {enemyHealth}\n" +
+            $"Enemy Level: {enemyLevel}";
+    }
+
+    private void OnMouseExit()
+    {
+        //Resets the text.
+        pController.hud.enemyStats.text = "";
     }
 }
