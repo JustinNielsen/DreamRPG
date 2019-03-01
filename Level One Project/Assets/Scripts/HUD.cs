@@ -49,6 +49,7 @@ public class HUD : MonoBehaviour
         instructionFlag = true;
     }
 
+    //Resumes the game from the pause menu
     public void Resume()
     {
         pauseMenuUI.SetActive(false);
@@ -56,6 +57,7 @@ public class HUD : MonoBehaviour
         GameIsPaused = false;
     }
 
+    //Used on the pause menu to pause the game
     public void Pause()
     {
         pauseMenuUI.SetActive(true);
@@ -63,6 +65,7 @@ public class HUD : MonoBehaviour
         GameIsPaused = true;
     }
 
+    //Used on the pause menu to get back to the main menu
     public void QuitGame()
     {
         Resume();
@@ -70,14 +73,23 @@ public class HUD : MonoBehaviour
         lController.levels = Levels.MainMenu;
     }
 
+    //Decrease the mana bar by the inputed spell cost
     public void DecreaseManaBar(float spellCost)
     {
+        //The mana bar fill amount shown on screen is only .25 of the whole thing
+        //The increment amount uses the maxMana to figure out how much to increment
+        //the mana bar for each point of mana.
         float incrementAmount = 0.25f / pController.maxMana;
+
+        //Subtracts the spell cost from the remaining mana
         pController.remainingMana -= spellCost;
 
+        //Fills the mana bar to the correct point. 
+        //An empty mana bar is at .25 and a full mana bar is at .5
         manaBar.fillAmount = (pController.remainingMana * incrementAmount) + 0.25f;
     }
 
+    //Initilizes the heart sprites array and the health list
     private void InitializeHealth()
     {
         heartSprites = new Sprite[4] { heart3, heart2, heart1, shield };
@@ -87,11 +99,14 @@ public class HUD : MonoBehaviour
 
     public void HUDHealth()
     {
+        //If the heart sprites and list arn't initilized then do it here.
+        //Had to do this because the start function wasn't running at the right time.
         if (!healthInitialized)
         {
             InitializeHealth();
         }
 
+        //Destroys all the hearts from a privoius run of this array
         GameObject[] hearts = GameObject.FindGameObjectsWithTag("hearts");
         foreach (GameObject obj in hearts)
         {
@@ -99,6 +114,7 @@ public class HUD : MonoBehaviour
             Destroy(obj);
         }
 
+        //Places all the hearts on the hud according to the player controllers health variable
         for (int i = 0; i < pController.health; i++)
         {
             Vector3 pos = new Vector3(100 + (i * 25), 14, 0);
@@ -111,6 +127,7 @@ public class HUD : MonoBehaviour
             healthList.Add(health);
         }
 
+        //If the shield is active put it at the right most side of the hearts
         if (pController.shieldActive)
         {
             Vector3 pos = new Vector3(100 + (pController.health * 25), 14, 0);
@@ -121,6 +138,16 @@ public class HUD : MonoBehaviour
         }
     }
 
+    //Updates all hud information. ie: health, stats, mana, and turn indicators
+    public void UpdateHUD()
+    {
+        HUDHealth();
+        DisplayStats();
+        DecreaseManaBar(0);
+        pController.turn.ResetArrays();        
+    }
+
+    //Displays the players stats according to the state that they are in
     public void DisplayStats()
     {
         switch (pController.state)
@@ -139,6 +166,8 @@ public class HUD : MonoBehaviour
         }
     }
 
+    //Displays error messages to the player when they are out of mana and stuff like that
+    //Takes in a string that is flashed in red at the top of the screen
     public IEnumerator DisplayError(string error)
     {
         errorMessage.text = error;
@@ -149,9 +178,10 @@ public class HUD : MonoBehaviour
 
     void Update()
     {
+        //Makes sure that you can't open the pause menu when in the settings menu, gameover screen, or level up screen
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (settingMenu.activeSelf == false)
+            if (settingMenu.activeSelf == false && pController.levelUpMenu.activeSelf == false && pController.gameOver.activeSelf == false)
             {
                 if (GameIsPaused)
                 {
@@ -162,7 +192,7 @@ public class HUD : MonoBehaviour
                     Pause();
                 }
             }
-            else
+            else if(settingMenu.activeSelf == true)
             {
                 settingMenu.SetActive(false);
                 Resume();

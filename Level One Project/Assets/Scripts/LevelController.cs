@@ -96,6 +96,7 @@ public class LevelController : MonoBehaviour
             levels = Levels.Level3;
         }
 
+        //Activates the fight song when in a combat zone and the fight song is not already active
         if (pController.state != States.WASD && !fightSongActive)
         {
             fightSongActive = true;
@@ -103,6 +104,7 @@ public class LevelController : MonoBehaviour
             backAudio.Play();
         }
 
+        //Turns off the fight song if fightSongActive is false and the song that is playing is the fightsong
         if (!fightSongActive && backAudio.clip == songs[4])
         {
             fightSongActive = false;
@@ -127,23 +129,27 @@ public class LevelController : MonoBehaviour
         //pController.turn.ResetArrays();
     }
 
+    //Slowly fades in a white screen
     IEnumerator FadeIn()
     {
         yield return new WaitForSeconds(0.25f);
         fade.CrossFadeAlpha(1, 1, true);
     }
 
+    //Slowly fades out a white screen
     IEnumerator FadeOut()
     {
         yield return new WaitForSeconds(0.25f);
         fade.CrossFadeAlpha(0, 1, true);
     }
 
+    //Switches the levles according to the levels variable
     IEnumerator SwitchLevels()
     {
         fade.CrossFadeAlpha(1, 1f, true);
         yield return new WaitForSeconds(1.1f);
 
+        //Checks to see which level is trying to be activated
         switch (levels)
         {
             case Levels.MainMenu:

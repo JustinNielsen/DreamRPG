@@ -63,7 +63,7 @@ public class PlayerMovement : MonoBehaviour
         previousPosition = transform.position;
         Debug.Log(curSpeed);
 
-        if (pControl.state == States.NavMesh && agent.path != null && curSpeed < 1f && isMoving && !checkingIfStuck)
+        if (pControl.state == States.NavMesh && agent.path != null && curSpeed < 0.1f && isMoving && !checkingIfStuck)
         {
             checkingIfStuck = true;
             StartCoroutine(StuckCheck());
@@ -73,6 +73,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+        //If the current state is WASD
         if (pControl.state == States.WASD)
         {
             //Gets input from keys
@@ -95,19 +96,23 @@ public class PlayerMovement : MonoBehaviour
                 transform.LookAt(lookRay.GetPoint(1));
             }
 
+            //If the magnitudes is greater than 1 divide move input by its magnitude
             if(moveInput.magnitude > 1)
             {
                 moveInput /= moveInput.magnitude;
             }
 
+            //Sets the move velocity variable to be used later on the rigidBody
             moveVelocity = transform.forward * movementSpeed * moveInput.sqrMagnitude;
         }
         else
         {
+            //If the states is not WASD the rigidbodys velocity is set to zero
             rb.velocity = Vector3.zero;
         }       
     }
 
+    //Method for the combat movement
     public void NavMeshMovement()
     {
         //Declare a Ray
@@ -330,12 +335,15 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    //Disables the players path if they are stuck
     IEnumerator StuckCheck()
     {
+        //If the current speed is still less than one after 1 second the players current path will be reset
         yield return new WaitForSeconds(1f);
 
-        if(pControl.state == States.NavMesh && agent.path != null && curSpeed < 1f && isMoving)
+        if(pControl.state == States.NavMesh && agent.path != null && curSpeed < 0.1f && isMoving)
         {
+            //Adds the remaining distance back to the maxDistance variable
             maxDistance += agent.remainingDistance;
             agent.ResetPath();
         }

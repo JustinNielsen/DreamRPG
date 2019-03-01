@@ -46,6 +46,8 @@ public class PlayerController : MonoBehaviour
 
     CinemachineBrain camBrain;
 
+    public CinemachineVirtualCamera ThirdPersonCamera;
+
     private void Start()
     {
         //Initialize cam to main camera
@@ -145,6 +147,7 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
+        //If it is this players turn
         if (active)
         {
             switch (state) //Switch states if active
@@ -310,6 +313,20 @@ public class PlayerController : MonoBehaviour
                     break;*/
             }
         }
+
+        if (other.gameObject.CompareTag("doorWay"))
+        {
+            camBrain.m_DefaultBlend.m_Style = CinemachineBlendDefinition.Style.EaseIn;
+            ThirdPersonCamera.Priority = 20;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.CompareTag("doorWay"))
+        {
+            ThirdPersonCamera.Priority = 10;
+        }
     }
 
     //Used to determine which voice over bit to play
@@ -382,6 +399,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    //Waits one second before calling the SwitchTurn method in the turnBasedSystem Script
     IEnumerator SwitchTurn()
     {
         yield return new WaitForSeconds(1f);

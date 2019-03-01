@@ -118,10 +118,11 @@ public class AttackScript : MonoBehaviour
         }
     }
 
+    //Points the player towards the mouse
     private void LookAtMouse()
     {
         Ray cameraRay = pController.cam.ScreenPointToRay(Input.mousePosition);
-        int layerMask = 1 << 14;
+        int layerMask = 1 << 11;
 
         RaycastHit rayHit;
 
@@ -150,11 +151,12 @@ public class AttackScript : MonoBehaviour
         hitbox.GetComponent<Damage>().damage = damage;
     }
 
+    //Creates a projectile object from the mageshot prefab and destoys it after 1.8 seconds
     private void LaunchProjectile()
     {
         Vector3 pos = transform.position + transform.forward;
         GameObject projectile = Instantiate(mageShot, pos, transform.rotation);
-        Destroy(projectile, 4f);
+        Destroy(projectile, 1.6f);
     }
 
     IEnumerator Hit()

@@ -21,6 +21,7 @@ TagManager:
   - playerTurn
   - hearts
   - turnArrow
+  - doorWay
   layers:
   - Default
   - TransparentFX
