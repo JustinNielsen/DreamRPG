@@ -70,7 +70,25 @@ public class TurnBasedSystem : MonoBehaviour
         {
             pController.lController.fightSongActive = false;
             pController.movement.ToggleNavMesh(false);
-            pController.lController.fightSongActive = false;
+            //This goes through each level option
+            switch (pController.level)
+            {
+                case Levels.Level1:
+                    {
+                        pController.MattVoiceOver(2);
+                        break;
+                    }
+                case Levels.Level2:
+                    {
+                        pController.MattVoiceOver(5);
+                        break;
+                    }
+                case Levels.Level4:
+                    {
+                        pController.MattVoiceOver(10);
+                        break;
+                    }
+            }
         }
     }
     

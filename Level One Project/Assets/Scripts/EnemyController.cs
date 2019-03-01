@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 using UnityEngine.AI;
+using TMPro;
 
 public class EnemyController : MonoBehaviour
 {
@@ -19,7 +20,7 @@ public class EnemyController : MonoBehaviour
     public int enemyLevel;
     TurnBasedSystem turn;
     PlayerController pController;
-
+    public TextMeshProUGUI enemyStats;
     // Start is called before the first frame update
     void Start()
     {
@@ -69,8 +70,11 @@ public class EnemyController : MonoBehaviour
     {
         if (isOn)
         {
+            //The enemy is active
             active = true;
+            //Changes to the enemy camera.
             cam.Priority = 15;
+            //The enemy ai is enabled, and the enemy type is chosen.
             ai.enabled = true;
             ai.AI(enemyType);
         }
@@ -99,5 +103,10 @@ public class EnemyController : MonoBehaviour
             enemyHealth -= damage.damage;
             Debug.Log($"Enemy Health: {enemyHealth}");
         }
+    }
+
+    private void OnMouseOver()
+    {
+        
     }
 }

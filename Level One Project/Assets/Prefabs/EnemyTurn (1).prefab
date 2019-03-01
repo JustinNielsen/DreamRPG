@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5648911348134567141}
   - component: {fileID: 7843759093881444011}
   - component: {fileID: 1707344699864550930}
+  - component: {fileID: 931730929575250508}
   m_Layer: 5
   m_Name: EnemyTurn (1)
   m_TagString: enemyTurn
@@ -72,3 +73,22 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
+--- !u!114 &931730929575250508
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8883030588061057439}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4128ca1aa4641c4cb141de37045458c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  active: 0
+  camPrefab: {fileID: 0}
+  enemyType: 1
+  enemyHealth: 0
+  enemyLevel: 0
+  enemyStats: {fileID: 2995439217059722435, guid: d760f9a75a9287c429a0f47fb3dcb8de,
+    type: 3}

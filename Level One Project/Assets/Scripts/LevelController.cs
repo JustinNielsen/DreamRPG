@@ -6,7 +6,7 @@ using Cinemachine;
 using UnityEngine.UI;
 
 //Creates an enum for each level scene
-public enum Levels { MainMenu = 99999, Level1 = 1, Level2 = 4, Level3 = 7, Level4 = 10 };
+public enum Levels { MainMenu = 99999, Level1 = 0, Level2 = 3, Level3 = 6, Level4 = 9 };
 
 public class LevelController : MonoBehaviour
 {
@@ -29,13 +29,7 @@ public class LevelController : MonoBehaviour
 
     //Audio things
     AudioSource backAudio;
-    public AudioClip mainMenu;
-    public AudioClip level1;
-    public AudioClip level2;
-    public AudioClip level3;
-    public AudioClip fightSong;
-
-    AudioClip[] songs;
+    public AudioClip[] songs;
 
     public bool fightSongActive = false;
 
@@ -64,7 +58,6 @@ public class LevelController : MonoBehaviour
         //Gets the image component from fade panel
         fade = fadePanel.GetComponent<Image>();
         //Initilize songs array
-        songs = new AudioClip[5] { mainMenu, level1, level2, level3, fightSong };
     }
 
     // Update is called once per frame
@@ -99,7 +92,7 @@ public class LevelController : MonoBehaviour
         if (pController.state != States.WASD && !fightSongActive)
         {
             fightSongActive = true;
-            backAudio.clip = fightSong;
+            backAudio.clip = songs[4];
             backAudio.Play();
         }
 
@@ -158,7 +151,7 @@ public class LevelController : MonoBehaviour
                     playerRB.isKinematic = true;
                     hud.SetActive(false);
                     pController.gameOver.SetActive(false);
-                    backAudio.clip = mainMenu;
+                    backAudio.clip = songs[0];
                     backAudio.Play();
                     fightSongActive = false;
                     break;
@@ -173,7 +166,7 @@ public class LevelController : MonoBehaviour
                     //currentLevel = levels;
                     //This will reactivate the player, which was deactivated for the main menu, set the players position, and initilize turn arrays
                     InitilizeLevel(1);
-                    backAudio.clip = level1;
+                    backAudio.clip = songs[1];
                     backAudio.Play();
                     fightSongActive = false;
                     pController.SavePlayer();
@@ -188,7 +181,7 @@ public class LevelController : MonoBehaviour
                     sceneIndex = 3;
                     //currentLevel = levels;
                     InitilizeLevel(2);
-                    backAudio.clip = level2;
+                    backAudio.clip = songs[2];
                     backAudio.Play();
                     fightSongActive = false;
                     pController.SavePlayer();
@@ -203,7 +196,7 @@ public class LevelController : MonoBehaviour
                     sceneIndex = 4;
                     //currentLevel = levels;
                     InitilizeLevel(3);
-                    backAudio.clip = level3;
+                    backAudio.clip = songs[3];
                     backAudio.Play();
                     fightSongActive = false;
                     pController.SavePlayer();

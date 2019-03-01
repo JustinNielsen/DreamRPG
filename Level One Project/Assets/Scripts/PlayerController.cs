@@ -307,6 +307,7 @@ public class PlayerController : MonoBehaviour
                     break;
                 case Levels.Level4:
                     lController.levels = Levels.EndCredits;
+                    pController.MattVoiceOver(11);
                     break;*/
             }
         }
@@ -318,7 +319,7 @@ public class PlayerController : MonoBehaviour
         if (i < mattVoiceArray.Length)
         {
             //Goes through each needed audio clip
-            matt.clip = mattVoiceArray[i - 1];
+            matt.clip = mattVoiceArray[i];
             //PLAY THAT SUCKA!
             matt.Play();
         }
