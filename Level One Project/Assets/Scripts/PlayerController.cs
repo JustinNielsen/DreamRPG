@@ -48,6 +48,8 @@ public class PlayerController : MonoBehaviour
 
     public CinemachineVirtualCamera ThirdPersonCamera;
 
+    public CinemachineVirtualCamera TopCamera;
+
     private void Start()
     {
         //Initialize cam to main camera
@@ -317,7 +319,12 @@ public class PlayerController : MonoBehaviour
         if (other.gameObject.CompareTag("doorWay"))
         {
             camBrain.m_DefaultBlend.m_Style = CinemachineBlendDefinition.Style.EaseIn;
-            ThirdPersonCamera.Priority = 20;
+            ThirdPersonCamera.Priority = 25;
+        }
+
+        if (other.gameObject.CompareTag("wallCollider"))
+        {
+            TopCamera.Priority = 20;
         }
     }
 
@@ -326,6 +333,12 @@ public class PlayerController : MonoBehaviour
         if (other.gameObject.CompareTag("doorWay"))
         {
             ThirdPersonCamera.Priority = 10;
+            other.gameObject.SetActive(false);
+        }
+
+        if (other.gameObject.CompareTag("wallCollider"))
+        {
+            TopCamera.Priority = 10;
         }
     }
 
@@ -335,7 +348,7 @@ public class PlayerController : MonoBehaviour
         if (i < mattVoiceArray.Length)
         {
             //Goes through each needed audio clip
-            matt.clip = mattVoiceArray[i - 1];
+            matt.clip = mattVoiceArray[i];
             //PLAY THAT SUCKA!
             matt.Play();
         }

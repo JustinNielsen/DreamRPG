@@ -74,6 +74,20 @@ public class TurnBasedSystem : MonoBehaviour
             pController.maxDistance = 10;
             pController.health = 3;
             pController.hud.HUDHealth();
+
+            //This goes through each level option
+            switch (pController.level)
+            {
+                case Levels.Level1:
+                    pController.MattVoiceOver(2);
+                    break;
+                case Levels.Level2:
+                    pController.MattVoiceOver(5);
+                    break;
+                case Levels.Level3:
+                    pController.MattVoiceOver(10);
+                    break;
+            }
         }
     }
     
