@@ -24,6 +24,8 @@ public class GameOver : MonoBehaviour
     {
         pController.health = 3;
         pController.movement.ToggleNavMesh(false);
+        pController.hud.DisplayStats();
+        pController.turn.ResetArrays();
         Time.timeScale = 1f;
         //gameOver.SetActive(false);
         pController.lController.levels = Levels.MainMenu;

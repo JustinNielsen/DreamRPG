@@ -5,7 +5,7 @@ using UnityEngine.AI;
 using UnityEngine.SceneManagement;
 using Cinemachine;
 
-public enum States { NavMesh, WASD, MeleeAttack, RangeAttack, Neutral };
+public enum States { NavMesh, WASD, MeleeAttack, RangeAttack, Shielding, Neutral };
 
 public class PlayerController : MonoBehaviour
 {
@@ -44,6 +44,9 @@ public class PlayerController : MonoBehaviour
     public float maxMana;
     public float remainingMana;
 
+    //Bool to check when the player has already added mana after a turn reset
+    bool addedMana = false;
+
     CinemachineBrain camBrain;
 
     public CinemachineVirtualCamera ThirdPersonCamera;
@@ -52,6 +55,8 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
+        //Lock the mouse to the game window
+        Cursor.lockState = CursorLockMode.Confined;
         //Initialize cam to main camera
         cam = Camera.main;
         //Initialize Player movement class object
@@ -67,7 +72,7 @@ public class PlayerController : MonoBehaviour
         //Set the mouse wheel point to 0
         mouseWheelLocation = 0;
         //Initilize the mouseWheelStates array
-        mouseWheelStates = new States[3] { States.NavMesh, States.MeleeAttack, States.RangeAttack };
+        mouseWheelStates = new States[4] { States.NavMesh, States.MeleeAttack, States.RangeAttack, States.Shielding };
         //Initilize checkpoints
         checkpointLocations = new Vector3[3] { new Vector3(8.43f, 9.2f, -0.92f), new Vector3(-347.35f, 300.6f, -635.83f), new Vector3(62.17f, 2.7f, 98.26f) };
         //Initilize level controller
@@ -103,8 +108,37 @@ public class PlayerController : MonoBehaviour
             }
         }
 
+        //Checks to see if you hit the left mouse button
+        if (Input.GetMouseButtonDown(0) && state == States.Shielding)
+        {
+            //Makes sure you can only have one shield
+            if (!shieldActive)
+            {
+                if (remainingMana > 33) //Checks if the player has enough mana to get a shield
+                {
+                    //Subtract mana
+                    hud.DecreaseManaBar(33);
+                    //Activates the shield
+                    shieldActive = true;
+                    //Updates the hudhealth, which essentially adds another 
+                    hud.HUDHealth();
+                    //Updates player stats
+                    hud.DisplayStats();
+                }
+                else
+                {
+                    StartCoroutine(hud.DisplayError("Not Enough Mana"));
+                }
+            }
+            else
+            {
+                //Ya' Done Gooof'd!
+                StartCoroutine(hud.DisplayError("Already Have a Shield"));
+            }
+        }
+
         //Checks if the player should level up
-        if(playerXP >= 100 || Input.GetKeyDown(KeyCode.L))
+        if (playerXP >= 100 || Input.GetKeyDown(KeyCode.L))
         {
             //Removes the xp and adds to the player level
             playerXP -= 100;
@@ -173,13 +207,35 @@ public class PlayerController : MonoBehaviour
                     mouseWheelLocation = 2;
                     hud.stateIndicator.text = "Mage Attack";
                     break;
+                case States.Shielding:
+                    //Changes the mouse wheel location and tells us which state we are in.
+                    mouseWheelLocation = 3;
+                    hud.stateIndicator.text = "Shield";
+                    break;
             }
 
             //Display the stats for the current state
             hud.DisplayStats();
+            addedMana = false;
         }
         else
         {
+            //Adds mana after each turn
+            if (!addedMana && remainingMana != 100f)
+            {
+                if(remainingMana <= (maxMana - 12.5f))
+                {
+                    remainingMana += 12.5f;
+                }
+                else
+                {
+                    remainingMana = 100f;
+                }
+
+                addedMana = true;
+                hud.DecreaseManaBar(0);
+            }
+
             //Reset max move distance and meleeAttacked after turn is done
             movement.maxDistance = 10f;
             meleeAttacked = false;
@@ -273,7 +329,7 @@ public class PlayerController : MonoBehaviour
         if (other.gameObject.tag == "enemyProjectile")
         {
             //Gets a random hit chance
-            int random = Random.Range(1, hitChance);
+            int random = Random.Range(1, hitChance + 1);
 
             switch (random)
             {

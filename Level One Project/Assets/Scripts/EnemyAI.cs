@@ -177,6 +177,7 @@ public class EnemyAI : MonoBehaviour
     {
         Vector3 distanceToPlayer = player.transform.position - transform.position;
         float distance = distanceToPlayer.magnitude;
+        waypoints = GameObject.FindGameObjectsWithTag("waypoint");
 
         if (distance < 7f) //If the distance to the player is less than 7 run away
         {
@@ -242,7 +243,7 @@ public class EnemyAI : MonoBehaviour
 
         if(distance.magnitude <= 3.5f)
         {
-            int random = Random.Range(1, pController.hitChance);
+            int random = Random.Range(1, pController.hitChance + 1);
 
             switch (random)
             { //TODO - Notify player when an attack hits or misses

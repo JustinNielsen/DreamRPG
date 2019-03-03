@@ -45,6 +45,7 @@ public class EnemyController : MonoBehaviour
             //Uses a simple formula to find the xp. It should work for the most part
             pController.playerXP += enemyLevel / pController.playerLevel * 50;
             Destroy(this.gameObject);
+            //Resets the text
         }
     }
 
@@ -99,5 +100,25 @@ public class EnemyController : MonoBehaviour
             enemyHealth -= damage.damage;
             Debug.Log($"Enemy Health: {enemyHealth}");
         }
+    }
+
+    private void OnMouseOver()
+    {
+        if (enemyHealth > 0)
+        {
+            //Updates the enemyStates text
+            pController.hud.enemyStats.text = $"Enemy Health: {enemyHealth}\nEnemy Level: {enemyLevel}";
+        }
+        else
+        {
+            //Resets the text
+            pController.hud.enemyStats.text = "";
+        }
+    }
+
+    private void OnMouseExit()
+    {
+        //Resets the text
+        pController.hud.enemyStats.text = "";
     }
 }

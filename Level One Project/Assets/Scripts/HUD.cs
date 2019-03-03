@@ -38,6 +38,9 @@ public class HUD : MonoBehaviour
     public TextMeshProUGUI errorMessage;
 
     public TextMeshProUGUI instructions;
+
+    public TextMeshProUGUI enemyStats;
+
     //The number is used to differentiate between instruction pieces.
     private int instructionNumber;
     //The flag is used to determine if we actually need to continue the instructions.
@@ -161,6 +164,9 @@ public class HUD : MonoBehaviour
                 break;
             case States.RangeAttack:
                 playerStats.text = $"Player Level: {pController.playerLevel}\nXP: {pController.playerXP}\nRemaining Mana: {pController.remainingMana}\nSpell Cost: {pController.attack.spellCost}";
+                break;
+            case States.Shielding:
+                playerStats.text = $"Player Level: {pController.playerLevel}\nXP: {pController.playerXP}\nRemaining Mana: {pController.remainingMana}\nSpell Cost: {33}";
                 break;
         }
     }

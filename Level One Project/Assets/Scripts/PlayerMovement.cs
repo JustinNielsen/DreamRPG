@@ -58,16 +58,19 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Vector3 curMove = transform.position - previousPosition;
-        curSpeed = curMove.magnitude / Time.deltaTime;
-        previousPosition = transform.position;
-        Debug.Log(curSpeed);
-
-        if (pControl.state == States.NavMesh && agent.path != null && curSpeed < 0.1f && isMoving && !checkingIfStuck)
+        if (pControl.state == States.NavMesh)
         {
-            checkingIfStuck = true;
-            StartCoroutine(StuckCheck());
-            Debug.Log(curSpeed);
+            Vector3 curMove = transform.position - previousPosition;
+            curSpeed = curMove.magnitude / Time.deltaTime;
+            previousPosition = transform.position;
+            //Debug.Log(curSpeed);
+
+            if (pControl.state == States.NavMesh && agent.path != null && curSpeed < 0.1f && isMoving && !checkingIfStuck)
+            {
+                checkingIfStuck = true;
+                StartCoroutine(StuckCheck());
+                Debug.Log(curSpeed);
+            }
         }
     }
 
@@ -229,10 +232,17 @@ public class PlayerMovement : MonoBehaviour
             //Creates a NavMeshPath
             NavMesh.CalculatePath(transform.position, hit.point, NavMesh.AllAreas, path);
 
+            //Find the length of the path to the clicked point
             pathLength = CalculatePathLength(path);
 
+            //Test if path length is messed up
+            Debug.Log(pathLength);
+
+            //Secondary check for the distance that is less refined
+            float distance = Vector3.Distance(player.transform.position, hit.point);
+
             //If the point clicked is within the max move distance then place a waypoint and move towards it
-            if (pathLength < maxDistance)
+            if (pathLength < maxDistance && distance < maxDistance)
             {
                 //Draws the path
                 DrawPath(path, 1);

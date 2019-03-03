@@ -73,7 +73,10 @@ public class TurnBasedSystem : MonoBehaviour
             pController.remainingMana = pController.maxMana;
             pController.maxDistance = 10;
             pController.health = 3;
+            //Updates the change in health
             pController.hud.HUDHealth();
+            //Updates the change in mana
+            pController.hud.DecreaseManaBar(0);
 
             //This goes through each level option
             switch (pController.level)
