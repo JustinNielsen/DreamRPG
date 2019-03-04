@@ -17,7 +17,7 @@ public class AttackScript : MonoBehaviour
     public HUD hud;
     public float spellCost;
     public int damage;
-
+    //private const int AUDIO_SYNC = 1;
     //Start Function
     private void Start()
     {
@@ -55,6 +55,7 @@ public class AttackScript : MonoBehaviour
             //If the player hasn't melee attacked yet attack otherwise don't attack
             if (!pController.meleeAttacked)
             {
+                //Matt Attack!
                 StartCoroutine(Hit());
             }
             else
@@ -105,7 +106,8 @@ public class AttackScript : MonoBehaviour
             //Only cast spell if the player has enough mana
             if(pController.remainingMana >= spellCost)
             {
-                LaunchProjectile();
+                //Matt Attacks Again! Maybe change this.
+                StartCoroutine(LaunchProjectile());
                 hud.DecreaseManaBar(spellCost);
             }
             else
@@ -150,8 +152,12 @@ public class AttackScript : MonoBehaviour
         hitbox.GetComponent<Damage>().damage = damage;
     }
 
-    private void LaunchProjectile()
+    private IEnumerator LaunchProjectile()
     {
+        //Starts matt's audio
+        pController.MattVoiceOver(Random.Range(14, 17));
+        yield return new WaitForSeconds(.45f);
+        //Launches the projectile
         Vector3 pos = transform.position + transform.forward;
         GameObject projectile = Instantiate(mageShot, pos, transform.rotation);
         Destroy(projectile, 4f);
@@ -159,13 +165,16 @@ public class AttackScript : MonoBehaviour
 
     IEnumerator Hit()
     {
+        //This lets matt speak before the attack occurs
+        pController.MattVoiceOver(Random.Range(14, 17));
+
+        yield return new WaitForSeconds(.45f);
         hitboxCollider.enabled = true;
-        yield return new WaitForEndOfFrame();
-        hitboxCollider.enabled = false;
 
         //Bool stops the player from melee attacking again
         pController.meleeAttacked = true;
     }
+
 
 
 }

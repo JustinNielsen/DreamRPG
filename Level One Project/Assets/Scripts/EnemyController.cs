@@ -102,6 +102,9 @@ public class EnemyController : MonoBehaviour
             Damage damage = other.gameObject.GetComponent<Damage>();
             enemyHealth -= damage.damage;
             Debug.Log($"Enemy Health: {enemyHealth}");
+            //this will disable the hitbox, using a method that we should probably avoid.
+            pController.attack.hitboxCollider.enabled = false;
+            
         }
     }
 

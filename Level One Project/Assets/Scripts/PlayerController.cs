@@ -291,11 +291,13 @@ public class PlayerController : MonoBehaviour
             }
         }
 
+        //Hit by enemy projectile
         if (other.gameObject.tag == "enemyProjectile")
         {
             //Gets a random hit chance
-            int random = Random.Range(1, hitChance);
+            int random = Random.Range(1, hitChance + 1);
 
+            StartCoroutine(HurtMatt());
             switch (random)
             {
                 case 1:
@@ -370,7 +372,7 @@ public class PlayerController : MonoBehaviour
     public void DamagePlayer(EnemyController enemy)
     {
         //TODO - Implement a better damage system based on the level of the enemy
-
+        //Determines if the shield is hit or not.
         if (!shieldActive)
         {
             health--;
@@ -386,6 +388,7 @@ public class PlayerController : MonoBehaviour
         }
 
         hud.HUDHealth();
+
     }
 
     public void SavePlayer()
@@ -416,4 +419,13 @@ public class PlayerController : MonoBehaviour
         turn.SwitchTurn();
     }
 
+    //Matt getting hit corountine. Used to sync better.
+    IEnumerator HurtMatt()
+    {
+        //Matt gets hit D:
+        MattVoiceOver(Random.Range(12, 15));
+        //We will wait...
+        yield return new WaitForSeconds(.45f);
+      
+    }
 }

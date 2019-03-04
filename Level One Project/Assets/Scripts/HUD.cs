@@ -217,6 +217,7 @@ public class HUD : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Q))
         {
             instructionFlag = false;
+            instructions.text = "";
         }
     }
 }
