@@ -13,7 +13,7 @@ public class AttackScript : MonoBehaviour
     //Collider
     PlayerController pController;
     public GameObject mageShot;
-    LineRenderer line;
+    public LineRenderer line;
     public HUD hud;
     public float spellCost;
     public int damage;
@@ -119,7 +119,7 @@ public class AttackScript : MonoBehaviour
     }
 
     //Points the player towards the mouse
-    private void LookAtMouse()
+    public void LookAtMouse()
     {
         Ray cameraRay = pController.cam.ScreenPointToRay(Input.mousePosition);
         int layerMask = 1 << 11;

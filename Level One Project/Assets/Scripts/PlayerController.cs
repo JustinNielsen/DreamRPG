@@ -47,6 +47,9 @@ public class PlayerController : MonoBehaviour
     //Bool to check when the player has already added mana after a turn reset
     bool addedMana = false;
 
+    //Shield gameobject
+    public GameObject shield;
+
     CinemachineBrain camBrain;
 
     public CinemachineVirtualCamera ThirdPersonCamera;
@@ -120,6 +123,8 @@ public class PlayerController : MonoBehaviour
                     hud.DecreaseManaBar(33);
                     //Activates the shield
                     shieldActive = true;
+                    //Disables the visable shield
+                    shield.SetActive(false);
                     //Updates the hudhealth, which essentially adds another 
                     hud.HUDHealth();
                     //Updates player stats
@@ -160,6 +165,11 @@ public class PlayerController : MonoBehaviour
 
         if (active && Input.GetKeyDown(KeyCode.Return))
         {
+            //Reset line and destroy hitbox and disable shield
+            movement.line.positionCount = 0;
+            Destroy(attack.hitbox);
+            shield.SetActive(false);
+
             turn.SwitchTurn();
         }
 
@@ -192,6 +202,7 @@ public class PlayerController : MonoBehaviour
                     movement.NavMeshMovement();
                     mouseWheelLocation = 0;
                     hud.stateIndicator.text = "Combat Movement";
+                    attack.LookAtMouse();
                     break;
                 case States.WASD:
                     movement.KeyboardMovement();
@@ -211,6 +222,13 @@ public class PlayerController : MonoBehaviour
                     //Changes the mouse wheel location and tells us which state we are in.
                     mouseWheelLocation = 3;
                     hud.stateIndicator.text = "Shield";
+                    attack.LookAtMouse();
+
+                    //Activates the visable shield if it isn't active
+                    if (!shieldActive)
+                    {
+                        shield.SetActive(true);
+                    }
                     break;
             }
 
@@ -239,6 +257,14 @@ public class PlayerController : MonoBehaviour
             //Reset max move distance and meleeAttacked after turn is done
             movement.maxDistance = 10f;
             meleeAttacked = false;
+
+            //Delete line, hitbox, and shield
+            attack.line.positionCount = 0;
+
+            if(attack.hitbox != null)
+            {
+                Destroy(attack.hitbox);
+            }
         }
     }
 
@@ -280,9 +306,11 @@ public class PlayerController : MonoBehaviour
 
     private void SwitchStates()
     {
-        //Reset line and destroy hitbox
+        //Reset line and destroy hitbox and disable shield
         movement.line.positionCount = 0;
         Destroy(attack.hitbox);
+        shield.SetActive(false);
+
         //Set the state to the indicated location
         state = mouseWheelStates[mouseWheelLocation];
     }
