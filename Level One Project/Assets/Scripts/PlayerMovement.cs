@@ -28,7 +28,8 @@ public class PlayerMovement : MonoBehaviour
     //Test
     Vector3 previousPosition;
     float curSpeed;
-    
+    Vector3 curMove;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -60,16 +61,17 @@ public class PlayerMovement : MonoBehaviour
     {
         if (pControl.state == States.NavMesh)
         {
-            Vector3 curMove = transform.position - previousPosition;
+            curMove = transform.position - previousPosition;
             curSpeed = curMove.magnitude / Time.deltaTime;
             previousPosition = transform.position;
             //Debug.Log(curSpeed);
 
-            if (pControl.state == States.NavMesh && agent.path != null && curSpeed < 0.1f && isMoving && !checkingIfStuck)
+            if (pControl.state == States.NavMesh && agent.path != null && curSpeed < 0.5f && isMoving && !checkingIfStuck)
             {
                 checkingIfStuck = true;
                 StartCoroutine(StuckCheck());
                 Debug.Log(curSpeed);
+                Debug.Log("Magnitude: " + curMove.magnitude);
             }
         }
     }
@@ -112,7 +114,12 @@ public class PlayerMovement : MonoBehaviour
         {
             //If the states is not WASD the rigidbodys velocity is set to zero
             rb.velocity = Vector3.zero;
-        }       
+        }
+
+        if (!isMoving && pControl.state == States.NavMesh)
+        {
+            pControl.attack.LookAtMouse();
+        }
     }
 
     //Method for the combat movement
@@ -351,11 +358,12 @@ public class PlayerMovement : MonoBehaviour
         //If the current speed is still less than one after 1 second the players current path will be reset
         yield return new WaitForSeconds(1f);
 
-        if(pControl.state == States.NavMesh && agent.path != null && curSpeed < 0.1f && isMoving)
+        if (pControl.state == States.NavMesh && agent.path != null && curSpeed < 0.5f && isMoving)
         {
             //Adds the remaining distance back to the maxDistance variable
             maxDistance += agent.remainingDistance;
             agent.ResetPath();
+            Debug.Log("Magnitude: " + curMove.magnitude);
         }
 
         checkingIfStuck = false;

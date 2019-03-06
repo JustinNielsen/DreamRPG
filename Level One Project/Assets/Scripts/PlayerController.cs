@@ -202,7 +202,6 @@ public class PlayerController : MonoBehaviour
                     movement.NavMeshMovement();
                     mouseWheelLocation = 0;
                     hud.stateIndicator.text = "Combat Movement";
-                    attack.LookAtMouse();
                     break;
                 case States.WASD:
                     movement.KeyboardMovement();
