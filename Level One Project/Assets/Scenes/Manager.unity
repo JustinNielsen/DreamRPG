@@ -939,6 +939,8 @@ MonoBehaviour:
   shieldActive: 0
   hitChance: 2
   gameOver: {fileID: 1599442455}
+  entryDoor: {fileID: 0}
+  exitDoor: {fileID: 0}
   matt: {fileID: 361929351}
   mattVoiceArray:
   - {fileID: 8300000, guid: 07438aaa598fba4438c1e981c0affb56, type: 3}

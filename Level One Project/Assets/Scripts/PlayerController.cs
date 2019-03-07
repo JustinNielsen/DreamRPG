@@ -29,6 +29,10 @@ public class PlayerController : MonoBehaviour
     int mouseWheelLocation;
     States[] mouseWheelStates;
 
+    //Level 2 doors
+    public GameObject entryDoor;
+    public GameObject exitDoor;
+
     //In loving memory of Matt...
     public AudioSource matt;
     public AudioClip[] mattVoiceArray;
@@ -390,12 +394,9 @@ public class PlayerController : MonoBehaviour
                 case Levels.Level2:
                     lController.levels = Levels.Level3;
                     break;
-                /*case Levels.Level3:
-                    lController.levels = Levels.Level4;
-                    break;
-                case Levels.Level4:
-                    lController.levels = Levels.EndCredits;
-                    break;*/
+                case Levels.Level3:
+                    lController.levels = Levels.Space;
+                    break;             
             }
         }
 
@@ -403,6 +404,15 @@ public class PlayerController : MonoBehaviour
         {
             camBrain.m_DefaultBlend.m_Style = CinemachineBlendDefinition.Style.EaseIn;
             ThirdPersonCamera.Priority = 25;
+
+            if(entryDoor == null && exitDoor == null)
+            {
+                entryDoor = GameObject.FindGameObjectWithTag("enterDoor");
+                exitDoor = GameObject.FindGameObjectWithTag("exitDoor");
+            }
+
+            //Open the first door
+            entryDoor.SetActive(false);
         }
 
         if (other.gameObject.CompareTag("wallCollider"))
@@ -417,6 +427,8 @@ public class PlayerController : MonoBehaviour
         {
             ThirdPersonCamera.Priority = 10;
             other.gameObject.SetActive(false);
+            entryDoor.SetActive(true);
+            exitDoor.SetActive(true);
         }
 
         if (other.gameObject.CompareTag("wallCollider"))

@@ -6,7 +6,7 @@ using Cinemachine;
 using UnityEngine.UI;
 
 //Creates an enum for each level scene
-public enum Levels { MainMenu = 99999, Level1 = 0, Level2 = 3, Level3 = 6, Level4 = 9 };
+public enum Levels { MainMenu = 99999, Level1 = 0, Level2 = 3, Level3 = 6, Space = 9 };
 
 public class LevelController : MonoBehaviour
 {
@@ -210,6 +210,23 @@ public class LevelController : MonoBehaviour
                     SceneManager.UnloadSceneAsync(sceneIndex);
                     SceneManager.LoadScene("Level3", LoadSceneMode.Additive);
                     sceneIndex = 4;
+                    //currentLevel = levels;
+                    InitilizeLevel(3);
+                    backAudio.clip = songs[3];
+                    backAudio.Play();
+                    fightSongActive = false;
+                    pController.SavePlayer();
+                    //pController.entryDoor = GameObject.FindGameObjectWithTag("enterDoor");
+                    //pController.exitDoor = GameObject.FindGameObjectWithTag("exitDoor");
+                    break;
+                }
+            case Levels.Space:
+                {
+                    camBrain.m_DefaultBlend.m_Style = CinemachineBlendDefinition.Style.Cut;
+                    //Unloads previous scene
+                    SceneManager.UnloadSceneAsync(sceneIndex);
+                    SceneManager.LoadScene("Space", LoadSceneMode.Additive);
+                    sceneIndex = 5;
                     //currentLevel = levels;
                     InitilizeLevel(3);
                     backAudio.clip = songs[3];

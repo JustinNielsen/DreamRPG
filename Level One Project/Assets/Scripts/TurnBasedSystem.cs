@@ -79,7 +79,7 @@ public class TurnBasedSystem : MonoBehaviour
             pController.hud.DecreaseManaBar(0);
 
             //This goes through each level option
-            switch (pController.level)
+            switch (pController.lController.levels)
             {
                 case Levels.Level1:
                     pController.MattVoiceOver(2);
@@ -89,6 +89,8 @@ public class TurnBasedSystem : MonoBehaviour
                     break;
                 case Levels.Level3:
                     pController.MattVoiceOver(10);
+                    //Open the exit door
+                    pController.exitDoor.SetActive(false);
                     break;
             }
         }
