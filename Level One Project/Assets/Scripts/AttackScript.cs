@@ -47,6 +47,7 @@ public class AttackScript : MonoBehaviour
                 {
                     LaunchProjectile();
                     hud.DecreaseManaBar(spellCost);
+                    //pController.movement.anim.SetTrigger("Shoot");
                 }
                 else
                 {
@@ -69,6 +70,7 @@ public class AttackScript : MonoBehaviour
                 if (!pController.meleeAttacked)
                 {
                     StartCoroutine(Hit());
+                    //pController.movement.anim.SetTrigger("Attack");
                 }
                 else
                 {
@@ -182,6 +184,14 @@ public class AttackScript : MonoBehaviour
     //TODO - Instead of instatiating the hitbox have it as a child of the player and enable/disable the mesh renderer when in melee attack state
     private void CallCollider(float offsetX, float offsetY, float offsetZ, GameObject prefab)
     {
+        /* 
+         * Level 1: Forward: 1 Y: 1.25 Scale: 1.75, 0.5, 1
+         * Level 2: Forward: 0.75 Y: 1.4 Scale: 1.75, 0.5, 1
+         * Level 3: Forward: Y: Scale: 
+         * Level 4: Forward: Y: Scale: 
+        */
+
+
         //Creates a vector at the player's current position.
         Vector3 pos = player.transform.position + (transform.forward * 2);
         pos.y += 0.5f;

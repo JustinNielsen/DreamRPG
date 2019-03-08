@@ -11,7 +11,7 @@ public enum Levels { MainMenu = 99999, Level1 = 0, Level2 = 3, Level3 = 6, Space
 public class LevelController : MonoBehaviour
 {
     public GameObject player;
-    MeshRenderer pRenderer;
+    //MeshRenderer pRenderer;
     Rigidbody playerRB;
 
     public GameObject hud;
@@ -54,7 +54,7 @@ public class LevelController : MonoBehaviour
         //Gets a reference to the playerController
         pController = player.GetComponent<PlayerController>();
         //Gets the players mesh renderer and rigidbody
-        pRenderer = player.GetComponent<MeshRenderer>();
+        //pRenderer = player.GetComponent<MeshRenderer>();
         playerRB = player.GetComponent<Rigidbody>();
         //Gets a reference to the turnBasedSystemScript in the playerController
         turn = GameObject.FindGameObjectWithTag("turn").GetComponent<TurnBasedSystem>();
@@ -117,7 +117,7 @@ public class LevelController : MonoBehaviour
     private void InitilizeLevel(int level)
     {
         //player.SetActive(true);
-        pRenderer.enabled = true;
+        //pRenderer.enabled = true;
         playerRB.isKinematic = false;
         player.transform.position = pController.checkpointLocations[level - 1];
         //Initilize health on the hud
@@ -163,13 +163,15 @@ public class LevelController : MonoBehaviour
                     sceneIndex = 1;
                     //currentLevel = levels;
                     //player.SetActive(false);
-                    pRenderer.enabled = false;
+                    //pRenderer.enabled = false;
                     playerRB.isKinematic = true;
                     hud.SetActive(false);
                     pController.gameOver.SetActive(false);
                     backAudio.clip = songs[0];
                     backAudio.Play();
                     fightSongActive = false;
+                    //Set the scale of the player
+                    player.transform.localScale = new Vector3(0, 0, 0);
                     break;
                 }
             case Levels.Level1:
@@ -186,9 +188,7 @@ public class LevelController : MonoBehaviour
                     backAudio.Play();
                     fightSongActive = false;
                     pController.SavePlayer();
-                    /*
-                    
-                    */
+                    player.transform.localScale = new Vector3(2.5f, 2.5f, 2.5f);
                     break;
                 }
             case Levels.Level2:
@@ -204,6 +204,7 @@ public class LevelController : MonoBehaviour
                     backAudio.Play();
                     fightSongActive = false;
                     pController.SavePlayer();
+                    player.transform.localScale = new Vector3(1.75f, 1.75f, 1.75f);
                     break;
                 }
             case Levels.Level3:
@@ -219,8 +220,7 @@ public class LevelController : MonoBehaviour
                     backAudio.Play();
                     fightSongActive = false;
                     pController.SavePlayer();
-                    //pController.entryDoor = GameObject.FindGameObjectWithTag("enterDoor");
-                    //pController.exitDoor = GameObject.FindGameObjectWithTag("exitDoor");
+                    player.transform.localScale = new Vector3(3f, 3f, 3f);
                     break;
                 }
             case Levels.Space:
@@ -236,6 +236,7 @@ public class LevelController : MonoBehaviour
                     backAudio.Play();
                     fightSongActive = false;
                     pController.SavePlayer();
+                    player.transform.localScale = new Vector3(.5f, .5f, .5f);
                     break;
                 }
         }

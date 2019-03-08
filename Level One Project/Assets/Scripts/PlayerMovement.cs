@@ -25,8 +25,11 @@ public class PlayerMovement : MonoBehaviour
     Rigidbody rb;
     bool checkingIfStuck;
     Ray ray;
+    public Animator anim;
 
-    //Test
+    //Find speed
+    Vector3 previousPosition;
+    float curSpeed;
     float previousDistance;
     float distanceMoved;
 
@@ -75,6 +78,14 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+        //Find the speed of the player
+        //Vector3 curMove = transform.position - previousPosition;
+        //curSpeed = curMove.magnitude / Time.deltaTime;
+        //previousPosition = transform.position;
+
+        //Apply the speed to the animator
+        //anim.SetFloat("Speed", curSpeed);
+
         //If the current state is WASD
         if (pControl.state == States.WASD)
         {
@@ -196,6 +207,9 @@ public class PlayerMovement : MonoBehaviour
 
             //Debug.Log("Line");
         }
+
+        //Set the speed for the animations
+        anim.SetFloat("Speed", agent.velocity.magnitude);
     }
 
     //Only draws the path doesn't set the destination for the NavMeshAgent
@@ -346,6 +360,8 @@ public class PlayerMovement : MonoBehaviour
     {
         //Applies velocity to rigidbody
         rb.velocity = moveVelocity;
+        anim.SetFloat("Speed", rb.velocity.magnitude);
+        //Debug.Log(rb.velocity.magnitude);
     }
 
     //Turns on or off the navMesh according to the bool parameter
