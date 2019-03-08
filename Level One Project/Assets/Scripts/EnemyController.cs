@@ -74,23 +74,6 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void FixedUpdate()
-    {
-        if (active)
-        {
-            //Forward and backward movement
-            transform.position += transform.forward * Time.deltaTime * movementSpeed * Input.GetAxis("Vertical");
-
-            //Left and right movement
-            transform.position += transform.right * Time.deltaTime * movementSpeed * Input.GetAxis("Horizontal");
-        }
-        else
-        {
-            rb.velocity = Vector3.zero;
-        }
-    }
-
     public void ToggleEnemy(bool isOn)
     {
         if (isOn)
