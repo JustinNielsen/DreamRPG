@@ -18,7 +18,7 @@ public class EnemyController : MonoBehaviour
     public int enemyHealth;
     public int enemyLevel;
     TurnBasedSystem turn;
-    PlayerController pController;
+    ControlPlayer pController;
 
     // Start is called before the first frame update
     void Start()
@@ -33,7 +33,7 @@ public class EnemyController : MonoBehaviour
 
         //Initlize turn based system script
         turn = GameObject.FindGameObjectWithTag("turn").GetComponent<TurnBasedSystem>();
-        pController = GameObject.FindGameObjectWithTag("player").GetComponent<PlayerController>();
+        pController = GameObject.FindGameObjectWithTag("player").GetComponent<ControlPlayer>();
     }
 
     void Update()

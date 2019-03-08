@@ -5,7 +5,7 @@ using UnityEngine;
 public class RangeAttack : MonoBehaviour
 {
     GameObject player;
-    PlayerController pController;
+    ControlPlayer pController;
     public bool active = false;
     Camera cam;
     public GameObject mageShot;
@@ -16,7 +16,7 @@ public class RangeAttack : MonoBehaviour
     {
         cam = Camera.main;
         player = GameObject.FindGameObjectWithTag("player");
-        pController = player.GetComponent<PlayerController>();
+        pController = player.GetComponent<ControlPlayer>();
         line = player.GetComponent<LineRenderer>();
         line.material.color = Color.red;
     }

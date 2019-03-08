@@ -10,7 +10,7 @@ public class Data
     public int playerLevel;
     public int playerXP;
 
-    public Data(PlayerController player)
+    public Data(ControlPlayer player)
     {
         level = player.lController.levels;
         playerLevel = player.playerLevel;

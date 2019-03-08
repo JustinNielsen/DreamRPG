@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+//127 and 142
+
 public class TurnBasedSystem : MonoBehaviour
 {
 
     public GameObject[] turnArr;
     public int turn = 0;
     public List<Character> charList;
-    public PlayerController pController;
+    public ControlPlayer pController;
 
     //Get textures for the turn order
     public Texture[] turnTextures;
@@ -88,7 +90,7 @@ public class TurnBasedSystem : MonoBehaviour
                     pController.MattVoiceOver(5);
                     break;
                 case Levels.Level3:
-                    pController.MattVoiceOver(8);
+                    pController.MattVoiceOver(10);
                     //Open the exit door
                     pController.exitDoor.SetActive(false);
                     break;

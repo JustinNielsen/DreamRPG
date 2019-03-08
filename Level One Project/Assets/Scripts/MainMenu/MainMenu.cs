@@ -5,7 +5,7 @@ using UnityEngine;
 public class MainMenu : MonoBehaviour
 {
     public LevelController lController;
-    public PlayerController pController;
+    public ControlPlayer pController;
     public StartButton start;
 
     // Start is called before the first frame update

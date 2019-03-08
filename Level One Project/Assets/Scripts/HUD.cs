@@ -13,7 +13,7 @@ public class HUD : MonoBehaviour
     public PlayerMovement pMovement;
     public Image manaBar;
     public LevelController lController;
-    public PlayerController pController;
+    public ControlPlayer pController;
     public GameObject hud;
 
     //Heart images
@@ -222,12 +222,12 @@ public class HUD : MonoBehaviour
                         }
                     case 2:
                         {
-                            instructions.text = "Use WASD to move in free movment mode. Once you enter the combat zone, you will can use the scroll wheel to switch between more options.";
+                            instructions.text = "Use WASD to move in free movment mode. Once you enter the combat zone, you will be presented with more options.";
                             break;
                         }
                     case 3:
                         {
-                            instructions.text = "Combat Movement is based on clicks, presented by a line from the player to the mouse. You can only move when the line is green.";
+                            instructions.text = "Combat Movement is based on clicks, presented by a line from the player to the mouse. Green means you can move, red means you can't move, and yellow means you are moving.";
                             break;
                         }
                     case 4:
@@ -237,22 +237,7 @@ public class HUD : MonoBehaviour
                         }
                     case 5:
                         {
-                            instructions.text = "You can only use the melee attack once per turn, but it is more powerful.";
-                            break;
-                        }
-                    case 6:
-                        {
-                            instructions.text = "Your range attack can be used multiply times a turn, but costs some mana. Your mana replenishes a little each turn.";
-                            break;
-                        }
-                    case 7:
-                        {
-                            instructions.text = "Your final choice in combat mode is to shield. This option costs mana, but lets you have one extra hit point.";
-                            break;
-                        }
-                    case 8:
-                        {
-                            instructions.text = "To end your turn, click 'Enter'.";
+                            instructions.text = "Once in the combat zone you can use the scroll wheel Combat Movement, Melee Attack, and Range Attack.";
                             break;
                         }
 
@@ -265,7 +250,6 @@ public class HUD : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Q))
         {
             instructionFlag = false;
-            instructions.text = "";
         }
     }
 }

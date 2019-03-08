@@ -22,13 +22,13 @@ public class EnemyAI : MonoBehaviour
     int classType;
     Vector3 distanceToPlayer;
     float rangeDifference;
-    PlayerController pController;
+    ControlPlayer pController;
 
     // Start is called before the first frame update
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("player");
-        pController = player.GetComponent<PlayerController>();
+        pController = player.GetComponent<ControlPlayer>();
         enemyController = GetComponent<EnemyController>();
         agent = GetComponent<NavMeshAgent>();
         waypoints = GameObject.FindGameObjectsWithTag("waypoint");

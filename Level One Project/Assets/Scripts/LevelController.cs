@@ -25,7 +25,7 @@ public class LevelController : MonoBehaviour
     int sceneIndex;
 
     private TurnBasedSystem turn;
-    public PlayerController pController;
+    public ControlPlayer pController;
 
     //Audio things
     AudioSource backAudio;
@@ -51,12 +51,12 @@ public class LevelController : MonoBehaviour
     {
         //sets the levels enum
         levels = Levels.MainMenu;
-        //Gets a reference to the playerController
-        pController = player.GetComponent<PlayerController>();
+        //Gets a reference to the ControlPlayer
+        pController = player.GetComponent<ControlPlayer>();
         //Gets the players mesh renderer and rigidbody
         pRenderer = player.GetComponent<MeshRenderer>();
         playerRB = player.GetComponent<Rigidbody>();
-        //Gets a reference to the turnBasedSystemScript in the playerController
+        //Gets a reference to the turnBasedSystemScript in the ControlPlayer
         turn = GameObject.FindGameObjectWithTag("turn").GetComponent<TurnBasedSystem>();
         currentLevel = Levels.Level1;
         backAudio = cam.GetComponent<AudioSource>();
@@ -186,9 +186,6 @@ public class LevelController : MonoBehaviour
                     backAudio.Play();
                     fightSongActive = false;
                     pController.SavePlayer();
-                    /*
-                    
-                    */
                     break;
                 }
             case Levels.Level2:
@@ -231,7 +228,7 @@ public class LevelController : MonoBehaviour
                     SceneManager.LoadScene("Space", LoadSceneMode.Additive);
                     sceneIndex = 5;
                     //currentLevel = levels;
-                    InitilizeLevel(4);
+                    InitilizeLevel(3);
                     backAudio.clip = songs[3];
                     backAudio.Play();
                     fightSongActive = false;

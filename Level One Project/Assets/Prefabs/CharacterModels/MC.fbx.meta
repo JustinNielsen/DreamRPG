@@ -1,0 +1,662 @@
+fileFormatVersion: 2
+guid: d1c8c1a4aa7a86e4199a7d7163ed87e5
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: Bicep.L
+    100002: Bicep.R
+    100004: Calf.L
+    100006: Calf.R
+    100008: Chest
+    100010: Cube
+    100012: FingerBase.L
+    100014: FingerBase.L.001
+    100016: FingerBase.L.002
+    100018: FingerBase.L.002_end
+    100020: FingerBase.L.003
+    100022: FingerBase.L.004
+    100024: FingerBase.L.004_end
+    100026: FingerBase.L.005
+    100028: FingerBase.L.006
+    100030: FingerBase.L.006_end
+    100032: FingerBase.R
+    100034: FingerBase.R.001
+    100036: FingerBase.R.002
+    100038: FingerBase.R.002_end
+    100040: FingerBase.R.003
+    100042: FingerBase.R.004
+    100044: FingerBase.R.004_end
+    100046: FingerBase.R.005
+    100048: FingerBase.R.006
+    100050: FingerBase.R.006_end
+    100052: FingerTip.L
+    100054: FingerTip.L_end
+    100056: FingerTip.R
+    100058: FingerTip.R_end
+    100060: Foot.L
+    100062: Foot.R
+    100064: Forearm.L
+    100066: Forearm.R
+    100068: Hair
+    100070: Head
+    100072: Head_end
+    100074: Hips
+    100076: LegIK.L
+    100078: LegIK.L_end
+    100080: LegIK.R
+    100082: LegIK.R_end
+    100084: //RootNode
+    100086: Neck
+    100088: PANTS
+    100090: Pants
+    100092: PlayerBody
+    100094: PlayerRig
+    100096: PoleTarget.L
+    100098: PoleTarget.L_end
+    100100: PoleTarget.R
+    100102: PoleTarget.R_end
+    100104: Shirt
+    100106: Shoes
+    100108: Shoulder.L
+    100110: Shoulder.R
+    100112: Spine
+    100114: Thigh.L
+    100116: Thigh.R
+    100118: ThumbBase.L
+    100120: ThumbBase.R
+    100122: ThumbTip.L
+    100124: ThumbTip.L_end
+    100126: ThumbTip.R
+    100128: ThumbTip.R_end
+    100130: Toes.L
+    100132: Toes.L_end
+    100134: Toes.R
+    100136: Toes.R_end
+    100138: Wrist.L
+    100140: Wrist.R
+    400000: Bicep.L
+    400002: Bicep.R
+    400004: Calf.L
+    400006: Calf.R
+    400008: Chest
+    400010: Cube
+    400012: FingerBase.L
+    400014: FingerBase.L.001
+    400016: FingerBase.L.002
+    400018: FingerBase.L.002_end
+    400020: FingerBase.L.003
+    400022: FingerBase.L.004
+    400024: FingerBase.L.004_end
+    400026: FingerBase.L.005
+    400028: FingerBase.L.006
+    400030: FingerBase.L.006_end
+    400032: FingerBase.R
+    400034: FingerBase.R.001
+    400036: FingerBase.R.002
+    400038: FingerBase.R.002_end
+    400040: FingerBase.R.003
+    400042: FingerBase.R.004
+    400044: FingerBase.R.004_end
+    400046: FingerBase.R.005
+    400048: FingerBase.R.006
+    400050: FingerBase.R.006_end
+    400052: FingerTip.L
+    400054: FingerTip.L_end
+    400056: FingerTip.R
+    400058: FingerTip.R_end
+    400060: Foot.L
+    400062: Foot.R
+    400064: Forearm.L
+    400066: Forearm.R
+    400068: Hair
+    400070: Head
+    400072: Head_end
+    400074: Hips
+    400076: LegIK.L
+    400078: LegIK.L_end
+    400080: LegIK.R
+    400082: LegIK.R_end
+    400084: //RootNode
+    400086: Neck
+    400088: PANTS
+    400090: Pants
+    400092: PlayerBody
+    400094: PlayerRig
+    400096: PoleTarget.L
+    400098: PoleTarget.L_end
+    400100: PoleTarget.R
+    400102: PoleTarget.R_end
+    400104: Shirt
+    400106: Shoes
+    400108: Shoulder.L
+    400110: Shoulder.R
+    400112: Spine
+    400114: Thigh.L
+    400116: Thigh.R
+    400118: ThumbBase.L
+    400120: ThumbBase.R
+    400122: ThumbTip.L
+    400124: ThumbTip.L_end
+    400126: ThumbTip.R
+    400128: ThumbTip.R_end
+    400130: Toes.L
+    400132: Toes.L_end
+    400134: Toes.R
+    400136: Toes.R_end
+    400138: Wrist.L
+    400140: Wrist.R
+    2100000: No Name
+    2300000: Cube
+    2300002: PANTS
+    3300000: Cube
+    3300002: PANTS
+    4300000: Hair
+    4300002: PlayerBody
+    4300004: Pants
+    4300006: Shirt
+    4300008: Shoes
+    4300010: PANTS
+    4300012: Cube
+    7400000: PlayerRig|EnemyIdle
+    7400002: PlayerRig|EnemyRun
+    7400004: PlayerRig|EnemyRun.001
+    7400006: PlayerRig|EnemyRun.002
+    7400008: PlayerRig|EnemyRun.003
+    7400010: PlayerRig|Idle
+    7400012: PlayerRig|Idle.001
+    7400014: PlayerRig|Idle.002
+    7400016: PlayerRig|PlayerRigAction
+    7400018: PlayerRig|Run.000
+    7400020: PlayerRig|Run.001
+    7400022: PlayerRig|Walk
+    7400024: PlayerRig|Walk.001
+    9500000: //RootNode
+    13700000: Hair
+    13700002: Pants
+    13700004: PlayerBody
+    13700006: Shirt
+    13700008: Shoes
+    2186277476908879412: ImportLogs
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: "\nClip 'PlayerRig|EnemyIdle' has import animation warnings
+      that might lower retargeting quality:\nNote: Activate translation DOF on avatar
+      to improve retargeting quality.\n\t'Chest' is inbetween humanoid transforms
+      and has rotation animation that will be discarded.\n\nClip 'PlayerRig|EnemyRun'
+      has import animation warnings that might lower retargeting quality:\nNote: Activate
+      translation DOF on avatar to improve retargeting quality.\n\t'Chest' is inbetween
+      humanoid transforms and has rotation animation that will be discarded.\n\t'ThumbBase.L'
+      has translation animation that will be discarded.\n\t'ThumbBase.R' has translation
+      animation that will be discarded.\n\nClip 'PlayerRig|EnemyRun.001' has import
+      animation warnings that might lower retargeting quality:\nNote: Activate translation
+      DOF on avatar to improve retargeting quality.\n\t'Chest' is inbetween humanoid
+      transforms and has rotation animation that will be discarded.\n\t'ThumbBase.L'
+      has translation animation that will be discarded.\n\t'ThumbBase.R' has translation
+      animation that will be discarded.\n\nClip 'PlayerRig|EnemyRun.002' has import
+      animation warnings that might lower retargeting quality:\nNote: Activate translation
+      DOF on avatar to improve retargeting quality.\n\t'Chest' is inbetween humanoid
+      transforms and has rotation animation that will be discarded.\n\t'ThumbBase.L'
+      has translation animation that will be discarded.\n\t'ThumbBase.R' has translation
+      animation that will be discarded.\n\nClip 'PlayerRig|EnemyRun.003' has import
+      animation warnings that might lower retargeting quality:\nNote: Activate translation
+      DOF on avatar to improve retargeting quality.\n\t'Chest' is inbetween humanoid
+      transforms and has rotation animation that will be discarded.\n\t'ThumbBase.L'
+      has translation animation that will be discarded.\n\t'ThumbBase.R' has translation
+      animation that will be discarded.\n\nClip 'PlayerRig|Idle' has import animation
+      warnings that might lower retargeting quality:\nNote: Activate translation DOF
+      on avatar to improve retargeting quality.\n\t'Chest' is inbetween humanoid transforms
+      and has rotation animation that will be discarded.\n\nClip 'PlayerRig|Run.000'
+      has import animation warnings that might lower retargeting quality:\nNote: Activate
+      translation DOF on avatar to improve retargeting quality.\n\t'Chest' is inbetween
+      humanoid transforms and has rotation animation that will be discarded.\n\t'ThumbBase.L'
+      has translation animation that will be discarded.\n\t'ThumbBase.R' has translation
+      animation that will be discarded.\n\nClip 'PlayerRig|Run.001' has import animation
+      warnings that might lower retargeting quality:\nNote: Activate translation DOF
+      on avatar to improve retargeting quality.\n\t'Chest' is inbetween humanoid transforms
+      and has rotation animation that will be discarded.\n\t'ThumbBase.L' has translation
+      animation that will be discarded.\n\t'ThumbBase.R' has translation animation
+      that will be discarded.\n\nClip 'PlayerRig|Walk' has import animation warnings
+      that might lower retargeting quality:\nNote: Activate translation DOF on avatar
+      to improve retargeting quality.\n\t'Chest' is inbetween humanoid transforms
+      and has rotation animation that will be discarded.\n\nClip 'PlayerRig|Walk.001'
+      has import animation warnings that might lower retargeting quality:\nNote: Activate
+      translation DOF on avatar to improve retargeting quality.\n\t'Chest' is inbetween
+      humanoid transforms and has rotation animation that will be discarded.\n"
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 3
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 0.01
+    hasPreviousCalculatedGlobalScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton:
+    - name: MC(Clone)
+      parentName: 
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: PlayerRig
+      parentName: MC(Clone)
+      position: {x: -0, y: 0.9401401, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 100, y: 100, z: 100}
+    - name: Hips
+      parentName: PlayerRig
+      position: {x: -0, y: 0, z: -0.0020229497}
+      rotation: {x: 0.7071067, y: -0.000000042146844, z: -0.000000042146844, w: 0.7071068}
+      scale: {x: 1, y: 0.99999994, z: 0.99999994}
+    - name: Spine
+      parentName: Hips
+      position: {x: -0, y: 0.0019586144, z: 0}
+      rotation: {x: 0.09479988, y: -0.011357478, z: -0.005980419, w: 0.9954136}
+      scale: {x: 0.99999994, y: 1, z: 1.0000001}
+    - name: Chest
+      parentName: Spine
+      position: {x: 1.3096723e-12, y: 0.0023962073, z: -1.9317667e-11}
+      rotation: {x: 0.33879748, y: -0.041336317, z: -0.048781198, w: 0.93868417}
+      scale: {x: 0.99999994, y: 0.99999994, z: 0.99999994}
+    - name: Neck
+      parentName: Chest
+      position: {x: -4.6566126e-11, y: 0.0023621644, z: -2.7939676e-10}
+      rotation: {x: 2.328311e-10, y: 1.1905803e-26, z: -9.313228e-10, w: 1}
+      scale: {x: 1, y: 0.99999994, z: 1}
+    - name: Head
+      parentName: Neck
+      position: {x: 2.7939677e-11, y: 0.00093232637, z: 3.958121e-11}
+      rotation: {x: -0.40882254, y: 0.047422584, z: 0.04812466, w: 0.9101095}
+      scale: {x: 1, y: 0.99999976, z: 0.99999994}
+    - name: Head_end
+      parentName: Head
+      position: {x: -0, y: 0.0022497452, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Shoulder.L
+      parentName: Chest
+      position: {x: -0.000810719, y: 0.001985612, z: -0.0002111249}
+      rotation: {x: 0.00000009809107, y: -0.00000018932276, z: 0.86068344, w: 0.5091405}
+      scale: {x: 0.99999976, y: 0.9999999, z: 1.0000001}
+    - name: Bicep.L
+      parentName: Shoulder.L
+      position: {x: 2.9802322e-10, y: 0.0013875559, z: 1.4901161e-10}
+      rotation: {x: 0.33304784, y: 0.26192358, z: 0.25255767, w: 0.8698792}
+      scale: {x: 0.9999999, y: 0.99999976, z: 0.9999999}
+    - name: Forearm.L
+      parentName: Bicep.L
+      position: {x: -9.313225e-11, y: 0.0030667493, z: 1.44355e-10}
+      rotation: {x: 0.18090317, y: 0.06236404, z: 0.23242785, w: 0.9536048}
+      scale: {x: 1, y: 1.0000001, z: 0.9999999}
+    - name: Wrist.L
+      parentName: Forearm.L
+      position: {x: -2.0489097e-10, y: 0.0027472277, z: -1.4901161e-10}
+      rotation: {x: -0.12007975, y: -0.004753661, z: -0.017180357, w: 0.9926042}
+      scale: {x: 0.9999998, y: 0.9999999, z: 0.99999994}
+    - name: FingerBase.L
+      parentName: Wrist.L
+      position: {x: 3.1664968e-10, y: 0.0010887809, z: -8.381903e-11}
+      rotation: {x: 0.09317382, y: 0.0560135, z: 0.27163848, w: 0.95623934}
+      scale: {x: 1, y: 0.9999999, z: 1}
+    - name: FingerTip.L
+      parentName: FingerBase.L
+      position: {x: 5.681068e-10, y: 0.00029646486, z: 1.11758706e-10}
+      rotation: {x: -0.0086146975, y: 0.059473626, z: 0.14994222, w: 0.9868668}
+      scale: {x: 1, y: 1, z: 0.99999994}
+    - name: FingerTip.L_end
+      parentName: FingerTip.L
+      position: {x: -0, y: 0.0006101348, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: ThumbBase.L
+      parentName: Wrist.L
+      position: {x: -0.0001926342, y: 0.00043109726, z: 0.00047471788}
+      rotation: {x: 0.20371427, y: 0.0697176, z: 0.20659123, w: 0.95444226}
+      scale: {x: 1, y: 1, z: 0.99999994}
+    - name: ThumbTip.L
+      parentName: ThumbBase.L
+      position: {x: 9.313225e-11, y: 0.00045152128, z: -7.4505804e-11}
+      rotation: {x: -0.15485816, y: -0.0039949273, z: -0.010085963, w: 0.9878772}
+      scale: {x: 0.9999998, y: 0.9999999, z: 0.9999998}
+    - name: ThumbTip.L_end
+      parentName: ThumbTip.L
+      position: {x: -0, y: 0.0005026435, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: FingerBase.L.001
+      parentName: Wrist.L
+      position: {x: 0.00008040698, y: 0.0010726962, z: 0.0002508741}
+      rotation: {x: 0.06746998, y: 0.025886701, z: 0.3910629, w: 0.9175225}
+      scale: {x: 0.99999994, y: 1, z: 1}
+    - name: FingerBase.L.002
+      parentName: FingerBase.L.001
+      position: {x: 3.72529e-10, y: 0.00054053444, z: 5.5879353e-11}
+      rotation: {x: 0.0352123, y: -0.49845088, z: -0.010161515, w: 0.8661429}
+      scale: {x: 0.9999998, y: 0.99999976, z: 0.9999999}
+    - name: FingerBase.L.002_end
+      parentName: FingerBase.L.002
+      position: {x: -0, y: 0.00049944874, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: FingerBase.L.003
+      parentName: Wrist.L
+      position: {x: 0.000006075203, y: 0.0010049737, z: 0.00043360045}
+      rotation: {x: 0.1468009, y: 0.074316636, z: 0.26817325, w: 0.9492153}
+      scale: {x: 1.0000001, y: 1, z: 1}
+    - name: FingerBase.L.004
+      parentName: FingerBase.L.003
+      position: {x: -2.0489097e-10, y: 0.00041070007, z: -2.6077032e-10}
+      rotation: {x: 0.042972475, y: -0.4432203, z: 0.24418096, w: 0.86144346}
+      scale: {x: 1.0000001, y: 1, z: 0.99999994}
+    - name: FingerBase.L.004_end
+      parentName: FingerBase.L.004
+      position: {x: -0, y: 0.0005061612, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: FingerBase.L.005
+      parentName: Wrist.L
+      position: {x: -0.000075064854, y: 0.0011753554, z: -0.00019500016}
+      rotation: {x: 0.08472854, y: 0.054353364, z: 0.2656029, w: 0.9588128}
+      scale: {x: 0.99999994, y: 1, z: 1}
+    - name: FingerBase.L.006
+      parentName: FingerBase.L.005
+      position: {x: 1.2572854e-10, y: 0.00026600287, z: 7.4505804e-11}
+      rotation: {x: 0.0395857, y: -0.3479231, z: 0.14885543, w: 0.9247836}
+      scale: {x: 0.99999994, y: 1, z: 1}
+    - name: FingerBase.L.006_end
+      parentName: FingerBase.L.006
+      position: {x: -0, y: 0.00027633173, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Shoulder.R
+      parentName: Chest
+      position: {x: 0.000810719, y: 0.001985612, z: -0.00021112474}
+      rotation: {x: 0.00000012141346, y: 0.00000019663962, z: -0.86068344, w: 0.5091405}
+      scale: {x: 0.99999976, y: 0.9999999, z: 1}
+    - name: Bicep.R
+      parentName: Shoulder.R
+      position: {x: -0, y: 0.0013875559, z: 4.2840836e-10}
+      rotation: {x: 0.08878977, y: -0.040956024, z: -0.33405197, w: 0.9374691}
+      scale: {x: 0.9999999, y: 0.99999976, z: 0.9999999}
+    - name: Forearm.R
+      parentName: Bicep.R
+      position: {x: 1.11758706e-10, y: 0.0030667498, z: 1.4901161e-10}
+      rotation: {x: 0.28992146, y: -0.096151024, z: 0.090551, w: 0.94789296}
+      scale: {x: 0.9999998, y: 1, z: 0.9999999}
+    - name: Wrist.R
+      parentName: Forearm.R
+      position: {x: -6.7986544e-10, y: 0.0027472274, z: -7.4505804e-11}
+      rotation: {x: -0.120079726, y: 0.00475366, z: 0.01718035, w: 0.9926042}
+      scale: {x: 0.99999976, y: 0.9999998, z: 0.9999999}
+    - name: FingerBase.R
+      parentName: Wrist.R
+      position: {x: 2.6077032e-10, y: 0.0010887812, z: 7.4505804e-11}
+      rotation: {x: 0.09317382, y: -0.0560135, z: -0.27163848, w: 0.95623934}
+      scale: {x: 0.9999998, y: 1, z: 0.99999994}
+    - name: FingerTip.R
+      parentName: FingerBase.R
+      position: {x: 3.5244738e-10, y: 0.00029646492, z: -9.3132255e-12}
+      rotation: {x: -0.0086146975, y: -0.059473634, z: -0.14994222, w: 0.9868668}
+      scale: {x: 0.99999994, y: 0.9999999, z: 1}
+    - name: FingerTip.R_end
+      parentName: FingerTip.R
+      position: {x: -0, y: 0.0006101348, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: ThumbBase.R
+      parentName: Wrist.R
+      position: {x: 0.0001926346, y: 0.00043109717, z: 0.0004747179}
+      rotation: {x: 0.20371427, y: -0.0697176, z: -0.20659125, w: 0.95444226}
+      scale: {x: 0.99999994, y: 1, z: 0.99999994}
+    - name: ThumbTip.R
+      parentName: ThumbBase.R
+      position: {x: 2.5262123e-10, y: 0.0004515218, z: 1.8626451e-11}
+      rotation: {x: -0.15485816, y: 0.0039949324, z: 0.010085955, w: 0.9878772}
+      scale: {x: 0.99999976, y: 0.99999976, z: 0.9999999}
+    - name: ThumbTip.R_end
+      parentName: ThumbTip.R
+      position: {x: -0, y: 0.0005026435, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: FingerBase.R.001
+      parentName: Wrist.R
+      position: {x: -0.000080406666, y: 0.0010726962, z: 0.00025087432}
+      rotation: {x: 0.06746997, y: -0.025886701, z: -0.3910629, w: 0.9175225}
+      scale: {x: 1, y: 1, z: 0.99999994}
+    - name: FingerBase.R.002
+      parentName: FingerBase.R.001
+      position: {x: -6.184564e-10, y: 0.00054053444, z: -8.381903e-11}
+      rotation: {x: 0.035212263, y: 0.49845088, z: 0.0101615125, w: 0.8661429}
+      scale: {x: 0.99999994, y: 0.99999976, z: 0.9999999}
+    - name: FingerBase.R.002_end
+      parentName: FingerBase.R.002
+      position: {x: -0, y: 0.00049944874, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: FingerBase.R.003
+      parentName: Wrist.R
+      position: {x: -0.000006074768, y: 0.0010049737, z: 0.00043360077}
+      rotation: {x: 0.14680092, y: -0.074316636, z: -0.26817325, w: 0.9492153}
+      scale: {x: 1, y: 1, z: 0.9999999}
+    - name: FingerBase.R.004
+      parentName: FingerBase.R.003
+      position: {x: -2.5886038e-10, y: 0.00041069975, z: 1.1641532e-12}
+      rotation: {x: 0.042972475, y: 0.44322038, z: -0.24418092, w: 0.8614434}
+      scale: {x: 0.99999994, y: 0.9999998, z: 0.9999999}
+    - name: FingerBase.R.004_end
+      parentName: FingerBase.R.004
+      position: {x: -0, y: 0.0005061612, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: FingerBase.R.005
+      parentName: Wrist.R
+      position: {x: 0.000075065094, y: 0.0011753557, z: -0.00019500013}
+      rotation: {x: 0.084728524, y: -0.054353356, z: -0.2656029, w: 0.9588128}
+      scale: {x: 0.99999994, y: 0.99999994, z: 0.9999999}
+    - name: FingerBase.R.006
+      parentName: FingerBase.R.005
+      position: {x: -2.8696376e-10, y: 0.00026600336, z: 9.3132255e-12}
+      rotation: {x: 0.03958569, y: 0.34792307, z: -0.14885545, w: 0.9247836}
+      scale: {x: 1, y: 1.0000001, z: 1}
+    - name: FingerBase.R.006_end
+      parentName: FingerBase.R.006
+      position: {x: -0, y: 0.00027633173, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Thigh.L
+      parentName: Hips
+      position: {x: -0.000992, y: 0.0003013, z: -0.00013089438}
+      rotation: {x: 0.06430651, y: 0.44940394, z: 0.87894547, w: 0.14613573}
+      scale: {x: 1.0001295, y: 1.0000001, z: 1.0000024}
+    - name: Calf.L
+      parentName: Thigh.L
+      position: {x: -7.916242e-11, y: 0.004381228, z: 7.4505804e-11}
+      rotation: {x: -0.66722697, y: -0.00012900113, z: 0.09353033, w: 0.73895895}
+      scale: {x: 0.99999964, y: 0.9999958, z: 1.0000014}
+    - name: Foot.L
+      parentName: Calf.L
+      position: {x: 6.286427e-11, y: 0.004873137, z: 8.381903e-11}
+      rotation: {x: 0.6886196, y: -0.00008890618, z: -0.044923913, w: 0.72372985}
+      scale: {x: 1.0000331, y: 1.0000004, z: 1.00001}
+    - name: Toes.L
+      parentName: Foot.L
+      position: {x: -1.6740528e-10, y: 0.0013209214, z: -1.862645e-10}
+      rotation: {x: 0.16166809, y: -0.1885511, z: -0.08187338, w: 0.9651988}
+      scale: {x: 0.99999994, y: 1, z: 1}
+    - name: Toes.L_end
+      parentName: Toes.L
+      position: {x: -0, y: 0.0010059014, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Thigh.R
+      parentName: Hips
+      position: {x: 0.0010010187, y: 0.0003013, z: -0.00013089462}
+      rotation: {x: -0.05579706, y: 0.03162226, z: 0.97333175, w: -0.22025467}
+      scale: {x: 0.999947, y: 0.99999934, z: 0.9999999}
+    - name: Calf.R
+      parentName: Thigh.R
+      position: {x: -5.122274e-11, y: 0.0043806876, z: 3.7252902e-11}
+      rotation: {x: -0.48612124, y: 0.00012632442, z: -0.054964058, w: 0.8721612}
+      scale: {x: 1.0000011, y: 1.0000004, z: 1.0000001}
+    - name: Foot.R
+      parentName: Calf.R
+      position: {x: -5.5879353e-11, y: 0.0048731375, z: 3.72529e-10}
+      rotation: {x: 0.8142596, y: -0.025490712, z: -0.04727411, w: 0.578011}
+      scale: {x: 0.99998957, y: 0.99999696, z: 0.9999953}
+    - name: Toes.R
+      parentName: Foot.R
+      position: {x: 1.2768453e-10, y: 0.001225599, z: 1.4901161e-10}
+      rotation: {x: 0.19335377, y: 0.021257412, z: 0.0092171375, w: 0.9808555}
+      scale: {x: 1, y: 0.9999998, z: 1}
+    - name: Toes.R_end
+      parentName: Toes.R
+      position: {x: -0, y: 0.001092895, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: LegIK.L
+      parentName: PlayerRig
+      position: {x: -0.002489716, y: -0.00096287875, z: -0.008311992}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: LegIK.L_end
+      parentName: LegIK.L
+      position: {x: -0, y: 0.0016499903, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: PoleTarget.L
+      parentName: PlayerRig
+      position: {x: -0.0011746883, y: -0.006309718, z: -0.0035685557}
+      rotation: {x: 0.9999964, y: -0.000000053160857, z: -0.000019807692, w: 0.0026872598}
+      scale: {x: 1, y: 0.99999994, z: 0.9973419}
+    - name: PoleTarget.L_end
+      parentName: PoleTarget.L
+      position: {x: -0, y: 0.0020238357, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: LegIK.R
+      parentName: PlayerRig
+      position: {x: 0.0040320368, y: 0.0036769265, z: -0.008311992}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: LegIK.R_end
+      parentName: LegIK.R
+      position: {x: -0, y: 0.0016499903, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: PoleTarget.R
+      parentName: PlayerRig
+      position: {x: 0.0011746883, y: -0.006309718, z: -0.0035685557}
+      rotation: {x: 0.9999964, y: -0.000000053160857, z: -0.000019807692, w: 0.0026872598}
+      scale: {x: 1, y: 0.99999994, z: 0.9973419}
+    - name: PoleTarget.R_end
+      parentName: PoleTarget.R
+      position: {x: -0, y: 0.0020238357, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Hair
+      parentName: MC(Clone)
+      position: {x: 0.0005356069, y: 1.9260975, z: 0.005885087}
+      rotation: {x: 0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: -100, y: -100, z: -100}
+    - name: PlayerBody
+      parentName: MC(Clone)
+      position: {x: 0.00005353762, y: -0.003611207, z: 0.0038492875}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 100, y: 100, z: 100}
+    - name: Pants
+      parentName: MC(Clone)
+      position: {x: -0.00012884972, y: -0.010556102, z: -0.0001457908}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 100, y: 100, z: 100}
+    - name: Shirt
+      parentName: MC(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 100, y: 100, z: 100}
+    - name: Shoes
+      parentName: MC(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 100, y: 100, z: 100}
+    - name: PANTS
+      parentName: MC(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 100, y: 100, z: 100}
+    - name: Cube
+      parentName: MC(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 100, y: 100, z: 100}
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 1
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

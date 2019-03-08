@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GameOver : MonoBehaviour
 {
-    public PlayerController pController;
+    public ControlPlayer pController;
     public GameObject gameOver;
 
     public void Continue()
