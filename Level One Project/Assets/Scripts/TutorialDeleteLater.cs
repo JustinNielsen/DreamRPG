@@ -7,7 +7,7 @@ public class TutorialDELETELATER : MonoBehaviour
     private void Tutorial()
     {
         int instructionNumber = 6;
-        //Just replace the entire switch statement with this VVVVV
+        /*/Just replace the entire switch statement with this VVVVV
         switch (instructionNumber)
         {
             case 1:
@@ -50,7 +50,7 @@ public class TutorialDELETELATER : MonoBehaviour
                     instructions.text = "To end your turn, click 'Enter'.";
                     break;
                 }
-
+                */
         }
     }
-}
+
