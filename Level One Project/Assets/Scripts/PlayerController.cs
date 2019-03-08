@@ -56,7 +56,7 @@ public class PlayerController : MonoBehaviour
 
     CinemachineBrain camBrain;
 
-    public CinemachineVirtualCamera ThirdPersonCamera;
+    public CinemachineVirtualCamera NormalCamera;
 
     public CinemachineVirtualCamera TopCamera;
 
@@ -403,7 +403,7 @@ public class PlayerController : MonoBehaviour
         if (other.gameObject.CompareTag("doorWay"))
         {
             camBrain.m_DefaultBlend.m_Style = CinemachineBlendDefinition.Style.EaseIn;
-            ThirdPersonCamera.Priority = 25;
+            NormalCamera.Priority = 25;
 
             if(entryDoor == null && exitDoor == null)
             {
@@ -425,7 +425,7 @@ public class PlayerController : MonoBehaviour
     {
         if (other.gameObject.CompareTag("doorWay"))
         {
-            ThirdPersonCamera.Priority = 10;
+            NormalCamera.Priority = 10;
             other.gameObject.SetActive(false);
             entryDoor.SetActive(true);
             exitDoor.SetActive(true);

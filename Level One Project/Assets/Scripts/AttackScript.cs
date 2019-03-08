@@ -125,9 +125,12 @@ public class AttackScript : MonoBehaviour
         //Looks at the mosue pointer
         LookAtMouse();
 
+        Vector3 lineStart = transform.position;
+        lineStart.y = transform.position.y + (player.transform.localScale.y * 1.8f);
+
         //Sets the line to two points and sets the first point to the players location
         line.positionCount = 2;
-        line.SetPosition(0, transform.position);
+        line.SetPosition(0, lineStart);
 
         RaycastHit hit;
 
@@ -188,19 +191,23 @@ public class AttackScript : MonoBehaviour
          * Level 1: Forward: 1 Y: 1.25 Scale: 1.75, 0.5, 1
          * Level 2: Forward: 0.75 Y: 1.4 Scale: 1.75, 0.5, 1
          * Level 3: Forward: Y: Scale: 
-         * Level 4: Forward: Y: Scale: 
+         * Level 4: Forward: 0.75 Y:1.3 Scale: 
         */
 
 
         //Creates a vector at the player's current position.
-        Vector3 pos = player.transform.position + (transform.forward * 2);
-        pos.y += 0.5f;
+        //Vector3 pos = player.transform.position + (transform.forward * 0.75f);
+        Vector3 pos = player.transform.position;
+        //Vector3 pos = new Vector3(0, 1.3f, 0.75f);
+        //pos.y += 1.3f;
         //Creates Collider at player's position, with the player as a parent.
         hitbox = Instantiate(prefab, pos, player.transform.rotation, player.transform);
         //Disables the collider
         hitboxCollider = hitbox.GetComponent<Collider>();
         //Sets the damage of the melee attack
         hitbox.GetComponent<Damage>().damage = damage;
+        //Set the local position of the object
+        hitbox.transform.localPosition = new Vector3(0, 1.3f, 0.75f);
     }
 
     //Creates a projectile object from the mageshot prefab and destoys it after 1.6 seconds

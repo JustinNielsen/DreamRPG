@@ -46,6 +46,8 @@ public class LevelController : MonoBehaviour
     //Check if the player is trying to restart a level
     public bool gameOverLoadPlayer = false;
 
+    public CinemachineTransposer transposer;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -65,6 +67,8 @@ public class LevelController : MonoBehaviour
         fade = fadePanel.GetComponent<Image>();
         //Initilize songs array
         songs = new AudioClip[5] { mainMenu, level1, level2, level3, fightSong };
+        //Initilize transposer
+        transposer = pController.NormalCamera.GetCinemachineComponent<CinemachineTransposer>();
     }
 
     // Update is called once per frame
@@ -94,6 +98,11 @@ public class LevelController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha3))
         {
             levels = Levels.Level3;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            levels = Levels.Space;
         }
 
         //Activates the fight song when in a combat zone and the fight song is not already active
@@ -236,7 +245,9 @@ public class LevelController : MonoBehaviour
                     backAudio.Play();
                     fightSongActive = false;
                     pController.SavePlayer();
-                    player.transform.localScale = new Vector3(.5f, .5f, .5f);
+                    player.transform.localScale = new Vector3(.25f, .25f, .25f);
+                    //Camera Settings FOV: 75 Offset: -0.3, 1, -0.15
+                    transposer.m_FollowOffset = new Vector3(-0.3f, 1, -0.15f);
                     break;
                 }
         }
