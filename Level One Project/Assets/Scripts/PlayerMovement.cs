@@ -24,6 +24,7 @@ public class PlayerMovement : MonoBehaviour
     Vector3 moveVelocity;
     Rigidbody rb;
     bool checkingIfStuck;
+    Ray ray;
 
     //Test
     float previousDistance;
@@ -112,9 +113,27 @@ public class PlayerMovement : MonoBehaviour
             rb.velocity = Vector3.zero;
         }
 
-        if (!isMoving && pControl.state == States.NavMesh)
+        //Look at the mouse if in navmesh state, the players is not moving, and the player is not dead
+        if (!isMoving && pControl.state == States.NavMesh && pControl.health != 0)
         {
             pControl.attack.LookAtMouse();
+        }
+
+        //Input for moving the player with mouse clicks
+        if(pControl.state == States.NavMesh)
+        {
+            //Triggers when the player clicks with the left mouse button
+            if (Input.GetMouseButtonDown(0))
+            {
+                //Convertn mousePosition from a screen point to a ray
+                ray = cam.ScreenPointToRay(Input.mousePosition);
+
+                //Defines which layers to ignore with the raycast
+                int layerMask = 1 << 11;
+
+                //sets clicked target to the location the ray hits
+                ShootRayClicked(ray, layerMask);
+            }
         }
     }
 
@@ -122,7 +141,7 @@ public class PlayerMovement : MonoBehaviour
     public void NavMeshMovement()
     {
         //Declare a Ray
-        Ray ray;
+        //Ray ray;
         //Shows line
         line.enabled = true;
 
@@ -150,7 +169,7 @@ public class PlayerMovement : MonoBehaviour
             DrawPath(path, 3);
         }
 
-        //Triggers when the player clicks with the left mouse button
+        /*//Triggers when the player clicks with the left mouse button
         if (Input.GetMouseButtonDown(0))
         {
             //Convertn mousePosition from a screen point to a ray
@@ -161,7 +180,7 @@ public class PlayerMovement : MonoBehaviour
 
             //sets clicked target to the location the ray hits
             ShootRayClicked(ray, layerMask);
-        }
+        }*/
 
         //Triggers if the player isn't moving
         if (!isMoving)

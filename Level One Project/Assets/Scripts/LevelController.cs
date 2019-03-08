@@ -186,6 +186,9 @@ public class LevelController : MonoBehaviour
                     backAudio.Play();
                     fightSongActive = false;
                     pController.SavePlayer();
+                    /*
+                    
+                    */
                     break;
                 }
             case Levels.Level2:
@@ -228,7 +231,7 @@ public class LevelController : MonoBehaviour
                     SceneManager.LoadScene("Space", LoadSceneMode.Additive);
                     sceneIndex = 5;
                     //currentLevel = levels;
-                    InitilizeLevel(3);
+                    InitilizeLevel(4);
                     backAudio.clip = songs[3];
                     backAudio.Play();
                     fightSongActive = false;

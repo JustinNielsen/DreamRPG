@@ -33,6 +33,54 @@ public class AttackScript : MonoBehaviour
         damage = 1;
     }
 
+    private void Update()
+    {
+        if(pController.state == States.RangeAttack)
+        {
+            //Shoot the projectile in the players forward direction
+            if (Input.GetMouseButtonDown(0))
+            {
+                Debug.Log("Shoot");
+
+                //Only cast spell if the player has enough mana
+                if (pController.remainingMana >= spellCost)
+                {
+                    LaunchProjectile();
+                    hud.DecreaseManaBar(spellCost);
+                }
+                else
+                {
+                    Debug.Log("Not enough Mana");
+
+                    //Notify player when they don't have enoguh mana to cast a spell
+                    StartCoroutine(hud.DisplayError("Not Enough Mana"));
+                }
+            }
+        }
+
+        if(pController.state == States.MeleeAttack)
+        {
+            //Enables the collider
+            if (Input.GetMouseButtonDown(0))
+            {
+                //Note: The following code is only slightly useful if we want to make it so you only melee attack once per turn.
+                Debug.Log(pController.meleeAttacked);
+                //If the player hasn't melee attacked yet attack otherwise don't attack
+                if (!pController.meleeAttacked)
+                {
+                    StartCoroutine(Hit());
+                }
+                else
+                {
+                    Debug.Log("Already Melee Attacked");
+
+                    //Notify person playing game that they can't attack again
+                    StartCoroutine(hud.DisplayError("Out of Melee Attacks"));
+                }
+            }
+        }
+    }
+
     //The main attacking function
     public void MeleeAttackMode()
     {
@@ -47,7 +95,7 @@ public class AttackScript : MonoBehaviour
         //Turns the player towards the mouse pointer
         LookAtMouse();
 
-        //Enables the collider
+        /*//Enables the collider
         if (Input.GetMouseButtonDown(0))
         {
             //Note: The following code is only slightly useful if we want to make it so you only melee attack once per turn.
@@ -64,12 +112,7 @@ public class AttackScript : MonoBehaviour
                 //Notify person playing game that they can't attack again
                 StartCoroutine(hud.DisplayError("Out of Melee Attacks"));
             }
-
-            //hitboxCollider.enabled = true;
-            //Destroy(hitbox, 1);
-            //Destroy(hitbox);
-            //pController.state = States.NavMesh;
-        }
+        }*/
     }
 
     public void RangeAttackMode()
@@ -96,12 +139,11 @@ public class AttackScript : MonoBehaviour
             line.SetPosition(1, transform.forward * 20 + transform.position);
         }
 
-        //TODO - If we add more spells have method that changes this based on picked spell
-        //TODO - Regenerate some mana each turn
-
-        //Shoot the projectile in the players forward direction
+        /*//Shoot the projectile in the players forward direction
         if (Input.GetMouseButtonDown(0))
         {
+            Debug.Log("Shoot");
+
             //Only cast spell if the player has enough mana
             if(pController.remainingMana >= spellCost)
             {
@@ -115,7 +157,7 @@ public class AttackScript : MonoBehaviour
                 //Notify player when they don't have enoguh mana to cast a spell
                 StartCoroutine(hud.DisplayError("Not Enough Mana"));
             }
-        }
+        }*/
     }
 
     //Points the player towards the mouse
@@ -151,7 +193,7 @@ public class AttackScript : MonoBehaviour
         hitbox.GetComponent<Damage>().damage = damage;
     }
 
-    //Creates a projectile object from the mageshot prefab and destoys it after 1.8 seconds
+    //Creates a projectile object from the mageshot prefab and destoys it after 1.6 seconds
     private void LaunchProjectile()
     {
         Vector3 pos = transform.position + transform.forward;

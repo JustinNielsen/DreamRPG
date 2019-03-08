@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 0.644
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.3013968, g: 0.30774075, b: 0.28941587, a: 0.644}
+  m_IndirectSpecularColor: {r: 0.3013971, g: 0.30774102, b: 0.28941604, a: 0.644}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -16088,7 +16088,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1024963963}
   m_LocalRotation: {x: -0, y: 0.97629595, z: -0, w: 0.21643978}
-  m_LocalPosition: {x: 2.11, y: 4.15, z: 70.55}
+  m_LocalPosition: {x: -0.05, y: 4.15, z: 69.54}
   m_LocalScale: {x: 2.06084, y: 2.3165, z: 74.68191}
   m_Children: []
   m_Father: {fileID: 0}
@@ -25394,8 +25394,8 @@ GameObject:
   - component: {fileID: 1672707558}
   - component: {fileID: 1672707562}
   - component: {fileID: 1672707561}
-  - component: {fileID: 1672707560}
   - component: {fileID: 1672707559}
+  - component: {fileID: 1672707560}
   m_Layer: 12
   m_Name: NextLevelDoor
   m_TagString: Door
@@ -25433,20 +25433,19 @@ MonoBehaviour:
   m_Area: 1
   m_IgnoreFromBuild: 0
   m_AffectedAgents: ffffffff
---- !u!64 &1672707560
-MeshCollider:
+--- !u!65 &1672707560
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1672707557}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 0
-  m_CookingOptions: 14
-  m_Mesh: {fileID: 4300042, guid: 1c111a6181ccd0041bdc5ff7f715eeba, type: 3}
+  serializedVersion: 2
+  m_Size: {x: 3.5066352, y: 2.3241844, z: 2.073359}
+  m_Center: {x: 0.2421109, y: 0.0059878575, z: 0.0366796}
 --- !u!23 &1672707561
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -26142,14 +26141,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1733392601}
-  m_LocalRotation: {x: -0, y: -0.54997045, z: 0, w: -0.83518416}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: -4.73, y: 2.81, z: 67.44}
   m_LocalScale: {x: 1, y: 0.75, z: 1}
   m_Children:
   - {fileID: 1468444581}
   m_Father: {fileID: 0}
   m_RootOrder: 14
-  m_LocalEulerAnglesHint: {x: 0, y: 426.73, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!1 &1741967992
 GameObject:
   m_ObjectHideFlags: 0

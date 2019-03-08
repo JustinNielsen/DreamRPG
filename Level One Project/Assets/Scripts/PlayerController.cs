@@ -81,7 +81,7 @@ public class PlayerController : MonoBehaviour
         //Initilize the mouseWheelStates array
         mouseWheelStates = new States[4] { States.NavMesh, States.MeleeAttack, States.RangeAttack, States.Shielding };
         //Initilize checkpoints
-        checkpointLocations = new Vector3[3] { new Vector3(8.43f, 9.2f, -0.92f), new Vector3(-347.35f, 300.6f, -635.83f), new Vector3(62.17f, 2.7f, 98.26f) };
+        checkpointLocations = new Vector3[4] { new Vector3(8.43f, 9.2f, -0.92f), new Vector3(-347.35f, 300.6f, -635.83f), new Vector3(62.17f, 2.7f, 98.26f), new Vector3(10.133f, 3.422f, -7.163f) };
         //Initilize level controller
         lController = GameObject.FindGameObjectWithTag("turn").GetComponent<LevelController>();
         //Initilize camBrain
@@ -467,6 +467,9 @@ public class PlayerController : MonoBehaviour
     //Damages the player
     public void DamagePlayer(EnemyController enemy)
     {
+        //Play enemy player grunt
+        MattVoiceOver(12);
+
         //TODO - Implement a better damage system based on the level of the enemy
 
         if (!shieldActive)
