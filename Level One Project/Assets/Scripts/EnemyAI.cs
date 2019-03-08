@@ -127,11 +127,11 @@ public class EnemyAI : MonoBehaviour
     {
         switch (aiIndex)
         {
-            case 1: //Mage AI
-                MageAI();
-                break;
-            case 2: // Brute AI
+            case 1: //Brute AI
                 BruteAI();
+                break;
+            case 2: // Mage AI
+                MageAI();
                 break;
             case 3: // Assassin AI
                 AssassinAI();
@@ -139,16 +139,16 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
-    private void MageAI()
-    {
-        classType = 1;
-        MageMove();
-    }
-
     private void BruteAI()
     {
         classType = 2;
         BruteMove();
+    }
+
+    private void MageAI()
+    {
+        classType = 1;
+        MageMove();
     }
 
     private void AssassinAI()
@@ -216,7 +216,10 @@ public class EnemyAI : MonoBehaviour
     {
         RaycastHit hit;
 
-        if (Physics.Raycast(transform.position, transform.forward, out hit, 20f))
+        Vector3 lineStart = transform.position;
+        lineStart.y = transform.position.y + (this.transform.localScale.y * 1.3f);
+
+        if (Physics.Raycast(lineStart, transform.forward, out hit, 20f))
         {
             if (hit.collider.tag == "player")
             {
@@ -241,9 +244,11 @@ public class EnemyAI : MonoBehaviour
     {
         Vector3 distance = player.transform.position - transform.position;
 
-        if(distance.magnitude <= 3.5f)
+        if(distance.magnitude <= 3.5f + (transform.localScale.y * 2))
         {
             int random = Random.Range(1, pController.hitChance + 1);
+
+            enemyController.anim.SetTrigger("Attack");
 
             switch (random)
             { //TODO - Notify player when an attack hits or misses
@@ -264,8 +269,14 @@ public class EnemyAI : MonoBehaviour
 
     private void LaunchProjectile()
     {
-        Vector3 pos = transform.position + transform.forward;
-        GameObject projectile = Instantiate(mageShot, pos, transform.rotation, this.transform);
+        //Vector3 pos = transform.position + transform.forward;
+
+        enemyController.anim.SetTrigger("Attack");
+
+        Vector3 lineStart = transform.position;
+        lineStart.y = transform.position.y + (this.transform.localScale.y * 1.3f);
+
+        GameObject projectile = Instantiate(mageShot, lineStart, transform.rotation, this.transform);
         Destroy(projectile, 4f);
     }
 

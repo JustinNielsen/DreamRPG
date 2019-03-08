@@ -19,10 +19,14 @@ public class EnemyController : MonoBehaviour
     public int enemyLevel;
     TurnBasedSystem turn;
     PlayerController pController;
+    public Animator anim;
 
     // Start is called before the first frame update
     void Start()
     {
+        //Get animator of the enemy
+        anim = GetComponent<Animator>();
+
         cam = Instantiate(camPrefab);
         cam.Priority = 5;
         cam.Follow = transform;
@@ -34,6 +38,23 @@ public class EnemyController : MonoBehaviour
         //Initlize turn based system script
         turn = GameObject.FindGameObjectWithTag("turn").GetComponent<TurnBasedSystem>();
         pController = GameObject.FindGameObjectWithTag("player").GetComponent<PlayerController>();
+
+        //Changes the size of the enemy based on the type it is
+        switch (enemyType)
+        {
+            case 1:
+                transform.localScale = pController.gameObject.transform.localScale + new Vector3(0.25f, 0.25f, 0.25f);
+                break;
+            case 2:
+                transform.localScale = pController.gameObject.transform.localScale;
+                break;
+            case 3:
+                transform.localScale = pController.gameObject.transform.localScale + new Vector3(0.5f, 0.5f, 0.5f);
+                break;
+            case 4:
+                transform.localScale = pController.gameObject.transform.localScale;
+                break;
+        }
     }
 
     void Update()
@@ -46,6 +67,10 @@ public class EnemyController : MonoBehaviour
             pController.playerXP += enemyLevel / pController.playerLevel * 50;
             Destroy(this.gameObject);
             //Resets the text
+        }
+        else
+        {
+            anim.SetFloat("Speed", agent.velocity.magnitude);
         }
     }
 
@@ -94,7 +119,7 @@ public class EnemyController : MonoBehaviour
         }
 
         //Activates when the player hits the enemy
-        if (other.tag == "attack" && !active)
+        if (other.tag == "attack")
         {
             Damage damage = other.gameObject.GetComponent<Damage>();
             enemyHealth -= damage.damage;

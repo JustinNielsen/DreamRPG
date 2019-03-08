@@ -126,22 +126,22 @@ public class AttackScript : MonoBehaviour
         LookAtMouse();
 
         Vector3 lineStart = transform.position;
-        lineStart.y = transform.position.y + (player.transform.localScale.y * 1.8f);
+        lineStart.y = transform.position.y + (player.transform.localScale.y * 1.3f);
 
         //Sets the line to two points and sets the first point to the players location
         line.positionCount = 2;
-        line.SetPosition(0, lineStart);
+        line.SetPosition(0, lineStart + transform.forward);
 
         RaycastHit hit;
 
         //Draws the line 20 units forward unless obstructed by an object
-        if (Physics.Raycast(transform.position, transform.forward, out hit, 20f))
+        if (Physics.Raycast(lineStart, transform.forward, out hit, 20f))
         {
             line.SetPosition(1, hit.point);
         }
         else
         {
-            line.SetPosition(1, transform.forward * 20 + transform.position);
+            line.SetPosition(1, transform.forward * 20 + lineStart);
         }
 
         /*//Shoot the projectile in the players forward direction
@@ -213,8 +213,12 @@ public class AttackScript : MonoBehaviour
     //Creates a projectile object from the mageshot prefab and destoys it after 1.6 seconds
     private void LaunchProjectile()
     {
-        Vector3 pos = transform.position + transform.forward;
-        GameObject projectile = Instantiate(mageShot, pos, transform.rotation);
+        //Vector3 pos = transform.position + transform.forward;
+
+        Vector3 lineStart = transform.position + transform.forward;
+        lineStart.y = transform.position.y + (player.transform.localScale.y * 1.3f);
+
+        GameObject projectile = Instantiate(mageShot, lineStart, transform.rotation);
         Destroy(projectile, 1.6f);
     }
 
