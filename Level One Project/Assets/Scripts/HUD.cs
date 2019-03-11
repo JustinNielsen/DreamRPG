@@ -10,12 +10,14 @@ public class HUD : MonoBehaviour
     public static bool GameIsPaused = false;
     public GameObject pauseMenuUI;
     public GameObject settingMenu;
+    public GameObject tutorial;
     public PlayerMovement pMovement;
     public Image manaBar;
     public LevelController lController;
     public PlayerController pController;
     public GameObject hud;
 
+    public Button leftButton;
     //Heart images
     public Sprite heart1;
     public Sprite heart2;
@@ -43,7 +45,7 @@ public class HUD : MonoBehaviour
 
     //The number is used to differentiate between instruction pieces.
     private int instructionNumber;
-    //The flag is used to determine if we actually need to continue the instructions.
+    //The flag is used to determine if we actually need to stop. First portion only.
     private bool instructionFlag;
 
     private void Start()
@@ -204,68 +206,97 @@ public class HUD : MonoBehaviour
             }
         }
 
-        //Continues the instructions
-        if (Input.GetKeyDown(KeyCode.I))
-        {
-            //Checks to see if we should continue instructions
-            if (instructionFlag)
-            {
-                //First we go to the next instruction tidbit
-                instructionNumber++;
-                //Switch statement to walk through each piece of instruction
-                switch (instructionNumber)
-                {
-                    case 1:
-                        {
-                            instructions.text = "Welcome to tutorial mode. Click \"I\" for more info. Click \"Q\" to quit tutorial mode.";
-                            break;
-                        }
-                    case 2:
-                        {
-                            instructions.text = "Use WASD to move in free movment mode. Once you enter the combat zone, you will can use the scroll wheel to switch between more options.";
-                            break;
-                        }
-                    case 3:
-                        {
-                            instructions.text = "Combat Movement is based on clicks, presented by a line from the player to the mouse. You can only move when the line is green.";
-                            break;
-                        }
-                    case 4:
-                        {
-                            instructions.text = "You also have 2 modes of attack, melee and range. These are based on clicks as well";
-                            break;
-                        }
-                    case 5:
-                        {
-                            instructions.text = "You can only use the melee attack once per turn, but it is more powerful.";
-                            break;
-                        }
-                    case 6:
-                        {
-                            instructions.text = "Your range attack can be used multiply times a turn, but costs some mana. Your mana replenishes a little each turn.";
-                            break;
-                        }
-                    case 7:
-                        {
-                            instructions.text = "Your final choice in combat mode is to shield. This option costs mana, but lets you have one extra hit point.";
-                            break;
-                        }
-                    case 8:
-                        {
-                            instructions.text = "To end your turn, click 'Enter'.";
-                            break;
-                        }
 
-                }
+    }
+    public void Tutorial()
+    {
+        //Checks to see if we need to pause/unpause
+        if(instructionFlag || (instructionNumber > 8))
+        {
+            //Resets the instruction flag
+            instructionFlag = false;
+            //Disables the paused portion
+            tutorial.SetActive(false);
+            Time.timeScale = 1;
+            hud.SetActive(true);
+        }
+        else
+        {
+            //Pauses the game
+            tutorial.SetActive(true);
+            Time.timeScale = 0;
+            hud.SetActive(false);
+        }
+
+        //This disables/enables the left button
+        if (instructionNumber == 2)
+        {
+            //Disables the button
+            leftButton.enabled = false;
+        }
+        else if(instructionNumber > 3)
+        {
+            //enables the button
+            leftButton.enabled = true;
+        }
+
+        //Switch statement to walk through each piece of instruction
+        switch (instructionNumber)
+            {
+                case 1:
+                    {
+                        instructions.text = "Welcome to tutorial mode. Click \"I\" for more info. Click \"Q\" to quit tutorial mode.";
+                        break;
+                    }
+                case 2:
+                    {
+                        instructions.text = "Use WASD to move in free movment mode. Once you enter the combat zone, you will can use the scroll wheel to switch between more options.";
+                        break;
+                    }
+                case 3:
+                    {
+                        instructions.text = "Combat Movement is based on clicks, presented by a line from the player to the mouse. You can only move when the line is green.";
+                        break;
+                    }
+                case 4:
+                    {
+                        instructions.text = "You also have 2 modes of attack, melee and range. These are based on clicks as well";
+                        break;
+                    }
+                case 5:
+                    {
+                        instructions.text = "You can only use the melee attack once per turn, but it is more powerful.";
+                        break;
+                    }
+                case 6:
+                    {
+                        instructions.text = "Your range attack can be used multiply times a turn, but costs some mana. Your mana replenishes a little each turn.";
+                        break;
+                    }
+                case 7:
+                    {
+                        instructions.text = "Your final choice in combat mode is to shield. This option costs mana, but lets you have one extra hit point.";
+                        break;
+                    }
+                case 8:
+                    {
+                        instructions.text = "To end your turn, click 'Enter'.";
+                        break;
+                    }
 
             }
-        }
+    }
+    public void TutorialLeft()
+    {
+        //Moves left
+        instructionNumber--;
+        Tutorial();
+    }
 
-        //This disables the instructions
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            instructionFlag = false;
-            instructions.text = "";
-        }
+    public void TutorialRight()
+    {
+        //Moves Right
+        instructionNumber++;
+        Tutorial();
     }
 }

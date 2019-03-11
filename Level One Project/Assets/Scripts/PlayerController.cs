@@ -20,7 +20,7 @@ public class PlayerController : MonoBehaviour
     public bool active = true;
     public States state;
     public Levels level;
-
+    
     public int health;
     public bool shieldActive;
     public int hitChance = 4;
@@ -342,6 +342,7 @@ public class PlayerController : MonoBehaviour
                 case Levels.Level1:
                     {
                         MattVoiceOver(1);
+                        hud.Tutorial();
                         break;
                     }
                 case Levels.Level2:
