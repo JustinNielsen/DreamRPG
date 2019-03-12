@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: d1c8c1a4aa7a86e4199a7d7163ed87e5
+guid: 21fa7a5423ca5534391f75e1fa159db5
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
@@ -157,19 +157,18 @@ ModelImporter:
     4300008: Shoes
     4300010: PANTS
     4300012: Cube
-    7400000: PlayerRig|EnemyIdle
-    7400002: PlayerRig|EnemyRun
-    7400004: PlayerRig|EnemyRun.001
-    7400006: PlayerRig|EnemyRun.002
-    7400008: PlayerRig|EnemyRun.003
-    7400010: PlayerRig|Idle
-    7400012: PlayerRig|Idle.001
-    7400014: PlayerRig|Idle.002
-    7400016: PlayerRig|PlayerRigAction
-    7400018: PlayerRig|Run.000
-    7400020: PlayerRig|Run.001
-    7400022: PlayerRig|Walk
-    7400024: PlayerRig|Walk.001
+    7400000: PlayerRig|Attack?
+    7400002: PlayerRig|EnemyIdle
+    7400004: PlayerRig|EnemyRun
+    7400006: PlayerRig|Idle
+    7400008: PlayerRig|Idle.002
+    7400010: PlayerRig|PlayerAttack
+    7400012: PlayerRig|PlayerRangedAttack
+    7400014: PlayerRig|PlayerRigAction
+    7400016: PlayerRig|Run.000
+    7400018: PlayerRig|Run.001
+    7400020: PlayerRig|Walk
+    7400022: PlayerRig|Walk.001
     9500000: //RootNode
     13700000: Hair
     13700002: Pants
@@ -211,6 +210,7 @@ ModelImporter:
     globalScale: 1
     meshCompression: 0
     addColliders: 0
+    useSRGBMaterialColor: 1
     importVisibility: 1
     importBlendShapes: 1
     importCameras: 1
@@ -235,6 +235,9 @@ ModelImporter:
     normalImportMode: 0
     tangentImportMode: 3
     normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
   importAnimation: 1
   copyAvatar: 0
   humanDescription:
@@ -249,7 +252,6 @@ ModelImporter:
     legStretch: 0.05
     feetSpacing: 0
     rootMotionBoneName: 
-    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
     hasTranslationDoF: 0
     hasExtraRoot: 0
     skeletonHasParents: 1

@@ -47,7 +47,7 @@ public class AttackScript : MonoBehaviour
                 {
                     LaunchProjectile();
                     hud.DecreaseManaBar(spellCost);
-                    //pController.movement.anim.SetTrigger("Shoot");
+                    pController.movement.anim.SetTrigger("Shoot");
                 }
                 else
                 {
@@ -70,7 +70,7 @@ public class AttackScript : MonoBehaviour
                 if (!pController.meleeAttacked)
                 {
                     StartCoroutine(Hit());
-                    //pController.movement.anim.SetTrigger("Attack");
+                    pController.movement.anim.SetTrigger("Attack");
                 }
                 else
                 {
