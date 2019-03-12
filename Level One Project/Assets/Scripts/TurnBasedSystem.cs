@@ -68,6 +68,7 @@ public class TurnBasedSystem : MonoBehaviour
         //If all the enemies are gone change state to WASD
         if(turnArr.Length == 1)
         {
+            pController.ResetPlayerCombat();
             pController.lController.fightSongActive = false;
             pController.movement.ToggleNavMesh(false);
             pController.remainingMana = pController.maxMana;

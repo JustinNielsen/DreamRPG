@@ -971,6 +971,7 @@ MonoBehaviour:
   remainingMana: 0
   shield: {fileID: 619953087}
   NormalCamera: {fileID: 0}
+  ThirdPersonCamera: {fileID: 0}
   TopCamera: {fileID: 881083029}
 --- !u!136 &361929347
 CapsuleCollider:
@@ -2354,7 +2355,8 @@ MonoBehaviour:
   maxMana: 0
   remainingMana: 0
   shield: {fileID: 1909319813}
-  NormalCamera: {fileID: 1506597416}
+  NormalCamera: {fileID: 1069697788}
+  ThirdPersonCamera: {fileID: 1506597416}
   TopCamera: {fileID: 881083029}
 --- !u!114 &881083029 stripped
 MonoBehaviour:
@@ -3413,6 +3415,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1046518236}
   m_CullTransparentMesh: 0
+--- !u!114 &1069697788 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 398722720805700671, guid: f998e366753f3864b9ebd53b1deec614,
+    type: 3}
+  m_PrefabInstance: {fileID: 1089777280}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45e653bab7fb20e499bda25e1b646fea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1089777280
 PrefabInstance:
   m_ObjectHideFlags: 0

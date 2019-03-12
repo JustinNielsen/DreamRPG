@@ -9931,7 +9931,7 @@ MonoBehaviour:
   enemyType: 2
   enemyHealth: 2
   enemyLevel: 1
-  anim: {fileID: 0}
+  anim: {fileID: 813733869}
 --- !u!114 &813733866
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9978,6 +9978,12 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 116
   m_CollisionDetection: 1
+--- !u!95 &813733869 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 9500000, guid: f62946f9ede3c0e418e50dc4a3fc092b,
+    type: 3}
+  m_PrefabInstance: {fileID: 813733862}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &817479258
 GameObject:
   m_ObjectHideFlags: 0

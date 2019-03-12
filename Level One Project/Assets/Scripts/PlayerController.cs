@@ -58,6 +58,8 @@ public class PlayerController : MonoBehaviour
 
     public CinemachineVirtualCamera NormalCamera;
 
+    public CinemachineVirtualCamera ThirdPersonCamera;
+
     public CinemachineVirtualCamera TopCamera;
 
     private void Start()
@@ -241,33 +243,39 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            //Adds mana after each turn
-            if (!addedMana && remainingMana != 100f)
-            {
-                if(remainingMana <= (maxMana - 12.5f))
-                {
-                    remainingMana += 12.5f;
-                }
-                else
-                {
-                    remainingMana = 100f;
-                }
+            ResetPlayerCombat();
+        }
+    }
 
-                addedMana = true;
-                hud.DecreaseManaBar(0);
+    //Reset the mana and move distance for the player after a combat turn
+    public void ResetPlayerCombat()
+    {
+        //Adds mana after each turn
+        if (!addedMana && remainingMana != 100f)
+        {
+            if (remainingMana <= (maxMana - 12.5f))
+            {
+                remainingMana += 12.5f;
+            }
+            else
+            {
+                remainingMana = 100f;
             }
 
-            //Reset max move distance and meleeAttacked after turn is done
-            movement.maxDistance = 10f;
-            meleeAttacked = false;
+            addedMana = true;
+            hud.DecreaseManaBar(0);
+        }
 
-            //Delete line, hitbox, and shield
-            attack.line.positionCount = 0;
+        //Reset max move distance and meleeAttacked after turn is done
+        movement.maxDistance = 10f;
+        meleeAttacked = false;
 
-            if(attack.hitbox != null)
-            {
-                Destroy(attack.hitbox);
-            }
+        //Delete line, hitbox, and shield
+        attack.line.positionCount = 0;
+
+        if (attack.hitbox != null)
+        {
+            Destroy(attack.hitbox);
         }
     }
 
@@ -404,7 +412,7 @@ public class PlayerController : MonoBehaviour
         if (other.gameObject.CompareTag("doorWay"))
         {
             camBrain.m_DefaultBlend.m_Style = CinemachineBlendDefinition.Style.EaseIn;
-            NormalCamera.Priority = 25;
+            ThirdPersonCamera.Priority = 25;
 
             if(entryDoor == null && exitDoor == null)
             {
@@ -426,7 +434,7 @@ public class PlayerController : MonoBehaviour
     {
         if (other.gameObject.CompareTag("doorWay"))
         {
-            NormalCamera.Priority = 10;
+            ThirdPersonCamera.Priority = 10;
             other.gameObject.SetActive(false);
             entryDoor.SetActive(true);
             exitDoor.SetActive(true);
