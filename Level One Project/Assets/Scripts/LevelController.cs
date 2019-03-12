@@ -200,6 +200,7 @@ public class LevelController : MonoBehaviour
                     player.transform.localScale = new Vector3(2.5f, 2.5f, 2.5f);
                     transposer.m_FollowOffset = new Vector3(-6f, 12, -3f);
                     pController.NormalCamera.transform.rotation = Quaternion.Euler(new Vector3(60, 245, 0));
+                    pController.movement.movementSpeed = 4 * pController.gameObject.transform.localScale.y;
                     break;
                 }
             case Levels.Level2:
@@ -218,6 +219,7 @@ public class LevelController : MonoBehaviour
                     player.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
                     transposer.m_FollowOffset = new Vector3(-4f, 8f, -2f);
                     pController.NormalCamera.transform.rotation = Quaternion.Euler(new Vector3(60, 235, 0));
+                    pController.movement.movementSpeed = 4 * pController.gameObject.transform.localScale.y;
                     break;
                 }
             case Levels.Level3:
@@ -236,6 +238,7 @@ public class LevelController : MonoBehaviour
                     player.transform.localScale = new Vector3(3f, 3f, 3f);
                     transposer.m_FollowOffset = new Vector3(-6f, 12, -3f);
                     pController.NormalCamera.transform.rotation = Quaternion.Euler(new Vector3(60, 245, 0));
+                    pController.movement.movementSpeed = 4 * pController.gameObject.transform.localScale.y;
                     break;
                 }
             case Levels.Space:
@@ -254,6 +257,7 @@ public class LevelController : MonoBehaviour
                     player.transform.localScale = new Vector3(.25f, .25f, .25f);
                     transposer.m_FollowOffset = new Vector3(-0.3f, 1, -0.15f);
                     pController.NormalCamera.transform.rotation = Quaternion.Euler(new Vector3(60, 245, 0));
+                    pController.movement.movementSpeed = 4 * pController.gameObject.transform.localScale.y;
                     break;
                 }
         }

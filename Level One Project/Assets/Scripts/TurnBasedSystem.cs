@@ -72,7 +72,7 @@ public class TurnBasedSystem : MonoBehaviour
             pController.lController.fightSongActive = false;
             pController.movement.ToggleNavMesh(false);
             pController.remainingMana = pController.maxMana;
-            pController.maxDistance = 10;
+            pController.maxDistance = 10f * this.gameObject.transform.localScale.y;
             pController.health = 3;
             //Updates the change in health
             pController.hud.HUDHealth();

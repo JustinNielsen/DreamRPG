@@ -99,6 +99,8 @@ public class PlayerController : MonoBehaviour
         health = 3;
         //Initilize the shield to false
         shieldActive = false;
+        //Initilize maxDistance according to the players size
+        maxDistance = 10f * this.gameObject.transform.localScale.y;
     }
 
     // Update is called once per frame
@@ -267,7 +269,7 @@ public class PlayerController : MonoBehaviour
         }
 
         //Reset max move distance and meleeAttacked after turn is done
-        movement.maxDistance = 10f;
+        movement.maxDistance = 10f * this.gameObject.transform.localScale.y;
         meleeAttacked = false;
 
         //Delete line, hitbox, and shield
