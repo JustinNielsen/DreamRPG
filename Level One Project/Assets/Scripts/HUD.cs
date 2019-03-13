@@ -229,21 +229,7 @@ public class HUD : MonoBehaviour
             hud.SetActive(false);
         }
 
-        //This disables/enables the left button
-        if (instructionNumber == 2)
-        {
-            //Disables the button
-            leftButton.enabled = false;
-        }
-        else if(instructionNumber > 3)
-        {
-            //enables the button
-            leftButton.enabled = true;
-            if (leftButton.isActiveAndEnabled)
-                Debug.Log("Arrow Good");
-            if (leftButton.enabled == true)
-                Debug.Log("Arrow Enabled");
-        }
+
 
         //Switch statement to walk through each piece of instruction
         switch (instructionNumber)
@@ -265,6 +251,7 @@ public class HUD : MonoBehaviour
                     tutorialImages[5].enabled = false;
                     if (!tutorialImages[2].IsActive())
                         Debug.Log("Image is good");
+                    leftButton.image.enabled = false;
                         break;
                     }
                 case 3:
@@ -278,6 +265,7 @@ public class HUD : MonoBehaviour
                     tutorialImages[5].enabled = true;
                     tutorialImages[6].enabled = false;
                     tutorialImages[7].enabled = false;
+                    leftButton.image.enabled = true;
                     break;
                     }
                 case 4:

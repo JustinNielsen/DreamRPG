@@ -20,7 +20,8 @@ public class EnemyController : MonoBehaviour
     TurnBasedSystem turn;
     PlayerController pController;
     public Animator anim;
-
+    public AudioSource enemySource;
+    public AudioClip[] enemySounds;
     // Start is called before the first frame update
     void Start()
     {

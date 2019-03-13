@@ -7,7 +7,8 @@ public class LevelUp : MonoBehaviour
     public HUD hud;
 
     public GameObject levelUpMenu;
-
+    public AudioSource levelUpSource;
+    public AudioClip[] levelUpSounds;
     float spellReductionCost;
 
     private void Start()
