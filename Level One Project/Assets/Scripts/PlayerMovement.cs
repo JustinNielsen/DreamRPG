@@ -394,7 +394,7 @@ public class PlayerMovement : MonoBehaviour
 
         distanceMoved = previousDistance - agent.remainingDistance;
 
-        if (pControl.state == States.NavMesh && agent.path != null && isMoving && distanceMoved < 0.05f || agent.remainingDistance == Mathf.Infinity)
+        if (pControl.state == States.NavMesh && agent.path != null && isMoving && distanceMoved < 0.01f || agent.remainingDistance == Mathf.Infinity)
         {
             //Adds the remaining distance back to the maxDistance variable
             Debug.Log("Remaining Distance 2: " + agent.remainingDistance);

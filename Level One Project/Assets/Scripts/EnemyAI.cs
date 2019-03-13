@@ -38,13 +38,15 @@ public class EnemyAI : MonoBehaviour
         enemyController = GetComponent<EnemyController>();
         agent = GetComponent<NavMeshAgent>();
         waypoints = GameObject.FindGameObjectsWithTag("waypoint");
+        maxMovementRange = 5f * this.gameObject.transform.localScale.y;
+        agent.speed = 1.4f * this.gameObject.transform.localScale.y;
 
-        if(pController.lController.levels == Levels.Space)
+        if (pController.lController.levels == Levels.Space)
         {
-            maxRangeDistance = (12 * 0.25f);
-            minRangeDistance = (7 * 0.25f);
-            meleeDistance = (3 * 0.25f);
-            meleeAttackDistance = (3.5f * 0.25f);
+            maxRangeDistance = (12 * 0.5f);
+            minRangeDistance = (7 * 0.5f);
+            meleeDistance = (3 * 0.5f);
+            meleeAttackDistance = (3.5f * 0.5f);
         }
         else
         {
@@ -176,7 +178,7 @@ public class EnemyAI : MonoBehaviour
     {
         agent = GetComponent<NavMeshAgent>();
 
-        int random = Random.Range(0, 1);
+        int random = Random.Range(0, 2);
 
         if(random == 0)
         {

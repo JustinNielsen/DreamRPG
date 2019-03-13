@@ -25,6 +25,7 @@ TagManager:
   - wallCollider
   - exitDoor
   - enterDoor
+  - particles
   layers:
   - Default
   - TransparentFX

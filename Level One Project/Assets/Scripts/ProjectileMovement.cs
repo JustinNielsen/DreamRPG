@@ -17,7 +17,8 @@ public class ProjectileMovement : MonoBehaviour
         if(pController.lController.levels == Levels.Space)
         {
             this.gameObject.transform.localScale = pController.gameObject.transform.localScale;
-            this.gameObject.GetComponent<ParticleSystem>().startSize = 0.0001f;
+            GameObject bullet = GameObject.FindGameObjectWithTag("particles");
+            bullet.transform.localScale = new Vector3(2, 2, 2);
         }
     }
 

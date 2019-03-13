@@ -203,6 +203,7 @@ public class LevelController : MonoBehaviour
                     transposer.m_FollowOffset = new Vector3(-6f, 12, -3f);
                     pController.NormalCamera.transform.rotation = Quaternion.Euler(new Vector3(60, 245, 0));
                     pController.movement.movementSpeed = 4 * pController.gameObject.transform.localScale.y;
+                    pController.movement.agent.speed = 1.4f * pController.gameObject.transform.localScale.y;
                     pController.movement.line.startWidth = 0.1f;
                     pController.movement.line.endWidth = 0.1f;
                     break;
@@ -224,6 +225,7 @@ public class LevelController : MonoBehaviour
                     transposer.m_FollowOffset = new Vector3(-4f, 8f, -2f);
                     pController.NormalCamera.transform.rotation = Quaternion.Euler(new Vector3(60, 235, 0));
                     pController.movement.movementSpeed = 4 * pController.gameObject.transform.localScale.y;
+                    pController.movement.agent.speed = 1.4f * pController.gameObject.transform.localScale.y;
                     pController.movement.line.startWidth = 0.1f;
                     pController.movement.line.endWidth = 0.1f;
                     break;
@@ -245,6 +247,7 @@ public class LevelController : MonoBehaviour
                     transposer.m_FollowOffset = new Vector3(-6f, 12, -3f);
                     pController.NormalCamera.transform.rotation = Quaternion.Euler(new Vector3(60, 245, 0));
                     pController.movement.movementSpeed = 4 * pController.gameObject.transform.localScale.y;
+                    pController.movement.agent.speed = 1.4f * pController.gameObject.transform.localScale.y;
                     pController.movement.line.startWidth = 0.1f;
                     pController.movement.line.endWidth = 0.1f;
                     break;
@@ -266,6 +269,7 @@ public class LevelController : MonoBehaviour
                     transposer.m_FollowOffset = new Vector3(-0.3f, 1, -0.15f);
                     pController.NormalCamera.transform.rotation = Quaternion.Euler(new Vector3(60, 245, 0));
                     pController.movement.movementSpeed = 4 * pController.gameObject.transform.localScale.y;
+                    pController.movement.agent.speed = 1.4f * pController.gameObject.transform.localScale.y;
                     pController.movement.line.startWidth = 0.01f;
                     pController.movement.line.endWidth = 0.01f;
                     break;
