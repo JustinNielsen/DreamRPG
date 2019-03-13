@@ -510,6 +510,10 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 9f8d0ba7b6edd5846b02c6d25c111ee5, type: 2}
+    - target: {fileID: 13700000, guid: 21fa7a5423ca5534391f75e1fa159db5, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: dea4062814481d9449539d2afb7aaaeb, type: 2}
     - target: {fileID: 13700002, guid: 21fa7a5423ca5534391f75e1fa159db5, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -1047,6 +1051,7 @@ MonoBehaviour:
   playerLevel: 0
   playerXP: 0
   levelUpMenu: {fileID: 1469805684}
+  canAttack: 0
   meleeAttacked: 0
   maxMana: 0
   remainingMana: 0
@@ -2432,6 +2437,7 @@ MonoBehaviour:
   playerLevel: 0
   playerXP: 0
   levelUpMenu: {fileID: 1469805684}
+  canAttack: 0
   meleeAttacked: 0
   maxMana: 0
   remainingMana: 0
@@ -10093,6 +10099,7 @@ MonoBehaviour:
   playerLevel: 0
   playerXP: 0
   levelUpMenu: {fileID: 1469805684}
+  canAttack: 0
   meleeAttacked: 0
   maxMana: 0
   remainingMana: 0

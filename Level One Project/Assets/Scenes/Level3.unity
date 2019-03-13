@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 0.644
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.3013968, g: 0.30774075, b: 0.28941587, a: 0.644}
+  m_IndirectSpecularColor: {r: 0.3013971, g: 0.30774102, b: 0.28941604, a: 0.644}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1887,7 +1887,7 @@ MonoBehaviour:
   enemyType: 2
   enemyHealth: 2
   enemyLevel: 1
-  anim: {fileID: 0}
+  anim: {fileID: 227633710}
 --- !u!195 &227633707
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1940,6 +1940,12 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 116
   m_CollisionDetection: 1
+--- !u!95 &227633710 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 9500000, guid: f62946f9ede3c0e418e50dc4a3fc092b,
+    type: 3}
+  m_PrefabInstance: {fileID: 227633703}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &263366870
 GameObject:
   m_ObjectHideFlags: 0
@@ -8850,7 +8856,7 @@ MonoBehaviour:
   enemyType: 1
   enemyHealth: 1
   enemyLevel: 1
-  anim: {fileID: 0}
+  anim: {fileID: 619901446}
 --- !u!195 &619901443
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -8903,6 +8909,12 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 116
   m_CollisionDetection: 1
+--- !u!95 &619901446 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 9500000, guid: 2aa53a28e9ff0684499f4370e94bc106,
+    type: 3}
+  m_PrefabInstance: {fileID: 619901439}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &623428094
 GameObject:
   m_ObjectHideFlags: 0
@@ -9351,7 +9363,7 @@ MonoBehaviour:
   enemyType: 1
   enemyHealth: 1
   enemyLevel: 1
-  anim: {fileID: 0}
+  anim: {fileID: 667857185}
 --- !u!195 &667857182
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -9404,6 +9416,12 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 116
   m_CollisionDetection: 1
+--- !u!95 &667857185 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 9500000, guid: 2aa53a28e9ff0684499f4370e94bc106,
+    type: 3}
+  m_PrefabInstance: {fileID: 667857178}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &691108123
 GameObject:
   m_ObjectHideFlags: 0

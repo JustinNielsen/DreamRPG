@@ -153,6 +153,8 @@ public class EnemyAI : MonoBehaviour
 
     private void AssassinAI()
     {
+        agent = GetComponent<NavMeshAgent>();
+
         int random = Random.Range(0, 1);
 
         if(random == 0)

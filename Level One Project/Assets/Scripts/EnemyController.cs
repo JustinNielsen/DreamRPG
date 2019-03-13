@@ -20,6 +20,7 @@ public class EnemyController : MonoBehaviour
     TurnBasedSystem turn;
     PlayerController pController;
     public Animator anim;
+    CinemachineTransposer transposer;
 
     // Start is called before the first frame update
     void Start()
@@ -30,7 +31,6 @@ public class EnemyController : MonoBehaviour
         cam = Instantiate(camPrefab);
         cam.Priority = 5;
         cam.Follow = transform;
-
         ai = GetComponent<EnemyAI>();
         agent = GetComponent<NavMeshAgent>();
         rb = GetComponent<Rigidbody>();
@@ -49,11 +49,17 @@ public class EnemyController : MonoBehaviour
                 transform.localScale = pController.gameObject.transform.localScale;
                 break;
             case 3:
-                transform.localScale = pController.gameObject.transform.localScale + new Vector3(0.5f, 0.5f, 0.5f);
+                //transform.localScale = pController.gameObject.transform.localScale + new Vector3(0.5f, 0.5f, 0.5f);
                 break;
             case 4:
                 transform.localScale = pController.gameObject.transform.localScale;
                 break;
+        }
+
+        if(pController.lController.levels == Levels.Space)
+        {
+            transposer = cam.GetCinemachineComponent<CinemachineTransposer>();
+            transposer.m_FollowOffset = new Vector3(-0.3f, 1, -0.15f);
         }
     }
 
