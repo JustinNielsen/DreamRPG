@@ -24,6 +24,12 @@ public class EnemyAI : MonoBehaviour
     float rangeDifference;
     PlayerController pController;
 
+    //Distance variables according to enemy size
+    float maxRangeDistance;
+    float minRangeDistance;
+    float meleeDistance;
+    float meleeAttackDistance;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -32,6 +38,21 @@ public class EnemyAI : MonoBehaviour
         enemyController = GetComponent<EnemyController>();
         agent = GetComponent<NavMeshAgent>();
         waypoints = GameObject.FindGameObjectsWithTag("waypoint");
+
+        if(pController.lController.levels == Levels.Space)
+        {
+            maxRangeDistance = (12 * 0.25f);
+            minRangeDistance = (7 * 0.25f);
+            meleeDistance = (3 * 0.25f);
+            meleeAttackDistance = (3.5f * 0.25f);
+        }
+        else
+        {
+            maxRangeDistance = 12;
+            minRangeDistance = 7;
+            meleeDistance = 3;
+            meleeAttackDistance = 3.5f;
+        }
     }
 
     // Update is called once per frame
@@ -44,7 +65,7 @@ public class EnemyAI : MonoBehaviour
             remaining = agent.remainingDistance;
 
             //Stop moving if the enemy hasn't moved more than 10 of if the distance to the player is less than 7
-            if (beginningDistance - remaining >= maxMovementRange || distance < 12f && distance > 7)
+            if (beginningDistance - remaining >= maxMovementRange || distance < maxRangeDistance && distance > minRangeDistance)
             {
                 agent.ResetPath();
                 remaining = 0;
@@ -60,7 +81,7 @@ public class EnemyAI : MonoBehaviour
             float distance = distanceToPlayer.magnitude;
             remaining = agent.remainingDistance;
 
-            if (beginningDistance - remaining >= maxMovementRange || distanceToPlayer.magnitude <= 3)
+            if (beginningDistance - remaining >= maxMovementRange || distanceToPlayer.magnitude <= meleeDistance)
             {
                 agent.ResetPath();
                 remaining = 0;
@@ -179,7 +200,7 @@ public class EnemyAI : MonoBehaviour
         float distance = distanceToPlayer.magnitude;
         waypoints = GameObject.FindGameObjectsWithTag("waypoint");
 
-        if (distance < 7f) //If the distance to the player is less than 7 run away
+        if (distance < minRangeDistance) //If the distance to the player is less than 7 run away
         {
             //Initilize nearest waypoint to the first waypoint in the waypoints array
             GameObject nearestWaypoint = waypoints[0];
@@ -244,7 +265,7 @@ public class EnemyAI : MonoBehaviour
     {
         Vector3 distance = player.transform.position - transform.position;
 
-        if(distance.magnitude <= 3.5f + (transform.localScale.y * 2))
+        if(distance.magnitude <= meleeAttackDistance + (transform.localScale.y * 2))
         {
             int random = Random.Range(1, pController.hitChance + 1);
 
