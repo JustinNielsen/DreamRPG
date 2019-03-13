@@ -38,8 +38,9 @@ public class PlayerController : MonoBehaviour
     public AudioClip[] mattVoiceArray;
 
     public int playerLevel;
-    public int playerXP;
+    public float playerXP;
     public GameObject levelUpMenu;
+    public bool canAttack = false;
 
     //Bool to check if the melee attack has already been used this turn
     public bool meleeAttacked = false;
@@ -158,6 +159,7 @@ public class PlayerController : MonoBehaviour
             playerLevel++;
             SavePlayer();
             Debug.Log($"Level: {playerLevel}");
+            canAttack = false;
 
             //pause game and show level up screen
             levelUpMenu.SetActive(true);
@@ -210,20 +212,24 @@ public class PlayerController : MonoBehaviour
                     movement.NavMeshMovement();
                     mouseWheelLocation = 0;
                     hud.stateIndicator.text = "Combat Movement";
+                    movement.anim.SetTrigger("ExitCombat");
                     break;
                 case States.WASD:
                     movement.KeyboardMovement();
                     hud.stateIndicator.text = "WASD Movement";
+                    movement.anim.SetTrigger("ExitCombat");
                     break;
                 case States.MeleeAttack:
                     attack.MeleeAttackMode();
                     mouseWheelLocation = 1;
                     hud.stateIndicator.text = "Melee Attack";
+                    canAttack = true;
                     break;
                 case States.RangeAttack:
                     attack.RangeAttackMode();
                     mouseWheelLocation = 2;
                     hud.stateIndicator.text = "Mage Attack";
+                    canAttack = true;
                     break;
                 case States.Shielding:
                     //Changes the mouse wheel location and tells us which state we are in.

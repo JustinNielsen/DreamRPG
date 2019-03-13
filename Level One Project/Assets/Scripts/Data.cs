@@ -8,7 +8,7 @@ public class Data
     public Levels level;
     public int health;
     public int playerLevel;
-    public int playerXP;
+    public float playerXP;
 
     public Data(PlayerController player)
     {

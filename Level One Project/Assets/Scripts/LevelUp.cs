@@ -22,6 +22,12 @@ public class LevelUp : MonoBehaviour
 
         //Resume game
         Time.timeScale = 1f;
+
+        if(hud.pController.state == States.RangeAttack || hud.pController.state == States.MeleeAttack)
+        {
+            hud.pController.canAttack = true;
+        }
+
         levelUpMenu.SetActive(false);
     }
 
@@ -32,6 +38,12 @@ public class LevelUp : MonoBehaviour
 
         //Resume game
         Time.timeScale = 1f;
+
+        if (hud.pController.state == States.RangeAttack || hud.pController.state == States.MeleeAttack)
+        {
+            hud.pController.canAttack = true;
+        }
+
         levelUpMenu.SetActive(false);
     }
 }

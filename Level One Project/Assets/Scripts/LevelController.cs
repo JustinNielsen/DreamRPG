@@ -135,6 +135,8 @@ public class LevelController : MonoBehaviour
         hud.GetComponent<HUD>().errorMessage.CrossFadeAlpha(0, 0.01f, false);
         pController.state = States.WASD;
         pController.hud.DisplayStats();
+        pController.remainingMana = pController.maxMana;
+        pController.hud.DecreaseManaBar(0);
         //pController.turn.ResetArrays();
     }
 
@@ -201,6 +203,8 @@ public class LevelController : MonoBehaviour
                     transposer.m_FollowOffset = new Vector3(-6f, 12, -3f);
                     pController.NormalCamera.transform.rotation = Quaternion.Euler(new Vector3(60, 245, 0));
                     pController.movement.movementSpeed = 4 * pController.gameObject.transform.localScale.y;
+                    pController.movement.line.startWidth = 0.1f;
+                    pController.movement.line.endWidth = 0.1f;
                     break;
                 }
             case Levels.Level2:
@@ -220,6 +224,8 @@ public class LevelController : MonoBehaviour
                     transposer.m_FollowOffset = new Vector3(-4f, 8f, -2f);
                     pController.NormalCamera.transform.rotation = Quaternion.Euler(new Vector3(60, 235, 0));
                     pController.movement.movementSpeed = 4 * pController.gameObject.transform.localScale.y;
+                    pController.movement.line.startWidth = 0.1f;
+                    pController.movement.line.endWidth = 0.1f;
                     break;
                 }
             case Levels.Level3:
@@ -239,6 +245,8 @@ public class LevelController : MonoBehaviour
                     transposer.m_FollowOffset = new Vector3(-6f, 12, -3f);
                     pController.NormalCamera.transform.rotation = Quaternion.Euler(new Vector3(60, 245, 0));
                     pController.movement.movementSpeed = 4 * pController.gameObject.transform.localScale.y;
+                    pController.movement.line.startWidth = 0.1f;
+                    pController.movement.line.endWidth = 0.1f;
                     break;
                 }
             case Levels.Space:
@@ -258,6 +266,8 @@ public class LevelController : MonoBehaviour
                     transposer.m_FollowOffset = new Vector3(-0.3f, 1, -0.15f);
                     pController.NormalCamera.transform.rotation = Quaternion.Euler(new Vector3(60, 245, 0));
                     pController.movement.movementSpeed = 4 * pController.gameObject.transform.localScale.y;
+                    pController.movement.line.startWidth = 0.01f;
+                    pController.movement.line.endWidth = 0.01f;
                     break;
                 }
         }

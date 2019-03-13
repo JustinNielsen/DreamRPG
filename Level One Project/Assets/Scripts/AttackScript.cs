@@ -35,7 +35,7 @@ public class AttackScript : MonoBehaviour
 
     private void Update()
     {
-        if(pController.state == States.RangeAttack)
+        if(pController.state == States.RangeAttack && pController.canAttack)
         {
             //Shoot the projectile in the players forward direction
             if (Input.GetMouseButtonDown(0))
@@ -45,7 +45,7 @@ public class AttackScript : MonoBehaviour
                 //Only cast spell if the player has enough mana
                 if (pController.remainingMana >= spellCost)
                 {
-                    LaunchProjectile();
+                    StartCoroutine(LaunchProjectile());
                     hud.DecreaseManaBar(spellCost);
                     pController.movement.anim.SetTrigger("Shoot");
                 }
@@ -59,7 +59,7 @@ public class AttackScript : MonoBehaviour
             }
         }
 
-        if(pController.state == States.MeleeAttack)
+        if(pController.state == States.MeleeAttack && pController.canAttack)
         {
             //Enables the collider
             if (Input.GetMouseButtonDown(0))
@@ -130,7 +130,7 @@ public class AttackScript : MonoBehaviour
 
         //Sets the line to two points and sets the first point to the players location
         line.positionCount = 2;
-        line.SetPosition(0, lineStart + transform.forward);
+        line.SetPosition(0, lineStart + transform.forward * pController.gameObject.transform.localScale.y);
 
         RaycastHit hit;
 
@@ -211,22 +211,43 @@ public class AttackScript : MonoBehaviour
     }
 
     //Creates a projectile object from the mageshot prefab and destoys it after 1.6 seconds
-    private void LaunchProjectile()
+    IEnumerator LaunchProjectile()
     {
         //Vector3 pos = transform.position + transform.forward;
 
-        Vector3 lineStart = transform.position + transform.forward;
-        lineStart.y = transform.position.y + (player.transform.localScale.y * 1.3f);
+        pController.canAttack = false;
 
-        GameObject projectile = Instantiate(mageShot, lineStart, transform.rotation);
-        Destroy(projectile, 1.6f);
+        //Wait for the animation to catch up
+        yield return new WaitForSeconds(0.8f);
+
+        pController.canAttack = true;
+        if (pController.lController.levels == Levels.Space)
+        {
+            Vector3 lineStart = transform.position + (transform.forward * pController.gameObject.transform.localScale.y);
+            lineStart.y = transform.position.y + (player.transform.localScale.y * 1.3f);
+
+            GameObject projectile = Instantiate(mageShot, lineStart, transform.rotation);
+            Destroy(projectile, 1.6f);
+        }
+        else
+        {
+            Vector3 lineStart = transform.position + (transform.forward * 3f);
+            lineStart.y = transform.position.y + (player.transform.localScale.y * 1.3f);
+
+            GameObject projectile = Instantiate(mageShot, lineStart, transform.rotation);
+            Destroy(projectile, 1.6f);
+        }
     }
 
     IEnumerator Hit()
     {
+        pController.canAttack = false;
+
         hitboxCollider.enabled = true;
         yield return new WaitForSeconds(0.1f);
         hitboxCollider.enabled = false;
+
+        pController.canAttack = true;
 
         //Bool stops the player from melee attacking again
         pController.meleeAttacked = true;

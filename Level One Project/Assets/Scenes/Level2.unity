@@ -665,7 +665,7 @@ MonoBehaviour:
   enemyType: 1
   enemyHealth: 1
   enemyLevel: 1
-  anim: {fileID: 0}
+  anim: {fileID: 47974114}
 --- !u!114 &47974111
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -712,6 +712,12 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 116
   m_CollisionDetection: 1
+--- !u!95 &47974114 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 9500000, guid: 2aa53a28e9ff0684499f4370e94bc106,
+    type: 3}
+  m_PrefabInstance: {fileID: 47974107}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &50210249
 GameObject:
   m_ObjectHideFlags: 0
@@ -18965,7 +18971,7 @@ MonoBehaviour:
   enemyType: 1
   enemyHealth: 1
   enemyLevel: 1
-  anim: {fileID: 0}
+  anim: {fileID: 1716421104}
 --- !u!114 &1716421101
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19012,6 +19018,12 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 116
   m_CollisionDetection: 1
+--- !u!95 &1716421104 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 9500000, guid: 2aa53a28e9ff0684499f4370e94bc106,
+    type: 3}
+  m_PrefabInstance: {fileID: 1716421097}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1718428515
 GameObject:
   m_ObjectHideFlags: 0

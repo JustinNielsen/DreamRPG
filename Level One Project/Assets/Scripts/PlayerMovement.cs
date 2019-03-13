@@ -142,6 +142,9 @@ public class PlayerMovement : MonoBehaviour
                 //Defines which layers to ignore with the raycast
                 int layerMask = 1 << 11;
 
+                //Makes sure aniation isn't stuck
+                anim.SetTrigger("ExitCombat");
+
                 //sets clicked target to the location the ray hits
                 ShootRayClicked(ray, layerMask);
             }

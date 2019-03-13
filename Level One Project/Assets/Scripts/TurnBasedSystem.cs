@@ -28,7 +28,7 @@ public class TurnBasedSystem : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
-        turnTextures = new Texture[5] { player, enemy1, enemy2, enemy3, enemy4 };
+        turnTextures = new Texture[5] { player, enemy1, enemy2, enemy4, enemy3 };
         //turnOrder.Add(GameObject.FindGameObjectWithTag("playerTurn"));
     }
 
@@ -78,6 +78,8 @@ public class TurnBasedSystem : MonoBehaviour
             pController.hud.HUDHealth();
             //Updates the change in mana
             pController.hud.DecreaseManaBar(0);
+            //Switch animation back to walking
+            pController.movement.anim.SetTrigger("ExitCombat");
 
             //This goes through each level option
             switch (pController.lController.levels)
