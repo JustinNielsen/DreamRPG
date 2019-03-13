@@ -23,6 +23,7 @@ public class HUD : MonoBehaviour
     public Sprite heart2;
     public Sprite heart3;
     public Sprite shield;
+    public Image[] tutorialImages;
     public GameObject heartPrefab;
 
     Sprite[] heartSprites;
@@ -211,7 +212,7 @@ public class HUD : MonoBehaviour
     public void Tutorial()
     {
         //Checks to see if we need to pause/unpause
-        if(instructionFlag || (instructionNumber > 8))
+        if(instructionFlag || (instructionNumber > 6))
         {
             //Resets the instruction flag
             instructionFlag = false;
@@ -238,6 +239,10 @@ public class HUD : MonoBehaviour
         {
             //enables the button
             leftButton.enabled = true;
+            if (leftButton.isActiveAndEnabled)
+                Debug.Log("Arrow Good");
+            if (leftButton.enabled == true)
+                Debug.Log("Arrow Enabled");
         }
 
         //Switch statement to walk through each piece of instruction
@@ -245,42 +250,59 @@ public class HUD : MonoBehaviour
             {
                 case 1:
                     {
-                        instructions.text = "Welcome to tutorial mode. Click \"I\" for more info. Click \"Q\" to quit tutorial mode.";
+                        instructions.text = "Use WASD to move in free movement mode";
                         break;
                     }
                 case 2:
                     {
-                        instructions.text = "Use WASD to move in free movment mode. Once you enter the combat zone, you will can use the scroll wheel to switch between more options.";
+                        instructions.text = "Once you enter the combat zone, you can move by moving the mouse and clicking. The line shows where your path, and is green when you can move to that spot. You only have a limited amount of movement per turn, so use it strategically!";
+                        //Changes the images
+                    tutorialImages[0].enabled = false;
+                    tutorialImages[1].enabled = true;
+                    tutorialImages[2].enabled = true;
+                    tutorialImages[3].enabled = true;
+                    tutorialImages[4].enabled = false;
+                    tutorialImages[5].enabled = false;
+                    if (!tutorialImages[2].IsActive())
+                        Debug.Log("Image is good");
                         break;
                     }
                 case 3:
                     {
-                        instructions.text = "Combat Movement is based on clicks, presented by a line from the player to the mouse. You can only move when the line is green.";
-                        break;
+                        instructions.text = "You can also use the mouse to use melee attacks. The attack will only hit when it is over the enemy. Be warned: You can only use one melee attack per turn.";
+                    //Changes the images... again
+                    tutorialImages[1].enabled = false;
+                    tutorialImages[2].enabled = false;
+                    tutorialImages[3].enabled = false;
+                    tutorialImages[4].enabled = true;
+                    tutorialImages[5].enabled = true;
+                    tutorialImages[6].enabled = false;
+                    tutorialImages[7].enabled = false;
+                    break;
                     }
                 case 4:
                     {
-                        instructions.text = "You also have 2 modes of attack, melee and range. These are based on clicks as well";
-                        break;
+                        instructions.text = "Another option for an attack is a range attack. You can use as many of these as you want per turn, assuming you have enough mana.";
+                    tutorialImages[4].enabled = false;
+                    tutorialImages[5].enabled = false;
+                    tutorialImages[6].enabled = true;
+                    tutorialImages[7].enabled = true;
+                    tutorialImages[8].enabled = false;
+                    break;
                     }
                 case 5:
                     {
-                        instructions.text = "You can only use the melee attack once per turn, but it is more powerful.";
+                        instructions.text = "Your final option is to use a shield. A shield gives you one extra hit point, but costs mana to use. You can only have one shield active at a time.";
+                    tutorialImages[6].enabled = false;
+                    tutorialImages[7].enabled = false;
+                    tutorialImages[8].enabled = true;
                         break;
                     }
                 case 6:
                     {
-                        instructions.text = "Your range attack can be used multiply times a turn, but costs some mana. Your mana replenishes a little each turn.";
-                        break;
-                    }
-                case 7:
-                    {
-                        instructions.text = "Your final choice in combat mode is to shield. This option costs mana, but lets you have one extra hit point.";
-                        break;
-                    }
-                case 8:
-                    {
-                        instructions.text = "To end your turn, click 'Enter'.";
+                        instructions.text = "Use the scroll wheel to switch between all of these options. Hit \"Esc\" to open up the pause menu, and hit \"Enter\" to end your turn.";
+                    tutorialImages[8].enabled = false;
+                    
                         break;
                     }
 
