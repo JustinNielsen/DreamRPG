@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour
     public HUD hud;
     public PlayerMovement movement;
     public TurnBasedSystem turn;
+    public LevelUp levelUp;
     public float maxDistance;
     public bool active = true;
     public States state;
@@ -35,7 +36,10 @@ public class PlayerController : MonoBehaviour
 
     //In loving memory of Matt...
     public AudioSource matt;
+    public AudioSource enemySource;
     public AudioClip[] mattVoiceArray;
+    public AudioClip[] playerSounds;
+    public AudioClip[] enemySounds;
 
     public int playerLevel;
     public float playerXP;
@@ -138,6 +142,8 @@ public class PlayerController : MonoBehaviour
                     hud.HUDHealth();
                     //Updates player stats
                     hud.DisplayStats();
+                    //Play Shield Sound
+                    PlayPlayerSounds(1);
                 }
                 else
                 {
@@ -152,7 +158,7 @@ public class PlayerController : MonoBehaviour
         }
 
         //Checks if the player should level up
-        if (playerXP >= 100 || Input.GetKeyDown(KeyCode.L))
+        if (playerXP >= 100)
         {
             //Removes the xp and adds to the player level
             playerXP -= 100;
@@ -162,6 +168,7 @@ public class PlayerController : MonoBehaviour
             canAttack = false;
 
             //pause game and show level up screen
+            levelUp.PlayLevelSound(2);
             levelUpMenu.SetActive(true);
             Time.timeScale = 0f;
         }
@@ -494,6 +501,7 @@ public class PlayerController : MonoBehaviour
         else
         {
             shieldActive = false;
+            PlayPlayerSounds(3);
         }
 
         if (health == 0)
@@ -502,6 +510,18 @@ public class PlayerController : MonoBehaviour
         }
 
         hud.HUDHealth();
+    }
+
+    public void PlayEnemySounds(int i)
+    {
+        enemySource.clip = enemySounds[i];
+        enemySource.Play();
+    }
+
+    public void PlayPlayerSounds(int i)
+    {
+        matt.clip = playerSounds[i];
+        matt.Play();
     }
 
     public void SavePlayer()

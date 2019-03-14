@@ -73,6 +73,8 @@ public class EnemyController : MonoBehaviour
 
             turn.ResetArrays();
 
+            pController.PlayEnemySounds(2);
+
             Destroy(this.gameObject);
             //Resets the text
         }
@@ -107,6 +109,7 @@ public class EnemyController : MonoBehaviour
             Destroy(other.gameObject);
             Damage damage = other.gameObject.GetComponent<Damage>();
             enemyHealth -= damage.damage;
+            pController.PlayEnemySounds(1);
         }
 
         //Activates when the player hits the enemy
@@ -114,7 +117,7 @@ public class EnemyController : MonoBehaviour
         {
             Damage damage = other.gameObject.GetComponent<Damage>();
             enemyHealth -= damage.damage;
-            Debug.Log($"Enemy Health: {enemyHealth}");
+            pController.PlayEnemySounds(1);
         }
     }
 

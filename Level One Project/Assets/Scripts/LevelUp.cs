@@ -8,11 +8,21 @@ public class LevelUp : MonoBehaviour
 
     public GameObject levelUpMenu;
 
+    //Audio for leveling up
+    public AudioSource levelUpSource;
+    public AudioClip[] levelUpSounds;
+
     float spellReductionCost;
 
     private void Start()
     {
         spellReductionCost = hud.pController.attack.spellCost * 0.1f;
+    }
+
+    public void PlayLevelSound(int i)
+    {
+        levelUpSource.clip = levelUpSounds[i];
+        levelUpSource.Play();
     }
 
     public void MagicClick()

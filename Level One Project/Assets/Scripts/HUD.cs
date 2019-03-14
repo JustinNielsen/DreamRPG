@@ -17,13 +17,15 @@ public class HUD : MonoBehaviour
     public PlayerController pController;
     public GameObject hud;
 
-    public Button leftButton;
+    public Image leftButton;
     //Heart images
     public Sprite heart1;
     public Sprite heart2;
     public Sprite heart3;
     public Sprite shield;
     public GameObject heartPrefab;
+
+    public Image[] tutorialImages;
 
     Sprite[] heartSprites;
     //Health list
@@ -47,6 +49,8 @@ public class HUD : MonoBehaviour
     private int instructionNumber;
     //The flag is used to determine if we actually need to stop. First portion only.
     private bool instructionFlag;
+    //This flag is used to see if the instructions are accessed through the pause menu.
+    private bool throughPause;
 
     private void Start()
     {
@@ -74,6 +78,11 @@ public class HUD : MonoBehaviour
     public void QuitGame()
     {
         Resume();
+
+        //This resets the tutorial
+        throughPause = false;
+        TutorialReset();
+
         pController.movement.ToggleNavMesh(false);
         lController.levels = Levels.MainMenu;
     }
@@ -192,15 +201,20 @@ public class HUD : MonoBehaviour
             {
                 if (GameIsPaused)
                 {
+                    //This checks to see if the pause menu is turned on. It is used for the instructions/tutorial
+                    throughPause = false;
+
                     Resume();
                 }
                 else
                 {
+                    throughPause = true;
                     Pause();
                 }
             }
             else if(settingMenu.activeSelf == true)
             {
+                throughPause = false;
                 settingMenu.SetActive(false);
                 Resume();
             }
@@ -210,93 +224,150 @@ public class HUD : MonoBehaviour
     }
     public void Tutorial()
     {
-        //Checks to see if we need to pause/unpause
-        if(instructionFlag || (instructionNumber > 8))
+        if (!throughPause)
         {
-            //Resets the instruction flag
-            instructionFlag = false;
-            //Disables the paused portion
-            tutorial.SetActive(false);
-            Time.timeScale = 1;
-            hud.SetActive(true);
+            //Checks to see if we need to pause/unpause
+            if (instructionFlag || (instructionNumber > 6))
+            {
+                //Resets the instruction flag
+                instructionFlag = false;
+                //Disables the paused portion
+                tutorial.SetActive(false);
+                Time.timeScale = 1;
+                hud.SetActive(true);
+            }
+            else
+            {
+                //Pauses the game
+                tutorial.SetActive(true);
+                Time.timeScale = 0;
+                hud.SetActive(false);
+            }
         }
         else
         {
-            //Pauses the game
-            tutorial.SetActive(true);
-            Time.timeScale = 0;
-            hud.SetActive(false);
+            //When you finish the tutorial again.
+            if (instructionNumber > 6)
+            {
+                //This is only if it is paused. This will make the pause menu come up again.
+                tutorial.SetActive(false);
+                pauseMenuUI.SetActive(true);
+                TutorialReset();
+            }
+            else if (instructionNumber == 1)
+            {
+                tutorial.SetActive(true);
+                pauseMenuUI.SetActive(false);
+            }
         }
-
-        //This disables/enables the left button
-        if (instructionNumber == 2)
-        {
-            //Disables the button
-            leftButton.enabled = false;
-        }
-        else if(instructionNumber > 3)
-        {
-            //enables the button
-            leftButton.enabled = true;
-        }
-
         //Switch statement to walk through each piece of instruction
         switch (instructionNumber)
             {
                 case 1:
-                    {
-                        instructions.text = "Welcome to tutorial mode. Click \"I\" for more info. Click \"Q\" to quit tutorial mode.";
-                        break;
-                    }
-                case 2:
-                    {
-                        instructions.text = "Use WASD to move in free movment mode. Once you enter the combat zone, you will can use the scroll wheel to switch between more options.";
-                        break;
-                    }
-                case 3:
-                    {
-                        instructions.text = "Combat Movement is based on clicks, presented by a line from the player to the mouse. You can only move when the line is green.";
-                        break;
-                    }
-                case 4:
-                    {
-                        instructions.text = "You also have 2 modes of attack, melee and range. These are based on clicks as well";
-                        break;
-                    }
-                case 5:
-                    {
-                        instructions.text = "You can only use the melee attack once per turn, but it is more powerful.";
-                        break;
-                    }
-                case 6:
-                    {
-                        instructions.text = "Your range attack can be used multiply times a turn, but costs some mana. Your mana replenishes a little each turn.";
-                        break;
-                    }
-                case 7:
-                    {
-                        instructions.text = "Your final choice in combat mode is to shield. This option costs mana, but lets you have one extra hit point.";
-                        break;
-                    }
-                case 8:
-                    {
-                        instructions.text = "To end your turn, click 'Enter'.";
-                        break;
-                    }
 
+                instructions.text = "Use WASD to move in free movement mode";
+                tutorialImages[0].enabled = true;
+                tutorialImages[1].enabled = false;
+                tutorialImages[2].enabled = false;
+                tutorialImages[3].enabled = false;
+                leftButton.enabled = false;
+
+
+                break;
+                case 2:
+
+                instructions.text = "Once you enter the combat zone, you can move by moving the mouse and clicking. The line shows where your path, and is green when you can move to that spot. You only have a limited amount of movement per turn, so use it strategically!";
+                //Changes the images
+                tutorialImages[0].enabled = false;
+                tutorialImages[1].enabled = true;
+                tutorialImages[2].enabled = true;
+                tutorialImages[3].enabled = true;
+                tutorialImages[4].enabled = false;
+                tutorialImages[5].enabled = false;
+
+                if (!throughPause)
+                {
+                    //If the tutorial is accessed not through the pause menu, it will use this section of code
+                    leftButton.enabled = false;
+                }
+                else
+                {
+                    leftButton.enabled = true;
+                }
+
+                break;
+                case 3:
+
+                instructions.text = "You can also use the mouse to use melee attacks. The attack will only hit when it is over the enemy. Be warned: You can only use one melee attack per turn.";
+                //Changes the images... again
+                tutorialImages[1].enabled = false;
+                tutorialImages[2].enabled = false;
+                tutorialImages[3].enabled = false;
+                tutorialImages[4].enabled = true;
+                tutorialImages[5].enabled = true;
+                tutorialImages[6].enabled = false;
+                tutorialImages[7].enabled = false;
+                //This will be enabled regardless of the mode used, so don't worry about it.
+                leftButton.enabled = true;
+
+                break;
+                case 4:
+
+                instructions.text = "Another option for an attack is a range attack. You can use as many of these as you want per turn, assuming you have enough mana.";
+                tutorialImages[4].enabled = false;
+                tutorialImages[5].enabled = false;
+                tutorialImages[6].enabled = true;
+                tutorialImages[7].enabled = true;
+                tutorialImages[8].enabled = false;
+
+                break;
+                case 5:
+
+                instructions.text = "Your final option is to use a shield. A shield gives you one extra hit point, but costs mana to use. You can only have one shield active at a time.";
+                tutorialImages[6].enabled = false;
+                tutorialImages[7].enabled = false;
+                tutorialImages[8].enabled = true;
+
+                break;
+                case 6:
+
+                instructions.text = "Use the scroll wheel to switch between all of these options. Hit \"Esc\" to open up the pause menu, and hit \"Enter\" to end your turn.";
+                tutorialImages[8].enabled = false;
+
+                break;
             }
     }
     public void TutorialLeft()
     {
-        //Moves left
-        instructionNumber--;
+        if(instructionNumber > 1)
+        {
+            //Moves left
+            instructionNumber--;
+        }
+
         Tutorial();
     }
 
     public void TutorialRight()
     {
-        //Moves Right
-        instructionNumber++;
+        if(instructionNumber < 7)
+        {
+            //Moves Right
+            instructionNumber++;
+        }
+
         Tutorial();
+    }
+
+    private void TutorialReset()
+    {
+        //Resets the instruction flag if this is not accessed through the pause menu.
+        if (!throughPause)
+        {
+            instructionFlag = true;
+        }
+
+        //Resets the instruction number.
+        instructionNumber = 1;
     }
 }

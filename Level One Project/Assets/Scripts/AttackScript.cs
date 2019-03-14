@@ -221,6 +221,7 @@ public class AttackScript : MonoBehaviour
         yield return new WaitForSeconds(0.8f);
 
         pController.canAttack = true;
+
         if (pController.lController.levels == Levels.Space)
         {
             Vector3 lineStart = transform.position + (transform.forward * pController.gameObject.transform.localScale.y);
@@ -237,6 +238,9 @@ public class AttackScript : MonoBehaviour
             GameObject projectile = Instantiate(mageShot, lineStart, transform.rotation);
             Destroy(projectile, 1.6f);
         }
+
+        //Play Magic Sound
+        pController.PlayPlayerSounds(0);
     }
 
     IEnumerator Hit()

@@ -284,6 +284,7 @@ public class EnemyAI : MonoBehaviour
                 case 1:
                     Debug.Log("Hit");
                     pController.DamagePlayer(this.gameObject.GetComponent<EnemyController>());
+                    pController.PlayEnemySounds(0);
                     break;
                 case 2:
                 case 3:
@@ -329,6 +330,8 @@ public class EnemyAI : MonoBehaviour
             GameObject projectile = Instantiate(mageShot, lineStart, transform.rotation, this.transform);
             Destroy(projectile, 1.6f);
         }
+
+        pController.PlayEnemySounds(3);
     }
 
     IEnumerator AttackWait()
