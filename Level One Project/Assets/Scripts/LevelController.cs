@@ -28,7 +28,7 @@ public class LevelController : MonoBehaviour
     public PlayerController pController;
 
     //Audio things
-    AudioSource backAudio;
+    public AudioSource backAudio;
     public AudioClip mainMenu;
     public AudioClip level1;
     public AudioClip level2;

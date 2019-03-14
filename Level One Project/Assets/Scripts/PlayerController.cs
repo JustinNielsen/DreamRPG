@@ -207,6 +207,13 @@ public class PlayerController : MonoBehaviour
             //Change camera blend mode to ease
             camBrain.m_DefaultBlend.m_Style = CinemachineBlendDefinition.Style.EaseInOut;
         }
+
+        //Also testing purposes only
+        if (Input.GetKeyDown(KeyCode.Alpha0))
+        {
+
+            hud.WinGame();
+        }
     }
 
     void FixedUpdate()
@@ -419,7 +426,12 @@ public class PlayerController : MonoBehaviour
                     break;
                 case Levels.Level3:
                     lController.levels = Levels.Space;
-                    break;             
+                    break;
+                case Levels.Space:
+                    //This will end the game
+                    hud.WinGame();
+                    level = Levels.MainMenu;
+                    break;
             }
         }
 

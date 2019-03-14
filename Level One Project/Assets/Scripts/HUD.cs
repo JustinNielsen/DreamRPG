@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.Video;
 
 public class HUD : MonoBehaviour
 {
@@ -17,6 +18,8 @@ public class HUD : MonoBehaviour
     public PlayerController pController;
     public GameObject hud;
 
+    //VideoPlayer
+    public VideoPlayer vPlayer;
     public Image leftButton;
     //Heart images
     public Sprite heart1;
@@ -370,4 +373,25 @@ public class HUD : MonoBehaviour
         //Resets the instruction number.
         instructionNumber = 1;
     }
+
+    public void WinGame()
+    {
+        //Sets the level to the main menu, freezes time, and deactivates the hud.
+        lController.backAudio.Stop();
+        hud.SetActive(false);
+        vPlayer.Play();
+        StartCoroutine(PlayingVideo());
+    }
+
+    private IEnumerator PlayingVideo()
+    {
+
+        //Waits 15 seconds for the video to stop. We may change the time so KEEP THAT IN MIND!!!!!!
+        yield return new WaitForSeconds(15);
+        //Goes back to the main menu.
+        QuitGame();
+        vPlayer.Stop();
+
+    }
+
 }
