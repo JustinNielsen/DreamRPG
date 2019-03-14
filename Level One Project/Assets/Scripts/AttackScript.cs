@@ -243,6 +243,8 @@ public class AttackScript : MonoBehaviour
     {
         pController.canAttack = false;
 
+        yield return new WaitForSeconds(0.7f);
+
         hitboxCollider.enabled = true;
         yield return new WaitForSeconds(0.1f);
         hitboxCollider.enabled = false;

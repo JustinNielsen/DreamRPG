@@ -168,7 +168,7 @@ public class PlayerMovement : MonoBehaviour
             //Debug.Log("Out of the movement");
         }
 
-        if (Vector3.Distance(transform.position, agent.destination) <= 1f)
+        if (Vector3.Distance(transform.position, agent.destination) <= 0.1f)
         {
             //Sets isMoving to false
             isMoving = false;
@@ -212,7 +212,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         //Set the speed for the animations
-        anim.SetFloat("Speed", agent.velocity.magnitude);
+        anim.SetFloat("Speed", (agent.velocity.magnitude / pControl.gameObject.transform.localScale.y));
     }
 
     //Only draws the path doesn't set the destination for the NavMeshAgent
@@ -363,8 +363,7 @@ public class PlayerMovement : MonoBehaviour
     {
         //Applies velocity to rigidbody
         rb.velocity = moveVelocity;
-        anim.SetFloat("Speed", rb.velocity.magnitude);
-        //Debug.Log(rb.velocity.magnitude);
+        anim.SetFloat("Speed", (rb.velocity.magnitude / pControl.gameObject.transform.localScale.y));
     }
 
     //Turns on or off the navMesh according to the bool parameter
@@ -389,16 +388,36 @@ public class PlayerMovement : MonoBehaviour
     //Disables the players path if they are stuck
     IEnumerator StuckCheck()
     {
+        float minMoveDistance;
+
         //If the current speed is still less than one after 1 second the players current path will be reset
         yield return new WaitForSeconds(1f);
 
         distanceMoved = previousDistance - agent.remainingDistance;
 
-        if (pControl.state == States.NavMesh && agent.path != null && isMoving && distanceMoved < 0.01f || agent.remainingDistance == Mathf.Infinity)
+        if(pControl.lController.levels == Levels.Space)
+        {
+            minMoveDistance = 0.001f;
+        }
+        else
+        {
+            minMoveDistance = 0.01f;
+        }
+
+        if (pControl.state == States.NavMesh && agent.path != null && isMoving && distanceMoved < minMoveDistance || agent.remainingDistance == Mathf.Infinity)
         {
             //Adds the remaining distance back to the maxDistance variable
             Debug.Log("Remaining Distance 2: " + agent.remainingDistance);
-            maxDistance += agent.remainingDistance;
+
+            if(agent.remainingDistance != Mathf.Infinity)
+            {
+                maxDistance += agent.remainingDistance;
+            }
+            else
+            {
+                maxDistance += 5f;
+            }
+
             agent.ResetPath();
         }
 

@@ -206,6 +206,7 @@ public class LevelController : MonoBehaviour
                     pController.movement.agent.speed = 1.4f * pController.gameObject.transform.localScale.y;
                     pController.movement.line.startWidth = 0.1f;
                     pController.movement.line.endWidth = 0.1f;
+                    pController.movement.maxDistance = 4f * pController.gameObject.transform.localScale.y;
                     break;
                 }
             case Levels.Level2:
@@ -228,6 +229,7 @@ public class LevelController : MonoBehaviour
                     pController.movement.agent.speed = 1.4f * pController.gameObject.transform.localScale.y;
                     pController.movement.line.startWidth = 0.1f;
                     pController.movement.line.endWidth = 0.1f;
+                    pController.movement.maxDistance = 4f * pController.gameObject.transform.localScale.y;
                     break;
                 }
             case Levels.Level3:
@@ -250,6 +252,7 @@ public class LevelController : MonoBehaviour
                     pController.movement.agent.speed = 1.4f * pController.gameObject.transform.localScale.y;
                     pController.movement.line.startWidth = 0.1f;
                     pController.movement.line.endWidth = 0.1f;
+                    pController.movement.maxDistance = 4f * pController.gameObject.transform.localScale.y;
                     break;
                 }
             case Levels.Space:
@@ -272,6 +275,7 @@ public class LevelController : MonoBehaviour
                     pController.movement.agent.speed = 1.4f * pController.gameObject.transform.localScale.y;
                     pController.movement.line.startWidth = 0.01f;
                     pController.movement.line.endWidth = 0.01f;
+                    pController.movement.maxDistance = 4f * pController.gameObject.transform.localScale.y;
                     break;
                 }
         }

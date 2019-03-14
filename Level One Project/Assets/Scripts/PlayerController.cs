@@ -91,7 +91,7 @@ public class PlayerController : MonoBehaviour
         camBrain = cam.GetComponent<CinemachineBrain>();
         //Sets the player level to 1 and xp to 0
         playerLevel = 1;
-        playerXP = 0;
+        playerXP = 0f;
         meleeAttacked = false;
         //Initilize maxMana and remaining mana
         maxMana = 100f;
@@ -212,12 +212,10 @@ public class PlayerController : MonoBehaviour
                     movement.NavMeshMovement();
                     mouseWheelLocation = 0;
                     hud.stateIndicator.text = "Combat Movement";
-                    movement.anim.SetTrigger("ExitCombat");
                     break;
                 case States.WASD:
                     movement.KeyboardMovement();
                     hud.stateIndicator.text = "WASD Movement";
-                    movement.anim.SetTrigger("ExitCombat");
                     break;
                 case States.MeleeAttack:
                     attack.MeleeAttackMode();
@@ -261,9 +259,9 @@ public class PlayerController : MonoBehaviour
         //Adds mana after each turn
         if (!addedMana && remainingMana != 100f)
         {
-            if (remainingMana <= (maxMana - 12.5f))
+            if (remainingMana <= (maxMana - 20f))
             {
-                remainingMana += 12.5f;
+                remainingMana += 20f;
             }
             else
             {
@@ -275,7 +273,7 @@ public class PlayerController : MonoBehaviour
         }
 
         //Reset max move distance and meleeAttacked after turn is done
-        movement.maxDistance = 10f * this.gameObject.transform.localScale.y;
+        movement.maxDistance = 4f * this.gameObject.transform.localScale.y;
         meleeAttacked = false;
 
         //Delete line, hitbox, and shield

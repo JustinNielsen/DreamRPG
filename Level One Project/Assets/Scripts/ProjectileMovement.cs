@@ -14,7 +14,7 @@ public class ProjectileMovement : MonoBehaviour
 
         speed = 0.25f * pController.gameObject.transform.localScale.y;
 
-        if(pController.lController.levels == Levels.Space)
+        if(pController.lController.levels == Levels.Space && this.gameObject.CompareTag("playerProjectile"))
         {
             this.gameObject.transform.localScale = pController.gameObject.transform.localScale;
             GameObject bullet = GameObject.FindGameObjectWithTag("particles");

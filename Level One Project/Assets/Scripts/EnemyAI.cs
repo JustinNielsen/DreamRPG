@@ -38,21 +38,21 @@ public class EnemyAI : MonoBehaviour
         enemyController = GetComponent<EnemyController>();
         agent = GetComponent<NavMeshAgent>();
         waypoints = GameObject.FindGameObjectsWithTag("waypoint");
-        maxMovementRange = 5f * this.gameObject.transform.localScale.y;
+        maxMovementRange = 2.5f * this.gameObject.transform.localScale.y;
         agent.speed = 1.4f * this.gameObject.transform.localScale.y;
 
         if (pController.lController.levels == Levels.Space)
         {
-            maxRangeDistance = (12 * 0.5f);
-            minRangeDistance = (7 * 0.5f);
-            meleeDistance = (3 * 0.5f);
-            meleeAttackDistance = (3.5f * 0.5f);
+            maxRangeDistance = (12 * 0.15f);
+            minRangeDistance = (7 * 0.15f);
+            meleeDistance = (3 * 0.15f);
+            meleeAttackDistance = (3.5f * 0.15f);
         }
         else
         {
             maxRangeDistance = 12;
             minRangeDistance = 7;
-            meleeDistance = 3;
+            meleeDistance = 4;
             meleeAttackDistance = 3.5f;
         }
     }
@@ -125,7 +125,7 @@ public class EnemyAI : MonoBehaviour
                 {
                     rotate = false;
 
-                    if (distanceToPlayer.magnitude <= 3.5)
+                    if (distanceToPlayer.magnitude <= meleeDistance)
                     {
                         MeleeAttack();
                     }
@@ -182,10 +182,14 @@ public class EnemyAI : MonoBehaviour
 
         if(random == 0)
         {
+            Debug.Log("Brute");
+            classType = 2;
             BruteMove();
         }
         else
         {
+            Debug.Log("Mage");
+            classType = 1;
             MageMove();
         }
     }
@@ -250,7 +254,7 @@ public class EnemyAI : MonoBehaviour
             {
                 Debug.DrawLine(transform.position, hit.transform.position, Color.red, 5f);
                 //Debug.Log("Hit Player");
-                LaunchProjectile();
+                StartCoroutine(LaunchProjectile());
             }
             else
             {
@@ -292,17 +296,39 @@ public class EnemyAI : MonoBehaviour
         StartCoroutine(SwitchTurn());
     }
 
-    private void LaunchProjectile()
+    IEnumerator LaunchProjectile()
     {
         //Vector3 pos = transform.position + transform.forward;
 
+
+        //Vector3 lineStart = transform.position;
+        //lineStart.y = transform.position.y + (this.transform.localScale.y * 1.3f);
+
+        //GameObject projectile = Instantiate(mageShot, lineStart, transform.rotation, this.transform);
+        //Destroy(projectile, 4f);
+
+        //Start the animation
         enemyController.anim.SetTrigger("Attack");
 
-        Vector3 lineStart = transform.position;
-        lineStart.y = transform.position.y + (this.transform.localScale.y * 1.3f);
+        //Wait for the animation to catch up
+        yield return new WaitForSeconds(0.8f);
 
-        GameObject projectile = Instantiate(mageShot, lineStart, transform.rotation, this.transform);
-        Destroy(projectile, 4f);
+        if (pController.lController.levels == Levels.Space)
+        {
+            Vector3 lineStart = transform.position + (transform.forward * pController.gameObject.transform.localScale.y);
+            lineStart.y = transform.position.y + (player.transform.localScale.y * 1.3f);
+
+            GameObject projectile = Instantiate(mageShot, lineStart, transform.rotation, this.transform);
+            Destroy(projectile, 1.6f);
+        }
+        else
+        {
+            Vector3 lineStart = transform.position + (transform.forward * 3f);
+            lineStart.y = transform.position.y + (player.transform.localScale.y * 1.3f);
+
+            GameObject projectile = Instantiate(mageShot, lineStart, transform.rotation, this.transform);
+            Destroy(projectile, 1.6f);
+        }
     }
 
     IEnumerator AttackWait()

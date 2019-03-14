@@ -33,7 +33,7 @@ public class EnemyController : MonoBehaviour
         cam.Follow = transform;
         ai = GetComponent<EnemyAI>();
         agent = GetComponent<NavMeshAgent>();
-        rb = GetComponent<Rigidbody>();
+        rb = GetComponent<Rigidbody>();      
 
         //Initlize turn based system script
         turn = GameObject.FindGameObjectWithTag("turn").GetComponent<TurnBasedSystem>();
@@ -59,7 +59,7 @@ public class EnemyController : MonoBehaviour
         if(pController.lController.levels == Levels.Space)
         {
             transposer = cam.GetCinemachineComponent<CinemachineTransposer>();
-            transposer.m_FollowOffset = new Vector3(-0.3f, 1, -0.15f);
+            transposer.m_FollowOffset = new Vector3(-0.5f, 1.5f, -0.25f);
         }
     }
 
@@ -67,16 +67,18 @@ public class EnemyController : MonoBehaviour
     {
         if(enemyHealth <= 0)
         {
+            //Uses a simple formula to find the xp. It should work for the most part
+            pController.playerXP += ((float)enemyLevel / (float)pController.playerLevel) * 50;
+            Debug.Log("Added " + (((float)enemyLevel / (float)pController.playerLevel) * 50) + " XP");
+
             turn.ResetArrays();
 
-            //Uses a simple formula to find the xp. It should work for the most part
-            pController.playerXP += enemyLevel / pController.playerLevel * 50;
             Destroy(this.gameObject);
             //Resets the text
         }
         else
         {
-            anim.SetFloat("Speed", agent.velocity.magnitude);
+            anim.SetFloat("Speed", (agent.velocity.magnitude / this.gameObject.transform.localScale.y));
         }
     }
 
