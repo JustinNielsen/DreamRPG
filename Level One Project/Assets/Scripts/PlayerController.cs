@@ -37,6 +37,7 @@ public class PlayerController : MonoBehaviour
     //In loving memory of Matt...
     public AudioSource matt;
     public AudioSource enemySource;
+    public AudioSource playerSource;
     public AudioClip[] mattVoiceArray;
     public AudioClip[] playerSounds;
     public AudioClip[] enemySounds;
@@ -489,19 +490,19 @@ public class PlayerController : MonoBehaviour
     //Damages the player
     public void DamagePlayer(EnemyController enemy)
     {
-        //Play enemy player grunt
-        MattVoiceOver(12);
-
         //TODO - Implement a better damage system based on the level of the enemy
 
         if (!shieldActive)
         {
             health--;
+
+            //Play enemy player grunt
+            MattVoiceOver(12);
         }
         else
         {
             shieldActive = false;
-            PlayPlayerSounds(3);
+            PlayPlayerSounds(2);
         }
 
         if (health == 0)
@@ -520,8 +521,8 @@ public class PlayerController : MonoBehaviour
 
     public void PlayPlayerSounds(int i)
     {
-        matt.clip = playerSounds[i];
-        matt.Play();
+        playerSource.clip = playerSounds[i];
+        playerSource.Play();
     }
 
     public void SavePlayer()
