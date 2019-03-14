@@ -48,7 +48,8 @@ public class HUD : MonoBehaviour
     private int instructionNumber;
     //The flag is used to determine if we actually need to stop. First portion only.
     private bool instructionFlag;
-
+    //This flag is used to see if the instructions are accessed through the pause menu.
+    private bool throughPause;
     private void Start()
     {
         instructionNumber = 1;
@@ -75,8 +76,13 @@ public class HUD : MonoBehaviour
     public void QuitGame()
     {
         Resume();
+        //This resets the tutorial
+        throughPause = false;
+        TutorialReset();
+
         pController.movement.ToggleNavMesh(false);
         lController.levels = Levels.MainMenu;
+        
     }
 
     //Decrease the mana bar by the inputed spell cost
@@ -193,15 +199,19 @@ public class HUD : MonoBehaviour
             {
                 if (GameIsPaused)
                 {
+                    //This checks to see if the pause menu is turned on. It is used for the instructions/tutorial
+                    throughPause = false;
                     Resume();
                 }
                 else
                 {
+                    throughPause = true;
                     Pause();
                 }
             }
             else if(settingMenu.activeSelf == true)
             {
+                throughPause = false;
                 settingMenu.SetActive(false);
                 Resume();
             }
@@ -211,32 +221,56 @@ public class HUD : MonoBehaviour
     }
     public void Tutorial()
     {
-        //Checks to see if we need to pause/unpause
-        if(instructionFlag || (instructionNumber > 6))
+        if (!throughPause)
         {
-            //Resets the instruction flag
-            instructionFlag = false;
-            //Disables the paused portion
-            tutorial.SetActive(false);
-            Time.timeScale = 1;
-            hud.SetActive(true);
+            //Checks to see if we need to pause/unpause
+            if (instructionFlag || (instructionNumber > 6))
+            {
+                //Resets the instruction flag
+                instructionFlag = false;
+                //Disables the paused portion
+                tutorial.SetActive(false);
+                Time.timeScale = 1;
+                hud.SetActive(true);
+            }
+            else
+            {
+                //Pauses the game
+                tutorial.SetActive(true);
+                Time.timeScale = 0;
+                hud.SetActive(false);
+            }
         }
         else
         {
-            //Pauses the game
-            tutorial.SetActive(true);
-            Time.timeScale = 0;
-            hud.SetActive(false);
+            
+            //When you finish the tutorial again.
+            if(instructionNumber > 6)
+            {
+                //This is only if it is paused. This will make the pause menu come up again.
+                tutorial.SetActive(false);
+                pauseMenuUI.SetActive(true);
+                TutorialReset();
+            }
+            else if(instructionNumber == 1)
+            {
+                tutorial.SetActive(true);
+                pauseMenuUI.SetActive(false);
+            }
+
         }
-
-
-
+       
         //Switch statement to walk through each piece of instruction
         switch (instructionNumber)
             {
                 case 1:
                     {
                         instructions.text = "Use WASD to move in free movement mode";
+                    tutorialImages[0].enabled = true;
+                    tutorialImages[1].enabled = false;
+                    tutorialImages[2].enabled = false;
+                    tutorialImages[3].enabled = false;
+                    leftButton.image.enabled = false;
                         break;
                     }
                 case 2:
@@ -249,10 +283,17 @@ public class HUD : MonoBehaviour
                     tutorialImages[3].enabled = true;
                     tutorialImages[4].enabled = false;
                     tutorialImages[5].enabled = false;
-                    if (!tutorialImages[2].IsActive())
-                        Debug.Log("Image is good");
-                    leftButton.image.enabled = false;
-                        break;
+                    if (!throughPause)
+                    {
+                        //If the tutorial is accessed not through the pause menu, it will use this section of code
+                        leftButton.image.enabled = false;
+                    }
+                    else
+                    {
+                        leftButton.image.enabled = true;
+                    }
+
+                    break;
                     }
                 case 3:
                     {
@@ -265,6 +306,7 @@ public class HUD : MonoBehaviour
                     tutorialImages[5].enabled = true;
                     tutorialImages[6].enabled = false;
                     tutorialImages[7].enabled = false;
+                    //This will be enabled regardless of the mode used, so don't worry about it.
                     leftButton.image.enabled = true;
                     break;
                     }
@@ -308,5 +350,16 @@ public class HUD : MonoBehaviour
         //Moves Right
         instructionNumber++;
         Tutorial();
+    }
+
+    private void TutorialReset()
+    {
+        //Resets the instruction flag if this is not accessed through the pause menu.
+        if (!throughPause)
+        {
+            instructionFlag = true;
+        }
+        //Resets the instruction number.
+        instructionNumber = 1;
     }
 }
