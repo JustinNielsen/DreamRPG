@@ -18,6 +18,14 @@ public class MainMenu : MonoBehaviour
     public void PlayGame()
     {
         pController.lController.levels = Levels.Level1;
+
+        pController.playerLevel = 1;
+        pController.playerXP = 0;
+        pController.remainingMana = 100;
+        pController.attack.damage = 1;
+        pController.attack.spellCost = 25;
+        pController.state = States.WASD;
+
         //StartCoroutine(CamPriority());
     }
 

@@ -663,8 +663,8 @@ MonoBehaviour:
   camPrefab: {fileID: 398722720805700671, guid: f998e366753f3864b9ebd53b1deec614,
     type: 3}
   enemyType: 1
-  enemyHealth: 1
-  enemyLevel: 1
+  enemyHealth: 2
+  enemyLevel: 2
   anim: {fileID: 47974114}
 --- !u!114 &47974111
 MonoBehaviour:
