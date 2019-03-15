@@ -238,6 +238,7 @@ public class HUD : MonoBehaviour
                 tutorial.SetActive(false);
                 Time.timeScale = 1;
                 hud.SetActive(true);
+                pController.active = true;
             }
             else
             {

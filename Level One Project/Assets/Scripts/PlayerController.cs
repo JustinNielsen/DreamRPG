@@ -113,7 +113,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         //Only allow the scroll wheel to change states in combat mode
-        if (state != States.WASD && !movement.isMoving)
+        if (state != States.WASD && !movement.isMoving && active)
         {
             if (Input.GetAxis("Mouse ScrollWheel") > 0)
             {
@@ -126,7 +126,7 @@ public class PlayerController : MonoBehaviour
         }
 
         //Checks to see if you hit the left mouse button
-        if (Input.GetMouseButtonDown(0) && state == States.Shielding)
+        if (Input.GetMouseButtonDown(0) && state == States.Shielding && active)
         {
             //Makes sure you can only have one shield
             if (!shieldActive)
@@ -189,23 +189,6 @@ public class PlayerController : MonoBehaviour
             shield.SetActive(false);
 
             turn.SwitchTurn();
-        }
-
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            shieldActive = true;
-            hud.HUDHealth();
-        }
-
-        //Testing purposes only
-        if (Input.GetKeyDown(KeyCode.N))
-        {
-            movement.agent.enabled = true;
-            mouseWheelLocation = 0;
-            state = States.NavMesh;
-
-            //Change camera blend mode to ease
-            camBrain.m_DefaultBlend.m_Style = CinemachineBlendDefinition.Style.EaseInOut;
         }
 
         //Also testing purposes only
@@ -371,6 +354,7 @@ public class PlayerController : MonoBehaviour
                 case Levels.Level1:
                     {
                         MattVoiceOver(1);
+                        active = false;
                         hud.Tutorial();
                         break;
                     }

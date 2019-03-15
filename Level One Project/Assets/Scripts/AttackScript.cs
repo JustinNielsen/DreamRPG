@@ -27,15 +27,15 @@ public class AttackScript : MonoBehaviour
         pController = GetComponent<PlayerController>();
         //Initilize LineRendrer
         line = player.GetComponent<LineRenderer>();
-        //Initilize spell cost to 25
-        spellCost = 25;
+        //Initilize spell cost to 30
+        spellCost = 30;
         //Initilize player damage to 1
         damage = 1;
     }
 
     private void Update()
     {
-        if(pController.state == States.RangeAttack && pController.canAttack)
+        if(pController.state == States.RangeAttack && pController.canAttack && pController.active)
         {
             //Shoot the projectile in the players forward direction
             if (Input.GetMouseButtonDown(0))
@@ -59,7 +59,7 @@ public class AttackScript : MonoBehaviour
             }
         }
 
-        if(pController.state == States.MeleeAttack && pController.canAttack)
+        if(pController.state == States.MeleeAttack && pController.canAttack && pController.active)
         {
             //Enables the collider
             if (Input.GetMouseButtonDown(0))

@@ -44,7 +44,7 @@ public class LevelUp : MonoBehaviour
     public void MeleeClick()
     {
         //Increase melee damage by 1
-        hud.pController.attack.damage++;
+        hud.pController.attack.damage += 2;
 
         //Resume game
         Time.timeScale = 1f;
