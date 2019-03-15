@@ -454,6 +454,11 @@ public class PlayerController : MonoBehaviour
         {
             TopCamera.Priority = 20;
         }
+
+        if (other.gameObject.CompareTag("PosterTrigger"))
+        {
+            MattVoiceOver(7);
+        }
     }
 
     private void OnTriggerExit(Collider other)
