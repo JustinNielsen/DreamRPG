@@ -18,8 +18,6 @@ public class HUD : MonoBehaviour
     public PlayerController pController;
     public GameObject hud;
 
-    //VideoPlayer
-    public VideoPlayer vPlayer;
     public Image leftButton;
     //Heart images
     public Sprite heart1;
@@ -70,6 +68,8 @@ public class HUD : MonoBehaviour
         pauseMenuUI.SetActive(false);
         Time.timeScale = 1f;
         GameIsPaused = false;
+        //Reactivates the player
+        pMovement.enabled = true;
     }
 
     //Used on the pause menu to pause the game
@@ -78,6 +78,8 @@ public class HUD : MonoBehaviour
         pauseMenuUI.SetActive(true);
         Time.timeScale = 0f;
         GameIsPaused = true;
+        //Deactivates player
+        pMovement.enabled = false;
     }
 
     //Used on the pause menu to get back to the main menu
@@ -402,8 +404,6 @@ public class HUD : MonoBehaviour
 
         isGameWon = true;
 
-        //vPlayer.Play();
-        //StartCoroutine(PlayingVideo());
     }
 
 

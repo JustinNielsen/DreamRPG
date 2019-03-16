@@ -154,7 +154,7 @@ public class EnemyController : MonoBehaviour
             Destroy(other.gameObject);
             Damage damage = other.gameObject.GetComponent<Damage>();
             enemyHealth -= damage.damage;
-            pController.PlayEnemySounds(1);
+            pController.PlayEnemySounds(2);
         }
 
         //Activates when the player hits the enemy
@@ -162,7 +162,7 @@ public class EnemyController : MonoBehaviour
         {
             Damage damage = other.gameObject.GetComponent<Damage>();
             enemyHealth -= damage.damage;
-            pController.PlayEnemySounds(1);
+            pController.PlayEnemySounds(2);
         }
     }
 

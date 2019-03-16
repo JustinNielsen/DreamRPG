@@ -60,8 +60,6 @@ public class PlayerController : MonoBehaviour
     //Bool to check if the poster trigger has already triggered.
     bool posterTriggerBool = true;
 
-    //Voice trigger to stop a bug on the third level
-    bool voiceFlag = true;
 
     //Shield gameobject
     public GameObject shield;
@@ -381,11 +379,9 @@ public class PlayerController : MonoBehaviour
                     }
                 case Levels.Level3:
                     {
-                        if (voiceFlag)
-                        {
+
                             MattVoiceOver(8);
-                            voiceFlag = false;
-                        }
+
                         break;
                     }
             }
@@ -571,7 +567,7 @@ public class PlayerController : MonoBehaviour
         {
             //Initilize player stats
             attack.damage = data.damage;
-            attack.spellCost = data.spellCost;
+            attack.spellCost = (int)data.spellCost;
             playerLevel = data.playerLevel;
             playerXP = data.playerXP;
 

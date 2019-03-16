@@ -15,7 +15,7 @@ public class AttackScript : MonoBehaviour
     public GameObject mageShot;
     public LineRenderer line;
     public HUD hud;
-    public float spellCost;
+    public int spellCost;
     public int damage;
 
     //Start Function

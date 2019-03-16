@@ -91,7 +91,6 @@ public class TurnBasedSystem : MonoBehaviour
                     pController.MattVoiceOver(5);
                     break;
                 case Levels.Level3:
-                    pController.MattVoiceOver(8);
                     //Open the exit door
                     pController.exitDoor.SetActive(false);
                     break;

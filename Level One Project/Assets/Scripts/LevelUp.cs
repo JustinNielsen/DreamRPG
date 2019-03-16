@@ -28,7 +28,7 @@ public class LevelUp : MonoBehaviour
     public void MagicClick()
     {
         //Decrese spell cost by 10% and return to the game
-        hud.pController.attack.spellCost -= spellReductionCost;
+        hud.pController.attack.spellCost -= (int)spellReductionCost;
 
         //Save the player
         hud.pController.SavePlayer();
