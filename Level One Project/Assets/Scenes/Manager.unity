@@ -245,7 +245,6 @@ MonoBehaviour:
   lController: {fileID: 2139108041}
   pController: {fileID: 2018453791}
   hud: {fileID: 586609512}
-  vPlayer: {fileID: 0}
   leftButton: {fileID: 1303038721}
   heart1: {fileID: 21300000, guid: 9ea149027bb14254ea014d4648389c29, type: 3}
   heart2: {fileID: 21300000, guid: 773e2f84c861f0f47a264a74583193be, type: 3}
@@ -6368,7 +6367,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_text: Decrease Spell Cost by 10%
+  m_text: Decrease Spell Cost by 15%
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 291665bbad4875249b4cf72eca8f5efd, type: 2}
   m_sharedMaterial: {fileID: 21361119817268870, guid: 291665bbad4875249b4cf72eca8f5efd,
@@ -6446,11 +6445,11 @@ MonoBehaviour:
     lineCount: 2
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 0
+  m_havePropertiesChanged: 1
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_isInputParsingRequired: 0
+  m_isInputParsingRequired: 1
   m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_subTextObjects:

@@ -135,10 +135,10 @@ public class PlayerController : MonoBehaviour
             //Makes sure you can only have one shield
             if (!shieldActive)
             {
-                if (remainingMana > 33) //Checks if the player has enough mana to get a shield
+                if (remainingMana > 40) //Checks if the player has enough mana to get a shield
                 {
                     //Subtract mana
-                    hud.DecreaseManaBar(33);
+                    hud.DecreaseManaBar(40);
                     //Activates the shield
                     shieldActive = true;
                     //Disables the visable shield
@@ -271,9 +271,9 @@ public class PlayerController : MonoBehaviour
         //Adds mana after each turn
         if (!addedMana && remainingMana != 100f)
         {
-            if (remainingMana <= (maxMana - 20f))
+            if (remainingMana <= (maxMana - 35f))
             {
-                remainingMana += 20f;
+                remainingMana += 35f;
             }
             else
             {

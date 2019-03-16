@@ -23,7 +23,7 @@ public class MainMenu : MonoBehaviour
         pController.playerXP = 0;
         pController.remainingMana = 100;
         pController.attack.damage = 2;
-        pController.attack.spellCost = 30;
+        pController.attack.spellCost = 20;
         pController.state = States.WASD;
         pController.hud.isGameWon = false;
 

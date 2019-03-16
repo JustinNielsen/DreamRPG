@@ -185,7 +185,7 @@ public class HUD : MonoBehaviour
                 playerStats.text = $"Player Level: {pController.playerLevel}\nXP: {pController.playerXP}\nRemaining Mana: {pController.remainingMana}\nSpell Cost: {pController.attack.spellCost}";
                 break;
             case States.Shielding:
-                playerStats.text = $"Player Level: {pController.playerLevel}\nXP: {pController.playerXP}\nRemaining Mana: {pController.remainingMana}\nSpell Cost: {33}";
+                playerStats.text = $"Player Level: {pController.playerLevel}\nXP: {pController.playerXP}\nRemaining Mana: {pController.remainingMana}\nSpell Cost: {40}";
                 break;
         }
     }
@@ -395,7 +395,7 @@ public class HUD : MonoBehaviour
         pController.playerLevel = 1;
         pController.playerXP = 0;
         pController.attack.damage = 2;
-        pController.attack.spellCost = 30;
+        pController.attack.spellCost = 20;
 
         //Sets the level to the main menu, freezes time, and deactivates the hud.
         lController.backAudio.Stop();

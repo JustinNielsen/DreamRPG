@@ -662,6 +662,7 @@ MonoBehaviour:
   active: 0
   camPrefab: {fileID: 398722720805700671, guid: f998e366753f3864b9ebd53b1deec614,
     type: 3}
+  ai: {fileID: 0}
   enemyType: 1
   enemyHealth: 2
   enemyLevel: 2
@@ -1753,6 +1754,7 @@ MonoBehaviour:
   active: 0
   camPrefab: {fileID: 398722720805700671, guid: f998e366753f3864b9ebd53b1deec614,
     type: 3}
+  ai: {fileID: 0}
   enemyType: 1
   enemyHealth: 2
   enemyLevel: 1
@@ -10162,9 +10164,10 @@ MonoBehaviour:
   active: 0
   camPrefab: {fileID: 398722720805700671, guid: f998e366753f3864b9ebd53b1deec614,
     type: 3}
+  ai: {fileID: 0}
   enemyType: 2
-  enemyHealth: 2
-  enemyLevel: 2
+  enemyHealth: 3
+  enemyLevel: 3
   anim: {fileID: 813733869}
 --- !u!114 &813733866
 MonoBehaviour:
@@ -19306,9 +19309,10 @@ MonoBehaviour:
   active: 0
   camPrefab: {fileID: 398722720805700671, guid: f998e366753f3864b9ebd53b1deec614,
     type: 3}
+  ai: {fileID: 0}
   enemyType: 1
   enemyHealth: 2
-  enemyLevel: 3
+  enemyLevel: 4
   anim: {fileID: 1716421104}
 --- !u!114 &1716421101
 MonoBehaviour:

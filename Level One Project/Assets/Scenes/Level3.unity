@@ -1887,7 +1887,7 @@ MonoBehaviour:
   ai: {fileID: 0}
   enemyType: 2
   enemyHealth: 3
-  enemyLevel: 3
+  enemyLevel: 5
   anim: {fileID: 227633710}
 --- !u!195 &227633707
 NavMeshAgent:
@@ -8857,7 +8857,7 @@ MonoBehaviour:
   ai: {fileID: 0}
   enemyType: 1
   enemyHealth: 3
-  enemyLevel: 3
+  enemyLevel: 5
   anim: {fileID: 619901446}
 --- !u!195 &619901443
 NavMeshAgent:
@@ -9364,8 +9364,8 @@ MonoBehaviour:
     type: 3}
   ai: {fileID: 0}
   enemyType: 1
-  enemyHealth: 3
-  enemyLevel: 3
+  enemyHealth: 5
+  enemyLevel: 6
   anim: {fileID: 667857185}
 --- !u!195 &667857182
 NavMeshAgent:

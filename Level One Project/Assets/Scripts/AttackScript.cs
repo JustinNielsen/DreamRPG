@@ -28,7 +28,7 @@ public class AttackScript : MonoBehaviour
         //Initilize LineRendrer
         line = player.GetComponent<LineRenderer>();
         //Initilize spell cost to 30
-        spellCost = 30;
+        spellCost = 20;
         //Initilize player damage to 1
         damage = 2;
     }
