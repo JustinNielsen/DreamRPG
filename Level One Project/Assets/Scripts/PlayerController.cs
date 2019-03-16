@@ -57,6 +57,12 @@ public class PlayerController : MonoBehaviour
     //Bool to check when the player has already added mana after a turn reset
     bool addedMana = false;
 
+    //Bool to check if the poster trigger has already triggered.
+    bool posterTriggerBool = true;
+
+    //Voice trigger to stop a bug on the third level
+    bool voiceFlag = true;
+
     //Shield gameobject
     public GameObject shield;
 
@@ -364,7 +370,11 @@ public class PlayerController : MonoBehaviour
                     }
                 case Levels.Level3:
                     {
-                        MattVoiceOver(8);
+                        if (voiceFlag)
+                        {
+                            MattVoiceOver(8);
+                            voiceFlag = false;
+                        }
                         break;
                     }
             }
@@ -442,8 +452,9 @@ public class PlayerController : MonoBehaviour
             TopCamera.Priority = 20;
         }
 
-        if (other.gameObject.CompareTag("PosterTrigger"))
+        if (other.gameObject.CompareTag("PosterTrigger") && posterTriggerBool)
         {
+            posterTriggerBool = false;
             MattVoiceOver(7);
         }
     }

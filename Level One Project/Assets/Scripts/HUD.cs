@@ -34,7 +34,7 @@ public class HUD : MonoBehaviour
     //Health list
     List<GameObject> healthList;
     bool healthInitialized = false;
-
+    private bool tutorialDone = false;
     public bool isGameWon;
 
     //Text that shows the players stats
@@ -201,7 +201,7 @@ public class HUD : MonoBehaviour
     void Update()
     {
         //Makes sure that you can't open the pause menu when in the settings menu, gameover screen, or level up screen
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) && tutorialDone)
         {
             if (settingMenu.activeSelf == false && pController.levelUpMenu.activeSelf == false && pController.gameOver.activeSelf == false)
             {
@@ -242,6 +242,11 @@ public class HUD : MonoBehaviour
                 Time.timeScale = 1;
                 hud.SetActive(true);
                 pController.active = true;
+                if(instructionNumber > 6)
+                {
+                    tutorialDone = true;
+                    TutorialReset();
+                }
             }
             else
             {
@@ -253,19 +258,23 @@ public class HUD : MonoBehaviour
         }
         else
         {
-            //When you finish the tutorial again.
-            if (instructionNumber > 6)
+            if (tutorialDone)
             {
-                //This is only if it is paused. This will make the pause menu come up again.
-                tutorial.SetActive(false);
-                pauseMenuUI.SetActive(true);
-                TutorialReset();
+                //When you finish the tutorial again.
+                if (instructionNumber > 6)
+                {
+                    //This is only if it is paused. This will make the pause menu come up again.
+                    tutorial.SetActive(false);
+                    pauseMenuUI.SetActive(true);
+                    TutorialReset();
+                }
+                else if (instructionNumber == 1)
+                {
+                    tutorial.SetActive(true);
+                    pauseMenuUI.SetActive(false);
+                }
             }
-            else if (instructionNumber == 1)
-            {
-                tutorial.SetActive(true);
-                pauseMenuUI.SetActive(false);
-            }
+           
         }
         //Switch statement to walk through each piece of instruction
         switch (instructionNumber)
@@ -283,7 +292,7 @@ public class HUD : MonoBehaviour
                 break;
                 case 2:
 
-                instructions.text = "Once you enter the combat zone, you can move by moving the mouse and clicking. The line shows where your path, and is green when you can move to that spot. You only have a limited amount of movement per turn, so use it strategically!";
+                instructions.text = "Once you enter the combat zone, you can move by moving the mouse and clicking. The line shows your path, and is green when you can move to that spot. You only have a limited amount of movement per turn, so use it strategically!";
                 //Changes the images
                 tutorialImages[0].enabled = false;
                 tutorialImages[1].enabled = true;
@@ -320,7 +329,7 @@ public class HUD : MonoBehaviour
                 break;
                 case 4:
 
-                instructions.text = "Another option for an attack is a range attack. You can use as many of these as you want per turn, assuming you have enough mana.";
+                instructions.text = "Another option for an attack is a ranged mage attack. You can use as many of these as you want per turn, assuming you have enough mana.";
                 tutorialImages[4].enabled = false;
                 tutorialImages[5].enabled = false;
                 tutorialImages[6].enabled = true;
@@ -397,15 +406,5 @@ public class HUD : MonoBehaviour
         //StartCoroutine(PlayingVideo());
     }
 
-    private IEnumerator PlayingVideo()
-    {
-
-        //Waits 15 seconds for the video to stop. We may change the time so KEEP THAT IN MIND!!!!!! - NO!!
-        yield return new WaitForSeconds(15);
-        //Goes back to the main menu.
-        QuitGame();
-        vPlayer.Stop();
-
-    }
 
 }

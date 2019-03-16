@@ -29,12 +29,6 @@ public class LevelController : MonoBehaviour
 
     //Audio things
     public AudioSource backAudio;
-    public AudioClip mainMenu;
-    public AudioClip level1;
-    public AudioClip level2;
-    public AudioClip level3;
-    public AudioClip fightSong;
-    public AudioClip mattRap;
 
     public AudioClip[] songs;
 
@@ -66,8 +60,6 @@ public class LevelController : MonoBehaviour
         camBrain = cam.GetComponent<CinemachineBrain>();
         //Gets the image component from fade panel
         fade = fadePanel.GetComponent<Image>();
-        //Initilize songs array
-        songs = new AudioClip[5] { mainMenu, level1, level2, level3, fightSong };
         //Initilize transposer
         transposer = pController.NormalCamera.GetCinemachineComponent<CinemachineTransposer>();
     }
@@ -109,8 +101,15 @@ public class LevelController : MonoBehaviour
         //Activates the fight song when in a combat zone and the fight song is not already active
         if (pController.state != States.WASD && !fightSongActive)
         {
+            if(levels != Levels.Space)
+            {               
+                backAudio.clip = songs[4];
+            }
+            else
+            {
+                backAudio.clip = songs[7];
+            }
             fightSongActive = true;
-            backAudio.clip = songs[4];
             backAudio.Play();
         }
 
@@ -121,7 +120,7 @@ public class LevelController : MonoBehaviour
 
             if (levels == Levels.Space)
             {
-                backAudio.clip = songs[3];
+                backAudio.clip = songs[6];
             }
             else
             {
@@ -195,7 +194,7 @@ public class LevelController : MonoBehaviour
                     }
                     else
                     {
-                        backAudio.clip = mattRap;
+                        backAudio.clip = songs[5];
                     }
 
                     backAudio.Play();
@@ -283,7 +282,7 @@ public class LevelController : MonoBehaviour
                     sceneIndex = 5;
                     //currentLevel = levels;
                     InitilizeLevel(4);
-                    backAudio.clip = songs[3];
+                    backAudio.clip = songs[6];
                     backAudio.Play();
                     fightSongActive = false;
                     pController.SavePlayer();

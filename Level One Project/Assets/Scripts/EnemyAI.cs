@@ -285,7 +285,7 @@ public class EnemyAI : MonoBehaviour
                     Debug.Log("Hit");
                     pController.PlayEnemySounds(0);
 
-                    //play grunt if shield in inactive
+                    //play grunt if shield is inactive
                     if (!pController.shieldActive)
                     {
                         pController.MattVoiceOver(12);
@@ -310,6 +310,10 @@ public class EnemyAI : MonoBehaviour
         yield return new WaitForSeconds(1f);
 
         //Damage the player
+        if (!pController.shieldActive)
+        {
+            pController.health--;
+        }
         pController.DamagePlayer(this.gameObject.GetComponent<EnemyController>(), false);
     }
 
