@@ -198,7 +198,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3927638}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.699, y: 3.53, z: -7.14}
+  m_LocalPosition: {x: -0.15, y: 3.53, z: -7.14}
   m_LocalScale: {x: 1, y: 0.5, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1265,7 +1265,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 773147729}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.103, y: 3.222, z: -6.326}
+  m_LocalPosition: {x: 2.26, y: 3.222, z: -6.481}
   m_LocalScale: {x: 0.25, y: 0.5, z: 2}
   m_Children: []
   m_Father: {fileID: 0}
@@ -2846,7 +2846,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 987730384}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.666, y: 3.222, z: -6.464}
+  m_LocalPosition: {x: 3.694, y: 3.222, z: -6.689}
   m_LocalScale: {x: 0.25, y: 0.5, z: 2}
   m_Children: []
   m_Father: {fileID: 0}
@@ -3500,7 +3500,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1366448891}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.666, y: 3.222, z: -7.955}
+  m_LocalPosition: {x: 3.666, y: 3.222, z: -7.574}
   m_LocalScale: {x: 0.25, y: 0.5, z: 2}
   m_Children: []
   m_Father: {fileID: 0}
@@ -3539,7 +3539,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1383386275}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.082, y: 3.222, z: -8.037}
+  m_LocalPosition: {x: 2.232, y: 3.222, z: -7.873}
   m_LocalScale: {x: 0.25, y: 0.5, z: 2}
   m_Children: []
   m_Father: {fileID: 0}
@@ -8692,7 +8692,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400010, guid: 31a45347a5f53214c88fc4f1d7156a0b, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -6.931
+      value: -7.106
       objectReference: {fileID: 0}
     - target: {fileID: 400010, guid: 31a45347a5f53214c88fc4f1d7156a0b, type: 3}
       propertyPath: m_LocalRotation.x
@@ -8797,6 +8797,7 @@ MonoBehaviour:
   active: 0
   camPrefab: {fileID: 398722720805700671, guid: f998e366753f3864b9ebd53b1deec614,
     type: 3}
+  ai: {fileID: 0}
   enemyType: 3
   enemyHealth: 25
   enemyLevel: 10

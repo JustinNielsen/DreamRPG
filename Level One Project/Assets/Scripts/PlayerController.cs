@@ -224,19 +224,30 @@ public class PlayerController : MonoBehaviour
                     attack.MeleeAttackMode();
                     mouseWheelLocation = 1;
                     hud.stateIndicator.text = "Melee Attack";
+                    movement.rb.velocity = Vector3.zero;
+                    movement.anim.SetFloat("Speed", (movement.agent.velocity.magnitude / gameObject.transform.localScale.y));
                     canAttack = true;
                     break;
                 case States.RangeAttack:
                     attack.RangeAttackMode();
                     mouseWheelLocation = 2;
                     hud.stateIndicator.text = "Mage Attack";
+                    movement.rb.velocity = Vector3.zero;
+                    movement.anim.SetFloat("Speed", (movement.agent.velocity.magnitude / gameObject.transform.localScale.y));
                     canAttack = true;
                     break;
                 case States.Shielding:
                     //Changes the mouse wheel location and tells us which state we are in.
                     mouseWheelLocation = 3;
                     hud.stateIndicator.text = "Shield";
-                    attack.LookAtMouse();
+                    movement.rb.velocity = Vector3.zero;
+                    movement.anim.SetFloat("Speed", (movement.agent.velocity.magnitude / gameObject.transform.localScale.y));
+
+                    //look at the mouse if active
+                    if (active)
+                    {
+                        attack.LookAtMouse();
+                    }
 
                     //Activates the visable shield if it isn't active
                     if (!shieldActive)
@@ -400,10 +411,11 @@ public class PlayerController : MonoBehaviour
                     break;
             }
 
+            //Switch turn
+            StartCoroutine(other.gameObject.transform.parent.GetComponent<EnemyController>().ai.SwitchTurn());
+
             //Destroys the projectile
             Destroy(other.gameObject);
-
-            StartCoroutine(SwitchTurn());
         }
 
         //Change level if you walk into door collider
@@ -507,17 +519,21 @@ public class PlayerController : MonoBehaviour
     {
         //TODO - Implement a better damage system based on the level of the enemy
 
-        if (!shieldActive && playSound)
+        if (!shieldActive && playSound) //subtract health and play sound if hit by a range attack
         {
             health--;
 
             //Play enemy player grunt
             MattVoiceOver(12);
         }
-        else if(shieldActive)
+        else if(shieldActive) //if the shield is active disable it and play the shield sound
         {
             shieldActive = false;
             PlayPlayerSounds(2);
+        }
+        else if (!playSound)//Only subtract the health if the player is hit by an enemy melee attack
+        {
+            health--;
         }
 
         if (health == 0)

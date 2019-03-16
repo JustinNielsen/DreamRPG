@@ -23,6 +23,7 @@ public class EnemyAI : MonoBehaviour
     Vector3 distanceToPlayer;
     float rangeDifference;
     PlayerController pController;
+    Coroutine stuck;
 
     //Distance variables according to enemy size
     float maxRangeDistance;
@@ -148,6 +149,8 @@ public class EnemyAI : MonoBehaviour
 
     public void AI(int aiIndex)
     {
+        stuck = StartCoroutine(EnemyStuckCheck());
+
         switch (aiIndex)
         {
             case 1: //Brute AI
@@ -305,15 +308,22 @@ public class EnemyAI : MonoBehaviour
         StartCoroutine(SwitchTurn());
     }
 
+    IEnumerator EnemyStuckCheck()
+    {
+        yield return new WaitForSeconds(15f);
+
+        //Switches the turn if the enemy is still active
+        if (enemyController.active)
+        {
+            StartCoroutine(SwitchTurn());
+        }
+    }
+
     IEnumerator MeleeAttackWait()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.8f);
 
         //Damage the player
-        if (!pController.shieldActive)
-        {
-            pController.health--;
-        }
         pController.DamagePlayer(this.gameObject.GetComponent<EnemyController>(), false);
     }
 
@@ -360,8 +370,10 @@ public class EnemyAI : MonoBehaviour
         rotate = true;
     }
 
-    IEnumerator SwitchTurn()
+    public IEnumerator SwitchTurn()
     {
+        StopCoroutine(stuck);
+
         yield return new WaitForSeconds(1f);
 
         pController.turn.SwitchTurn();

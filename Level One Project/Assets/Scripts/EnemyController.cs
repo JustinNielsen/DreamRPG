@@ -11,7 +11,7 @@ public class EnemyController : MonoBehaviour
     float movementSpeed = 5.0f;
     private CinemachineVirtualCamera cam;
     public CinemachineVirtualCamera camPrefab;
-    private EnemyAI ai;
+    public EnemyAI ai;
     private NavMeshAgent agent;
     public int enemyType = 1;
     Rigidbody rb;
@@ -118,7 +118,12 @@ public class EnemyController : MonoBehaviour
 
                 if(pController.lController.levels == Levels.Space)
                 {
-                    transposer.m_FollowOffset = new Vector3((-0.5f * zoomAmount), (1.5f * zoomAmount), (-0.25f * zoomAmount));
+                    transposer.m_FollowOffset = new Vector3((-0.75f * zoomAmount), (1.75f * zoomAmount), (-0.325f * zoomAmount));
+                }
+                else
+                {
+                    zoomAmount *= 0.15f;
+                    transposer.m_FollowOffset = new Vector3((-6f * zoomAmount), (12f * zoomAmount), (-3f * zoomAmount));
                 }
             }
         }

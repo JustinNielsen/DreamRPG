@@ -22,7 +22,7 @@ public class PlayerMovement : MonoBehaviour
     GameObject moveDirection;
     Vector3 moveInput;
     Vector3 moveVelocity;
-    Rigidbody rb;
+    public Rigidbody rb;
     bool checkingIfStuck;
     Ray ray;
     public Animator anim;
@@ -125,7 +125,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         //Look at the mouse if in navmesh state, the players is not moving, and the player is not dead
-        if (!isMoving && pControl.state == States.NavMesh && pControl.health != 0)
+        if (!isMoving && pControl.state == States.NavMesh && pControl.health != 0 && pControl.active)
         {
             pControl.attack.LookAtMouse();
         }
