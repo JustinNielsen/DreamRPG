@@ -263,6 +263,7 @@ MonoBehaviour:
   - {fileID: 1551710727}
   - {fileID: 940355580}
   - {fileID: 999311484}
+  isGameWon: 0
   playerStats: {fileID: 1381622164}
   stateIndicator: {fileID: 1462608392}
   errorMessage: {fileID: 1161397923}
@@ -1494,7 +1495,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_text: 'Incrase Melee Attack Damage by 2
+  m_text: 'Incrase Melee Attack Damage by 1
 
 '
   m_isRightToLeft: 0
@@ -8857,6 +8858,7 @@ MonoBehaviour:
   level2: {fileID: 8300000, guid: a78298716ca868a4abeb8b727749f9ee, type: 3}
   level3: {fileID: 8300000, guid: 01f0eb15c73fee64baad006e7fb54ded, type: 3}
   fightSong: {fileID: 8300000, guid: 2950ffa1ce83d914388eae6514c3044e, type: 3}
+  mattRap: {fileID: 8300000, guid: 6cefb15b93a999745a093899913c355a, type: 3}
   songs: []
   fightSongActive: 0
   fadePanel: {fileID: 1313960512}

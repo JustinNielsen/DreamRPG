@@ -7,6 +7,7 @@ public class ProjectileMovement : MonoBehaviour
 
     public float speed = 0.5f;
     public PlayerController pController;
+    private GameObject bullet;
 
     private void Start()
     {
@@ -17,7 +18,7 @@ public class ProjectileMovement : MonoBehaviour
         if(pController.lController.levels == Levels.Space && this.gameObject.CompareTag("playerProjectile"))
         {
             this.gameObject.transform.localScale = pController.gameObject.transform.localScale;
-            GameObject bullet = GameObject.FindGameObjectWithTag("particles");
+            bullet = GameObject.FindGameObjectWithTag("particles");
             bullet.transform.localScale = new Vector3(2, 2, 2);
         }
     }
@@ -26,5 +27,10 @@ public class ProjectileMovement : MonoBehaviour
     void Update()
     {
         transform.position += transform.forward * speed;
+
+        if(pController.lController.levels == Levels.Space && this.gameObject.CompareTag("playerProjectile"))
+        {
+            bullet.transform.localScale = new Vector3(2, 2, 2);
+        }
     }
 }

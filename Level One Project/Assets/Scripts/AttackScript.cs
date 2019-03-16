@@ -30,7 +30,7 @@ public class AttackScript : MonoBehaviour
         //Initilize spell cost to 30
         spellCost = 30;
         //Initilize player damage to 1
-        damage = 1;
+        damage = 2;
     }
 
     private void Update()

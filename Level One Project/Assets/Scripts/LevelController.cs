@@ -34,6 +34,7 @@ public class LevelController : MonoBehaviour
     public AudioClip level2;
     public AudioClip level3;
     public AudioClip fightSong;
+    public AudioClip mattRap;
 
     public AudioClip[] songs;
 
@@ -117,7 +118,15 @@ public class LevelController : MonoBehaviour
         if (!fightSongActive && backAudio.clip == songs[4])
         {
             fightSongActive = false;
-            backAudio.clip = songs[sceneIndex - 1];
+
+            if (levels == Levels.Space)
+            {
+                backAudio.clip = songs[3];
+            }
+            else
+            {
+                backAudio.clip = songs[sceneIndex - 1];
+            }
             backAudio.Play();
         }
     }
@@ -178,7 +187,17 @@ public class LevelController : MonoBehaviour
                     playerRB.isKinematic = true;
                     hud.SetActive(false);
                     pController.gameOver.SetActive(false);
-                    backAudio.clip = songs[0];
+
+                    //Choose the song based on if you just won the game
+                    if (!pController.hud.isGameWon)
+                    {
+                        backAudio.clip = songs[0];
+                    }
+                    else
+                    {
+                        backAudio.clip = mattRap;
+                    }
+
                     backAudio.Play();
                     fightSongActive = false;
                     //Set the scale of the player

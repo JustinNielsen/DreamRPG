@@ -164,7 +164,6 @@ public class PlayerController : MonoBehaviour
             //Removes the xp and adds to the player level
             playerXP -= 100;
             playerLevel++;
-            SavePlayer();
             Debug.Log($"Level: {playerLevel}");
             canAttack = false;
 
@@ -349,7 +348,7 @@ public class PlayerController : MonoBehaviour
             camBrain.m_DefaultBlend.m_Style = CinemachineBlendDefinition.Style.EaseInOut;
 
             //Switches based on the level so that we know what clip to play, as they are level based.
-            switch (level)
+            switch (lController.levels)
             {
                 case Levels.Level1:
                     {
@@ -413,8 +412,12 @@ public class PlayerController : MonoBehaviour
                     break;
                 case Levels.Space:
                     //This will end the game
-                    hud.WinGame();
-                    level = Levels.MainMenu;
+                    MattVoiceOver(10);
+                    //state = States.Neutral;
+
+                    StartCoroutine(WinGame());
+                    //hud.WinGame();
+                    //lController.levels = Levels.MainMenu;
                     break;
             }
         }
@@ -535,9 +538,16 @@ public class PlayerController : MonoBehaviour
     {
         //Get Player data
         Data data = Checkpoint.LoadPlayer();
+
         //if there is a save file load the level
         if (data != null)
         {
+            //Initilize player stats
+            attack.damage = data.damage;
+            attack.spellCost = data.spellCost;
+            playerLevel = data.playerLevel;
+            playerXP = data.playerXP;
+
             //levels = data.level;
             return data.level;
         }
@@ -545,6 +555,14 @@ public class PlayerController : MonoBehaviour
         {
             return Levels.MainMenu;
         }
+    }
+
+    IEnumerator WinGame()
+    {
+        yield return new WaitForSeconds(3.5f);
+
+        hud.WinGame();
+        lController.levels = Levels.MainMenu;
     }
 
     //Waits one second before calling the SwitchTurn method in the turnBasedSystem Script

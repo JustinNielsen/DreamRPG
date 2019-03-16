@@ -320,13 +320,15 @@ MonoBehaviour:
   lController: {fileID: 2139108041}
   pController: {fileID: 749861536}
   hud: {fileID: 586609512}
-  leftButton: {fileID: 1010474107}
+  vPlayer: {fileID: 0}
+  leftButton: {fileID: 0}
   heart1: {fileID: 21300000, guid: 9ea149027bb14254ea014d4648389c29, type: 3}
   heart2: {fileID: 21300000, guid: 773e2f84c861f0f47a264a74583193be, type: 3}
   heart3: {fileID: 21300000, guid: a2e4fa140378b294284f6fd63f3b6a87, type: 3}
   shield: {fileID: 21300000, guid: 5d52c9bdf5278354784dedf51ff79b95, type: 3}
   heartPrefab: {fileID: 7245708598766036481, guid: c0d21f959d0dafb49a905f2e3d5ab4bc,
     type: 3}
+  tutorialImages: []
   playerStats: {fileID: 1381622164}
   stateIndicator: {fileID: 1462608392}
   errorMessage: {fileID: 1161397923}
@@ -431,6 +433,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hud: {fileID: 54816945}
   levelUpMenu: {fileID: 1469805684}
+  levelUpSource: {fileID: 0}
+  levelUpSounds: []
 --- !u!114 &54816951
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1105,6 +1109,7 @@ MonoBehaviour:
   hud: {fileID: 54816945}
   movement: {fileID: 0}
   turn: {fileID: 0}
+  levelUp: {fileID: 0}
   maxDistance: 10
   active: 1
   state: 1
@@ -1116,6 +1121,8 @@ MonoBehaviour:
   entryDoor: {fileID: 0}
   exitDoor: {fileID: 0}
   matt: {fileID: 361929351}
+  enemySource: {fileID: 0}
+  playerSource: {fileID: 0}
   mattVoiceArray:
   - {fileID: 8300000, guid: 07438aaa598fba4438c1e981c0affb56, type: 3}
   - {fileID: 8300000, guid: 26d014a1269f14b47a4cb34b193cc085, type: 3}
@@ -1140,6 +1147,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 85c19377940ee1a499697bd702672c7e, type: 3}
   - {fileID: 8300000, guid: 3af103c0aa927cc418737fa43ef0f60c, type: 3}
   - {fileID: 8300000, guid: c1ad1aaebceaab54f9ddc227273b3c46, type: 3}
+  playerSounds: []
+  enemySounds: []
   playerLevel: 0
   playerXP: 0
   levelUpMenu: {fileID: 1469805684}
@@ -2645,6 +2654,7 @@ MonoBehaviour:
   hud: {fileID: 54816945}
   movement: {fileID: 0}
   turn: {fileID: 0}
+  levelUp: {fileID: 0}
   maxDistance: 10
   active: 1
   state: 1
@@ -2656,6 +2666,8 @@ MonoBehaviour:
   entryDoor: {fileID: 0}
   exitDoor: {fileID: 0}
   matt: {fileID: 749861529}
+  enemySource: {fileID: 0}
+  playerSource: {fileID: 0}
   mattVoiceArray:
   - {fileID: 8300000, guid: 07438aaa598fba4438c1e981c0affb56, type: 3}
   - {fileID: 8300000, guid: 26d014a1269f14b47a4cb34b193cc085, type: 3}
@@ -2674,6 +2686,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 1142b3a594feb5845bc95275479fb083, type: 3}
   - {fileID: 8300000, guid: 9fc2a4141f66ffa468ee13758dbf4bd8, type: 3}
   - {fileID: 8300000, guid: cc972fb53b21f504fab65842d7f88074, type: 3}
+  playerSounds: []
+  enemySounds: []
   playerLevel: 0
   playerXP: 0
   levelUpMenu: {fileID: 1469805684}
@@ -3371,7 +3385,8 @@ MonoBehaviour:
   m_text: Return
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 291665bbad4875249b4cf72eca8f5efd, type: 2}
-  m_sharedMaterial: {fileID: 2140032, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}
+  m_sharedMaterial: {fileID: 21361119817268870, guid: 291665bbad4875249b4cf72eca8f5efd,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -3445,7 +3460,7 @@ MonoBehaviour:
     lineCount: 1
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 1
+  m_havePropertiesChanged: 0
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
@@ -10791,7 +10806,8 @@ MonoBehaviour:
   m_text: Settings
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 291665bbad4875249b4cf72eca8f5efd, type: 2}
-  m_sharedMaterial: {fileID: 2140032, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}
+  m_sharedMaterial: {fileID: 21361119817268870, guid: 291665bbad4875249b4cf72eca8f5efd,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -10865,7 +10881,7 @@ MonoBehaviour:
     lineCount: 1
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 1
+  m_havePropertiesChanged: 0
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
@@ -10981,6 +10997,7 @@ MonoBehaviour:
   cam: {fileID: 1439865593}
   levels: 0
   pController: {fileID: 749861536}
+  backAudio: {fileID: 0}
   mainMenu: {fileID: 8300000, guid: c0bf2fa81300f8e4f8e66034f4cc8d21, type: 3}
   level1: {fileID: 8300000, guid: 639540b4bd061764da301511d7764ff2, type: 3}
   level2: {fileID: 8300000, guid: a78298716ca868a4abeb8b727749f9ee, type: 3}

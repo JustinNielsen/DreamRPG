@@ -95,6 +95,9 @@ public class TurnBasedSystem : MonoBehaviour
                     //Open the exit door
                     pController.exitDoor.SetActive(false);
                     break;
+                case Levels.Space:
+
+                    break;
             }
         }
     }

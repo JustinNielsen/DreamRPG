@@ -35,6 +35,8 @@ public class HUD : MonoBehaviour
     List<GameObject> healthList;
     bool healthInitialized = false;
 
+    public bool isGameWon;
+
     //Text that shows the players stats
     public TextMeshProUGUI playerStats;
 
@@ -59,6 +61,7 @@ public class HUD : MonoBehaviour
     {
         instructionNumber = 1;
         instructionFlag = true;
+        isGameWon = false;
     }
 
     //Resumes the game from the pause menu
@@ -377,17 +380,27 @@ public class HUD : MonoBehaviour
 
     public void WinGame()
     {
+        //Resets the players level and stats
+        pController.playerLevel = 1;
+        pController.playerXP = 0;
+        pController.attack.damage = 2;
+        pController.attack.spellCost = 30;
+
         //Sets the level to the main menu, freezes time, and deactivates the hud.
         lController.backAudio.Stop();
-        hud.SetActive(false);
-        vPlayer.Play();
-        StartCoroutine(PlayingVideo());
+        //pController.lController.hud.SetActive(false);
+
+
+        isGameWon = true;
+
+        //vPlayer.Play();
+        //StartCoroutine(PlayingVideo());
     }
 
     private IEnumerator PlayingVideo()
     {
 
-        //Waits 15 seconds for the video to stop. We may change the time so KEEP THAT IN MIND!!!!!!
+        //Waits 15 seconds for the video to stop. We may change the time so KEEP THAT IN MIND!!!!!! - NO!!
         yield return new WaitForSeconds(15);
         //Goes back to the main menu.
         QuitGame();
