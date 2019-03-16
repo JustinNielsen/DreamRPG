@@ -49,6 +49,13 @@ public class EnemyAI : MonoBehaviour
             meleeDistance = (3 * 0.15f);
             meleeAttackDistance = (3.5f * 0.15f);
         }
+        else if (pController.lController.levels == Levels.Level2)
+        {
+            maxRangeDistance = 11;
+            minRangeDistance = 6;
+            meleeDistance = 2.5f;
+            meleeAttackDistance = 2f;
+        }
         else
         {
             maxRangeDistance = 12;
