@@ -21,6 +21,7 @@ public class EnemyController : MonoBehaviour
     PlayerController pController;
     public Animator anim;
     CinemachineTransposer transposer;
+    private GameObject cameraFollow;
 
     // Start is called before the first frame update
     void Start()
@@ -28,13 +29,19 @@ public class EnemyController : MonoBehaviour
         //Get animator of the enemy
         anim = GetComponent<Animator>();
 
+        //Create an empty gameobject at the enemies position
+        cameraFollow = new GameObject("cameraFollow");
+        cameraFollow.transform.position = new Vector3(this.gameObject.transform.position.x, (this.gameObject.transform.position.y + (this.gameObject.transform.localScale.y / 2)), this.gameObject.transform.position.z);
+        cameraFollow.transform.rotation = this.gameObject.transform.rotation;
+
         cam = Instantiate(camPrefab);
         cam.Priority = 5;
-        cam.Follow = transform;
+        cam.Follow = cameraFollow.transform;
         ai = GetComponent<EnemyAI>();
         agent = GetComponent<NavMeshAgent>();
-        rb = GetComponent<Rigidbody>();      
+        rb = GetComponent<Rigidbody>();
 
+        transposer = cam.GetCinemachineComponent<CinemachineTransposer>();
         //Initlize turn based system script
         turn = GameObject.FindGameObjectWithTag("turn").GetComponent<TurnBasedSystem>();
         pController = GameObject.FindGameObjectWithTag("player").GetComponent<PlayerController>();
@@ -81,6 +88,39 @@ public class EnemyController : MonoBehaviour
         else
         {
             anim.SetFloat("Speed", (agent.velocity.magnitude / this.gameObject.transform.localScale.y));
+
+            if (active)
+            {
+                //position between player and enemy
+                Vector3 middlePoint = ((this.gameObject.transform.position + pController.gameObject.transform.position) / 2);
+                middlePoint.y = (this.gameObject.transform.position.y + (this.gameObject.transform.localScale.y / 2));
+                Vector3 distance = this.gameObject.transform.position - pController.gameObject.transform.position;
+                float distanceToPlayer = distance.magnitude;
+                float zoomAmount = distanceToPlayer / 2;
+
+                if(pController.lController.levels == Levels.Space && zoomAmount > 0.8f)
+                {
+                    zoomAmount *= 0.6f;
+                }
+
+                if(pController.lController.levels != Levels.Space && zoomAmount < 5.5f)
+                {
+                    zoomAmount = 5.5f;
+                }
+
+                if(zoomAmount < 0.8f)
+                {
+                    zoomAmount = 0.8f;
+                }
+
+                Debug.Log(zoomAmount);
+                cameraFollow.transform.position = middlePoint;
+
+                if(pController.lController.levels == Levels.Space)
+                {
+                    transposer.m_FollowOffset = new Vector3((-0.5f * zoomAmount), (1.5f * zoomAmount), (-0.25f * zoomAmount));
+                }
+            }
         }
     }
 

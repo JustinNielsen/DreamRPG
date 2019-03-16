@@ -283,8 +283,16 @@ public class EnemyAI : MonoBehaviour
             { //TODO - Notify player when an attack hits or misses
                 case 1:
                     Debug.Log("Hit");
-                    pController.DamagePlayer(this.gameObject.GetComponent<EnemyController>());
                     pController.PlayEnemySounds(0);
+
+                    //play grunt if shield in inactive
+                    if (!pController.shieldActive)
+                    {
+                        pController.MattVoiceOver(12);
+                    }
+
+                    StartCoroutine(MeleeAttackWait());
+                    //pController.DamagePlayer(this.gameObject.GetComponent<EnemyController>());
                     break;
                 case 2:
                 case 3:
@@ -295,6 +303,14 @@ public class EnemyAI : MonoBehaviour
         }
 
         StartCoroutine(SwitchTurn());
+    }
+
+    IEnumerator MeleeAttackWait()
+    {
+        yield return new WaitForSeconds(1f);
+
+        //Damage the player
+        pController.DamagePlayer(this.gameObject.GetComponent<EnemyController>(), false);
     }
 
     IEnumerator LaunchProjectile()

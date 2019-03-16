@@ -381,7 +381,7 @@ public class PlayerController : MonoBehaviour
                     Debug.Log("Hit");
 
                     //Damage the player according to level of enemy
-                    DamagePlayer(other.gameObject.transform.parent.GetComponent<EnemyController>());
+                    DamagePlayer(other.gameObject.transform.parent.GetComponent<EnemyController>(), true);
                     break;
                 case 2:
                 case 3:
@@ -492,18 +492,18 @@ public class PlayerController : MonoBehaviour
     }
 
     //Damages the player
-    public void DamagePlayer(EnemyController enemy)
+    public void DamagePlayer(EnemyController enemy, bool playSound)
     {
         //TODO - Implement a better damage system based on the level of the enemy
 
-        if (!shieldActive)
+        if (!shieldActive && playSound)
         {
             health--;
 
             //Play enemy player grunt
             MattVoiceOver(12);
         }
-        else
+        else if(shieldActive)
         {
             shieldActive = false;
             PlayPlayerSounds(2);
