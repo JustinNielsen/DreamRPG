@@ -496,17 +496,22 @@ public class PlayerController : MonoBehaviour
     {
         //TODO - Implement a better damage system based on the level of the enemy
 
-        if (!shieldActive && playSound)
+        //
+        if (!shieldActive && playSound)//subtract health and play sound if hit by a range attack
         {
             health--;
 
             //Play enemy player grunt
             MattVoiceOver(12);
         }
-        else if(shieldActive)
+        else if(shieldActive)//if the shield is active disable it and play the shield sound
         {
             shieldActive = false;
             PlayPlayerSounds(2);
+        }
+        else if (!playSound)//Only subtract the health if the player is hit by an enemy melee attack
+        {
+            health--;
         }
 
         if (health == 0)

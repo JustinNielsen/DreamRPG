@@ -305,9 +305,20 @@ public class EnemyAI : MonoBehaviour
         StartCoroutine(SwitchTurn());
     }
 
+    IEnumerator EnemyStuckCheck()
+    {
+        yield return new WaitForSeconds(10f);
+
+        //Switches the turn if the enemy is still active
+        if (enemyController.active)
+        {
+            StartCoroutine(SwitchTurn());
+        }
+    }
+
     IEnumerator MeleeAttackWait()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.8f);
 
         //Damage the player
         pController.DamagePlayer(this.gameObject.GetComponent<EnemyController>(), false);
@@ -358,7 +369,7 @@ public class EnemyAI : MonoBehaviour
 
     IEnumerator SwitchTurn()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(2f);
 
         pController.turn.SwitchTurn();
     }
