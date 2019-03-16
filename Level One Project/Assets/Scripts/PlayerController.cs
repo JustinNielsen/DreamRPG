@@ -95,7 +95,7 @@ public class PlayerController : MonoBehaviour
         //Initilize the mouseWheelStates array
         mouseWheelStates = new States[4] { States.NavMesh, States.MeleeAttack, States.RangeAttack, States.Shielding };
         //Initilize checkpoints
-        checkpointLocations = new Vector3[4] { new Vector3(8.43f, 9.2f, -0.92f), new Vector3(-347.35f, 300.6f, -635.83f), new Vector3(62.17f, 2.7f, 98.26f), new Vector3(10.133f, 3.422f, -7.163f) };
+        checkpointLocations = new Vector3[4] { new Vector3(8.43f, 9.2f, -0.92f), new Vector3(-347.35f, 299.68f, -635.83f), new Vector3(62.17f, 1.74f, 98.26f), new Vector3(10.133f, 3.422f, -7.163f) };
         //Initilize level controller
         lController = GameObject.FindGameObjectWithTag("turn").GetComponent<LevelController>();
         //Initilize camBrain
