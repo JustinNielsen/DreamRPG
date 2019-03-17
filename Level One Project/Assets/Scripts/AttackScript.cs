@@ -201,7 +201,7 @@ public class AttackScript : MonoBehaviour
         }
         else
         {
-            Vector3 lineStart = transform.position + (transform.forward * 3f);
+            Vector3 lineStart = transform.position + (transform.forward * 2f);
             lineStart.y = transform.position.y + (player.transform.localScale.y * 1.3f);
 
             GameObject projectile = Instantiate(mageShot, lineStart, transform.rotation);

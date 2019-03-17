@@ -120,10 +120,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha0))
-        {
-            lController.levels = Levels.Space;
-        }
+
         //Only allow the scroll wheel to change states in combat mode
         if (state != States.WASD && !movement.isMoving && active)
         {
@@ -197,7 +194,7 @@ public class PlayerController : MonoBehaviour
             attack.damage = attack.savedDamage;
         }
 
-        if (active && Input.GetKeyDown(KeyCode.Return))
+        if (active && Input.GetKeyDown(KeyCode.Return) && !movement.isMoving)
         {
             //Reset line and destroy hitbox and disable shield
             movement.line.positionCount = 0;
