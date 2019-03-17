@@ -34,6 +34,8 @@ public class PlayerMovement : MonoBehaviour
     float previousDistance;
     float distanceMoved;
 
+    Coroutine rockStuck;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -139,9 +141,6 @@ public class PlayerMovement : MonoBehaviour
 
                 //sets clicked target to the location the ray hits
                 ShootRayClicked(ray, layerMask);
-
-                //Coroutine to potential unstuck us from rocks.
-                StartCoroutine(UnstuckOnRocks());
             }
         }
 
@@ -179,6 +178,11 @@ public class PlayerMovement : MonoBehaviour
         {
             //Sets isMoving to false
             isMoving = false;
+
+            if(rockStuck != null)
+            {
+                StopCoroutine(rockStuck);
+            }
         }
 
         if (clickedTarget != null)
@@ -284,7 +288,7 @@ public class PlayerMovement : MonoBehaviour
 
                 //Set isMoving to true
                 isMoving = true;
-
+                rockStuck = StartCoroutine(UnstuckOnRocks());
             }
             else
             {
