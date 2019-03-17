@@ -39,6 +39,7 @@ public class MainMenu : MonoBehaviour
             if (l != Levels.MainMenu)
             {
                 pController.gameObject.SetActive(true);
+                pController.hud.hud.SetActive(true);
                 pController.lController.levels = l;
             }
             else

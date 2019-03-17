@@ -16,7 +16,7 @@ public class LevelUp : MonoBehaviour
 
     private void Start()
     {
-        spellReductionCost = hud.pController.attack.spellCost * 0.15f;
+        spellReductionCost = 3f;
     }
 
     public void PlayLevelSound(int i)

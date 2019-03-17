@@ -140,7 +140,7 @@ public class PlayerController : MonoBehaviour
             //Makes sure you can only have one shield
             if (!shieldActive)
             {
-                if (remainingMana > 40) //Checks if the player has enough mana to get a shield
+                if (remainingMana >= 40) //Checks if the player has enough mana to get a shield
                 {
                     //Subtract mana
                     hud.DecreaseManaBar(40);
@@ -391,6 +391,7 @@ public class PlayerController : MonoBehaviour
                     }
                 case Levels.Level3:
                     {
+                        entryDoor.SetActive(true);
                         MattVoiceOver(8);
                         break;
                     }
@@ -481,6 +482,7 @@ public class PlayerController : MonoBehaviour
         if (other.gameObject.CompareTag("PosterTrigger") && posterTriggerBool)
         {
             posterTriggerBool = false;
+            exitDoor.SetActive(true);
             MattVoiceOver(7);
         }
     }
@@ -491,8 +493,6 @@ public class PlayerController : MonoBehaviour
         {
             ThirdPersonCamera.Priority = 10;
             other.gameObject.SetActive(false);
-            entryDoor.SetActive(true);
-            exitDoor.SetActive(true);
         }
 
         if (other.gameObject.CompareTag("wallCollider"))

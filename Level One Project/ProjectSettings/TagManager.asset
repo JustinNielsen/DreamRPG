@@ -28,6 +28,7 @@ TagManager:
   - particles
   - PosterTrigger
   - doorBlock
+  - reset
   layers:
   - Default
   - TransparentFX
