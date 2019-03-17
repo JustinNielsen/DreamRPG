@@ -69,9 +69,7 @@ public class HUD : MonoBehaviour
         Time.timeScale = 1f;
         GameIsPaused = false;
         //Reactivates the player
-        pMovement.enabled = true;
-        pController.enabled = true;
-        pController.attack.enabled = true;
+        ReenablePlayer();
     }
 
     //Used on the pause menu to pause the game
@@ -81,9 +79,7 @@ public class HUD : MonoBehaviour
         Time.timeScale = 0f;
         GameIsPaused = true;
         //Deactivates player
-        pMovement.enabled = false;
-        pController.enabled = false;
-        pController.attack.enabled = false;
+        DisablePlayer();
     }
 
     //Used on the pause menu to get back to the main menu
@@ -215,7 +211,7 @@ public class HUD : MonoBehaviour
                 {
                     //This checks to see if the pause menu is turned on. It is used for the instructions/tutorial
                     throughPause = false;
-
+                    TutorialReset();
                     Resume();
                 }
                 else
@@ -224,18 +220,14 @@ public class HUD : MonoBehaviour
                     Pause();
                 }
             }
-            else if(settingMenu.activeSelf == true)
-            {
-                throughPause = false;
-                settingMenu.SetActive(false);
-                Resume();
-            }
+
         }
 
 
     }
     public void Tutorial()
     {
+
         if (!throughPause)
         {
             //Checks to see if we need to pause/unpause
@@ -248,10 +240,12 @@ public class HUD : MonoBehaviour
                 Time.timeScale = 1;
                 hud.SetActive(true);
                 pController.active = true;
-                if(instructionNumber > 6)
+
+                if (instructionNumber > 6)
                 {
                     tutorialDone = true;
                     TutorialReset();
+                    ReenablePlayer();
                 }
             }
             else
@@ -260,6 +254,11 @@ public class HUD : MonoBehaviour
                 tutorial.SetActive(true);
                 Time.timeScale = 0;
                 hud.SetActive(false);
+                //This ensures it doesn't break the first tutorial bit.
+                if(instructionNumber != 2)
+                {
+                    DisablePlayer();
+                }
             }
         }
         else
@@ -270,8 +269,6 @@ public class HUD : MonoBehaviour
                 if (instructionNumber > 6)
                 {
                     //This is only if it is paused. This will make the pause menu come up again.
-                    tutorial.SetActive(false);
-                    pauseMenuUI.SetActive(true);
                     TutorialReset();
                 }
                 else if (instructionNumber == 1)
@@ -294,7 +291,6 @@ public class HUD : MonoBehaviour
                 tutorialImages[3].enabled = false;
                 leftButton.enabled = false;
 
-
                 break;
                 case 2:
 
@@ -316,7 +312,7 @@ public class HUD : MonoBehaviour
                 {
                     leftButton.enabled = true;
                 }
-
+                
                 break;
                 case 3:
 
@@ -353,7 +349,7 @@ public class HUD : MonoBehaviour
                 break;
                 case 6:
 
-                instructions.text = "Use the scroll wheel to switch between all of these options. Hit \"Esc\" to open up the pause menu, and hit \"Enter\" to end your turn.";
+                instructions.text = "Use the scroll wheel to switch between all of these options. Hit \"Esc\" to open up the pause menu, which will let you review these instructions, and hit \"Enter\" to end your turn.";
                 tutorialImages[8].enabled = false;
 
                 break;
@@ -383,10 +379,17 @@ public class HUD : MonoBehaviour
 
     private void TutorialReset()
     {
+
+        //This will deactivate the tutorial stuff
+        tutorial.SetActive(false);
         //Resets the instruction flag if this is not accessed through the pause menu.
         if (!throughPause)
         {
             instructionFlag = true;
+        }
+        else
+        {
+            pauseMenuUI.SetActive(true);
         }
 
         //Resets the instruction number.
@@ -408,6 +411,22 @@ public class HUD : MonoBehaviour
 
         isGameWon = true;
 
+    }
+
+    //Reenables the player
+    private void ReenablePlayer()
+    {
+        pMovement.enabled = true;
+        pController.enabled = true;
+        pController.attack.enabled = true;
+    }
+
+    //Disables the player
+    private void DisablePlayer()
+    {
+        pMovement.enabled = false;
+        pController.enabled = false;
+        pController.attack.enabled = false;
     }
 
 

@@ -1494,7 +1494,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_text: 'Incrase Melee Attack Damage by 1
+  m_text: 'Increase Melee Attack Damage by 1
 
 '
   m_isRightToLeft: 0

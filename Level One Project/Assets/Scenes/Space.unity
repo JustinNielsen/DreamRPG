@@ -8696,19 +8696,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400010, guid: 31a45347a5f53214c88fc4f1d7156a0b, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 400010, guid: 31a45347a5f53214c88fc4f1d7156a0b, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 1
+      value: 0.622644
       objectReference: {fileID: 0}
     - target: {fileID: 400010, guid: 31a45347a5f53214c88fc4f1d7156a0b, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 400010, guid: 31a45347a5f53214c88fc4f1d7156a0b, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0
+      value: 0.7825053
       objectReference: {fileID: 0}
     - target: {fileID: 400010, guid: 31a45347a5f53214c88fc4f1d7156a0b, type: 3}
       propertyPath: m_RootOrder
@@ -8720,7 +8720,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400010, guid: 31a45347a5f53214c88fc4f1d7156a0b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 180
+      value: 77.019005
       objectReference: {fileID: 0}
     - target: {fileID: 400010, guid: 31a45347a5f53214c88fc4f1d7156a0b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -8799,7 +8799,7 @@ MonoBehaviour:
     type: 3}
   ai: {fileID: 0}
   enemyType: 3
-  enemyHealth: 25
+  enemyHealth: 30
   enemyLevel: 10
   anim: {fileID: 1894331169}
 --- !u!114 &1894331172

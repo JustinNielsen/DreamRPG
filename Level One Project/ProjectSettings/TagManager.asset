@@ -27,6 +27,7 @@ TagManager:
   - enterDoor
   - particles
   - PosterTrigger
+  - doorBlock
   layers:
   - Default
   - TransparentFX

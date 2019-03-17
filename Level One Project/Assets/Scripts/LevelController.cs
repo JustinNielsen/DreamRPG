@@ -36,7 +36,7 @@ public class LevelController : MonoBehaviour
 
     public GameObject fadePanel;
     Image fade;
-    bool fading = true;
+
 
     //Check if the player is trying to restart a level
     public bool gameOverLoadPlayer = false;
@@ -93,7 +93,7 @@ public class LevelController : MonoBehaviour
         }
 
         //Turns off the fight song if fightSongActive is false and the song that is playing is the fightsong
-        if (!fightSongActive && backAudio.clip == songs[4])
+        if (!fightSongActive && (backAudio.clip == songs[4] || backAudio.clip == songs[7]))
         {
             fightSongActive = false;
 
@@ -282,4 +282,5 @@ public class LevelController : MonoBehaviour
         Debug.Log((int)levels);
         pController.MattVoiceOver((int)levels);
     }
+
 }

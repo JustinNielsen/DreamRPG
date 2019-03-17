@@ -26,6 +26,7 @@ public class PlayerMovement : MonoBehaviour
     bool checkingIfStuck;
     Ray ray;
     public Animator anim;
+    bool activeFlag = true;
 
     //Find speed
     Vector3 previousPosition;
@@ -148,6 +149,19 @@ public class PlayerMovement : MonoBehaviour
                 //sets clicked target to the location the ray hits
                 ShootRayClicked(ray, layerMask);
             }
+        }
+
+        //Stops your movement 1.5 seconds after your turn is over.
+        if(!pControl.active && activeFlag)
+        {
+            StartCoroutine(EndMovement());
+            activeFlag = false;
+        }
+
+        //Resets the active flag
+        if(pControl.active && !activeFlag)
+        {
+            activeFlag = true;
         }
     }
 
@@ -395,7 +409,7 @@ public class PlayerMovement : MonoBehaviour
 
         distanceMoved = previousDistance - agent.remainingDistance;
 
-        if(pControl.lController.levels == Levels.Space)
+        if(pControl.lController.levels == Levels.Space && pControl.lController.levels == Levels.Level2)
         {
             minMoveDistance = 0.001f;
         }
@@ -422,5 +436,11 @@ public class PlayerMovement : MonoBehaviour
         }
 
         checkingIfStuck = false;
+    }
+
+    private IEnumerator EndMovement()
+    {
+        yield return new WaitForSeconds(1.5f);
+        agent.ResetPath();
     }
 }
