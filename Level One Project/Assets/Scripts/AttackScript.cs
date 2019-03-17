@@ -199,7 +199,7 @@ public class AttackScript : MonoBehaviour
             lineStart.y = transform.position.y + (player.transform.localScale.y * 1.3f);
 
             GameObject projectile = Instantiate(mageShot, lineStart, transform.rotation);
-            Destroy(projectile, 1.6f);
+            Destroy(projectile, 2f);
         }
         else
         {
@@ -207,7 +207,7 @@ public class AttackScript : MonoBehaviour
             lineStart.y = transform.position.y + (player.transform.localScale.y * 1.3f);
 
             GameObject projectile = Instantiate(mageShot, lineStart, transform.rotation);
-            Destroy(projectile, 1.6f);
+            Destroy(projectile, 2f);
         }
 
         //Play Magic Sound

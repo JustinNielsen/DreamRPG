@@ -32,7 +32,7 @@ public class HUD : MonoBehaviour
     //Health list
     List<GameObject> healthList;
     bool healthInitialized = false;
-    public bool tutorialDone;
+    public bool tutorialDone = false;
     public bool isGameWon;
 
     //Text that shows the players stats
@@ -53,12 +53,12 @@ public class HUD : MonoBehaviour
     //The flag is used to determine if we actually need to stop. First portion only.
     private bool instructionFlag;
     //This flag is used to see if the instructions are accessed through the pause menu.
-    private bool throughPause;
+    private bool throughPause = false;
 
     private void Start()
     {
         instructionNumber = 1;
-        instructionFlag = true;
+        instructionFlag = false;
         isGameWon = false;
     }
 
@@ -233,20 +233,27 @@ public class HUD : MonoBehaviour
             //Checks to see if we need to pause/unpause
             if (instructionFlag || (instructionNumber > 6))
             {
-                //Resets the instruction flag
-                instructionFlag = false;
+
                 //Disables the paused portion
                 tutorial.SetActive(false);
                 Time.timeScale = 1;
                 hud.SetActive(true);
                 pController.active = true;
-
+                ReenablePlayer();
+                //These are used to help the tutorial flow with the break in the middle
+ 
                 if (instructionNumber > 6)
                 {
                     tutorialDone = true;
                     TutorialReset();
-                    ReenablePlayer();
+                    pController.MattVoiceOver(1);
                 }
+                else if(instructionFlag)
+                {
+                    pController.MattVoiceOver(0);
+                    instructionFlag = false;
+                }
+
             }
             else
             {
@@ -254,8 +261,15 @@ public class HUD : MonoBehaviour
                 tutorial.SetActive(true);
                 Time.timeScale = 0;
                 hud.SetActive(false);
+                //Makes sure this only fires when the first tutorial is over
+                if(instructionNumber == 1 && !tutorialDone)
+                {
+                    //Resets the instruction flag
+                    instructionFlag = true;
+                }
+
                 //This ensures it doesn't break the first tutorial bit.
-                if(instructionNumber != 2)
+                if (instructionNumber != 2)
                 {
                     DisablePlayer();
                 }

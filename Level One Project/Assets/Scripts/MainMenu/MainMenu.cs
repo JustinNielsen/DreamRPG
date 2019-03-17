@@ -7,7 +7,7 @@ public class MainMenu : MonoBehaviour
     public LevelController lController;
     public PlayerController pController;
     public StartButton start;
-
+    private bool playGame;
     // Start is called before the first frame update
     void Start()
     {
@@ -26,25 +26,26 @@ public class MainMenu : MonoBehaviour
         pController.attack.spellCost = 20;
         pController.state = States.WASD;
         pController.hud.isGameWon = false;
-
-        //StartCoroutine(CamPriority());
+        playGame = true;
     }
 
     public void LoadGame()
     {
-        Levels l = pController.LoadPlayer();
-        pController.hud.isGameWon = false;
 
-        if (l != Levels.MainMenu)
-        {
-            pController.gameObject.SetActive(true);
-            pController.lController.levels = l;
-        }
-        else
-        {
-            Debug.Log("No Save File");
-        }
-        //StartCoroutine(CamPriority());
+
+            Levels l = pController.LoadPlayer();
+            pController.hud.isGameWon = false;
+
+            if (l != Levels.MainMenu)
+            {
+                pController.gameObject.SetActive(true);
+                pController.lController.levels = l;
+            }
+            else
+            {
+                Debug.Log("No Save File");
+            }
+
     }
 
     public void QuitGame()

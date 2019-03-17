@@ -280,7 +280,22 @@ public class LevelController : MonoBehaviour
         yield return new WaitForSeconds(1.5f);
         fade.CrossFadeAlpha(0, 1f, true);
         Debug.Log((int)levels);
-        pController.MattVoiceOver((int)levels);
+        //Doesn't play matt's audio if it is the first level.
+        if(levels != Levels.Level1)
+        {
+            pController.MattVoiceOver((int)levels);
+            //Ensures the main menu doesn't break everything.
+            if(levels != Levels.MainMenu)
+            {
+                hudScript.tutorialDone = true;
+            }
+        }
+        //if it is the first level, it opens up the tutorial.
+        else
+        {
+            hudScript.Tutorial();
+        }
+
     }
 
 }

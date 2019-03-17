@@ -370,12 +370,16 @@ public class PlayerController : MonoBehaviour
             {
                 case Levels.Level1:
                     {
-                        MattVoiceOver(1);                      
+                     
                         //Checks to see if the tutorial is done.
                         if (!hud.tutorialDone)
                         {
                             active = false;
                             hud.Tutorial();
+                        }
+                        else
+                        {
+                            MattVoiceOver(1);
                         }
 
                         break;
