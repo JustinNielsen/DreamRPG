@@ -32,7 +32,7 @@ public class EnemyController : MonoBehaviour
         //Create an empty gameobject at the enemies position
         cameraFollow = new GameObject("cameraFollow");
         cameraFollow.transform.position = new Vector3(this.gameObject.transform.position.x, (this.gameObject.transform.position.y + (this.gameObject.transform.localScale.y / 2)), this.gameObject.transform.position.z);
-        cameraFollow.transform.rotation = this.gameObject.transform.rotation;
+        cameraFollow.transform.rotation = new Quaternion(0, 180, 0, 0);
 
         cam = Instantiate(camPrefab);
         cam.Priority = 5;

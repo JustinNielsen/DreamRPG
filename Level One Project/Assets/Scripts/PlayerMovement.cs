@@ -51,8 +51,6 @@ public class PlayerMovement : MonoBehaviour
         pControl = GetComponent<PlayerController>();
         //Initialize maxDistance from the public variable on the playerController
         maxDistance = pControl.maxDistance;
-        //Initiaize prefab
-        //waypointPrefab = GameObject.Find("waypoint");
         //Initialize object to base movement from
         moveDirection = GameObject.FindGameObjectWithTag("turn");
         //Get the rigidbody from the player object
@@ -79,13 +77,6 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        //Find the speed of the player
-        //Vector3 curMove = transform.position - previousPosition;
-        //curSpeed = curMove.magnitude / Time.deltaTime;
-        //previousPosition = transform.position;
-
-        //Apply the speed to the animator
-        //anim.SetFloat("Speed", curSpeed);
 
         //If the current state is WASD
         if (pControl.state == States.WASD)
@@ -148,6 +139,9 @@ public class PlayerMovement : MonoBehaviour
 
                 //sets clicked target to the location the ray hits
                 ShootRayClicked(ray, layerMask);
+
+                //Coroutine to potential unstuck us from rocks.
+                StartCoroutine(UnstuckOnRocks());
             }
         }
 
@@ -179,7 +173,6 @@ public class PlayerMovement : MonoBehaviour
             //Hides Line
             line.positionCount = 0;
 
-            //Debug.Log("Out of the movement");
         }
 
         if (Vector3.Distance(transform.position, agent.destination) <= 0.1f)
@@ -197,18 +190,6 @@ public class PlayerMovement : MonoBehaviour
             DrawPath(path, 3);
         }
 
-        /*//Triggers when the player clicks with the left mouse button
-        if (Input.GetMouseButtonDown(0))
-        {
-            //Convertn mousePosition from a screen point to a ray
-            ray = cam.ScreenPointToRay(Input.mousePosition);
-
-            //Defines which layers to ignore with the raycast
-            int layerMask = 1 << 11;
-
-            //sets clicked target to the location the ray hits
-            ShootRayClicked(ray, layerMask);
-        }*/
 
         //Triggers if the player isn't moving
         if (!isMoving)
@@ -222,7 +203,6 @@ public class PlayerMovement : MonoBehaviour
             //sets clicked target to the location the ray hits
             movingTarget = ShootRay(ray, layerMask);
 
-            //Debug.Log("Line");
         }
 
         //Set the speed for the animations
@@ -254,13 +234,9 @@ public class PlayerMovement : MonoBehaviour
                 //Draws the path
                 DrawPath(path, 1);
 
-                //Debug.Log("In Range");
-
             }
             else
             {
-                //Debug.Log("Out of Range");
-
                 //Draws the path
                 DrawPath(path, 2);
             }
@@ -312,8 +288,6 @@ public class PlayerMovement : MonoBehaviour
             }
             else
             {
-                //Debug.Log("Out of Range");
-
                 //Notifies the player that they can't move to that location
                 StartCoroutine(pControl.hud.DisplayError("Too Far Away"));
 
@@ -355,12 +329,10 @@ public class PlayerMovement : MonoBehaviour
         if (isGood == 1)
         {
             line.material.color = Color.green;
-            //Debug.Log("Green");
         }
         else if (isGood == 2)
         {
             line.material.color = Color.red;
-            //Debug.Log("Red");
         }
 
         //Sets the amount of corners for the line
@@ -409,7 +381,7 @@ public class PlayerMovement : MonoBehaviour
 
         distanceMoved = previousDistance - agent.remainingDistance;
 
-        if(pControl.lController.levels == Levels.Space && pControl.lController.levels == Levels.Level2)
+        if(pControl.lController.levels == Levels.Space)
         {
             minMoveDistance = 0.001f;
         }
@@ -442,5 +414,15 @@ public class PlayerMovement : MonoBehaviour
     {
         yield return new WaitForSeconds(1.5f);
         agent.ResetPath();
+    }
+
+    //This might get us unstuck on rocks. and other stuff.
+    private IEnumerator UnstuckOnRocks()
+    {
+        yield return new WaitForSeconds(7);
+        if(agent.path != null)
+        {
+            agent.ResetPath();
+        }
     }
 }
