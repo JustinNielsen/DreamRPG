@@ -39,7 +39,7 @@ public class EnemyAI : MonoBehaviour
         enemyController = GetComponent<EnemyController>();
         agent = GetComponent<NavMeshAgent>();
         waypoints = GameObject.FindGameObjectsWithTag("waypoint");
-        maxMovementRange = 6.5f * this.gameObject.transform.localScale.y;
+        maxMovementRange = 6f * this.gameObject.transform.localScale.y;
         agent.speed = 1.4f * this.gameObject.transform.localScale.y;
 
         if (pController.lController.levels == Levels.Space)

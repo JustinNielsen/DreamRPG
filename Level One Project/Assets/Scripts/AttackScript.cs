@@ -72,6 +72,8 @@ public class AttackScript : MonoBehaviour
                 //If the player hasn't melee attacked yet attack otherwise don't attack
                 if (!pController.meleeAttacked)
                 {
+                    //Bool stops the player from melee attacking again
+                    pController.meleeAttacked = true;
                     pController.MattVoiceOver(Random.Range(15, 16));
                     StartCoroutine(Hit());
                     pController.movement.anim.SetTrigger("Attack");
@@ -224,8 +226,6 @@ public class AttackScript : MonoBehaviour
 
         pController.canAttack = true;
 
-        //Bool stops the player from melee attacking again
-        pController.meleeAttacked = true;
     }
 
 
