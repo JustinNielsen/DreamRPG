@@ -59,7 +59,8 @@ public class PlayerController : MonoBehaviour
 
     //Bool to check if the poster trigger has already triggered.
     bool posterTriggerBool = true;
-
+    //This works like the poster trigger
+    bool winTriggerBool = true;
     //This is the level and xp when you are at the beginning of a level.
     private int savedPlayerLevel;
     private float savedPlayerXP;
@@ -119,7 +120,10 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (Input.GetKeyDown(KeyCode.Alpha0))
+        {
+            lController.levels = Levels.Space;
+        }
         //Only allow the scroll wheel to change states in combat mode
         if (state != States.WASD && !movement.isMoving && active)
         {
@@ -386,8 +390,7 @@ public class PlayerController : MonoBehaviour
                     }
                 case Levels.Level3:
                     {
-
-                            MattVoiceOver(8);
+                        MattVoiceOver(8);
                         break;
                     }
             }
@@ -442,7 +445,12 @@ public class PlayerController : MonoBehaviour
                     MattVoiceOver(10);
                     //state = States.Neutral;
 
-                    StartCoroutine(WinGame());
+                    if (winTriggerBool)
+                    {
+                        winTriggerBool = false;
+                        StartCoroutine(WinGame());
+
+                    }
                     //hud.WinGame();
                     //lController.levels = Levels.MainMenu;
                     break;
@@ -541,11 +549,6 @@ public class PlayerController : MonoBehaviour
             health--;
         }
 
-        if (health == 0)
-        {
-            //Activate GameOver Screen
-        }
-
         hud.HUDHealth();
     }
 
@@ -595,6 +598,8 @@ public class PlayerController : MonoBehaviour
 
         hud.WinGame();
         lController.levels = Levels.MainMenu;
+        winTriggerBool = true;
+
     }
 
     //Waits one second before calling the SwitchTurn method in the turnBasedSystem Script
