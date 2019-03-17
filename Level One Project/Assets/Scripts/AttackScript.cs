@@ -17,6 +17,8 @@ public class AttackScript : MonoBehaviour
     public HUD hud;
     public int spellCost;
     public int damage;
+    public int savedSpellCost;
+    public int savedDamage;
 
     //Start Function
     private void Start()
@@ -35,6 +37,7 @@ public class AttackScript : MonoBehaviour
 
     private void Update()
     {
+
         if(pController.state == States.RangeAttack && pController.canAttack && pController.active)
         {
             //Shoot the projectile in the players forward direction

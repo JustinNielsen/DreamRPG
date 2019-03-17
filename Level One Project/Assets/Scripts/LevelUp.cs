@@ -30,8 +30,6 @@ public class LevelUp : MonoBehaviour
         //Decrese spell cost by 10% and return to the game
         hud.pController.attack.spellCost -= (int)spellReductionCost;
 
-        //Save the player
-        hud.pController.SavePlayer();
 
         //Resume game
         Time.timeScale = 1f;
@@ -49,8 +47,6 @@ public class LevelUp : MonoBehaviour
         //Increase melee damage by 1
         hud.pController.attack.damage += 1;
 
-        //Save the player
-        hud.pController.SavePlayer();
 
         //Resume game
         Time.timeScale = 1f;

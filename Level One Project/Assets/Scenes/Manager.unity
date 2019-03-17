@@ -262,6 +262,7 @@ MonoBehaviour:
   - {fileID: 1551710727}
   - {fileID: 940355580}
   - {fileID: 999311484}
+  tutorialDone: 0
   isGameWon: 0
   playerStats: {fileID: 1381622164}
   stateIndicator: {fileID: 1462608392}
@@ -2602,7 +2603,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 4a9f9a6c2b465eb4abfa49cd2efc7f6f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d768f6b7f28f3bd4aaacef2ff424367e, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -7445,6 +7446,8 @@ MonoBehaviour:
   hud: {fileID: 54816945}
   spellCost: 0
   damage: 0
+  savedSpellCost: 0
+  savedDamage: 0
 --- !u!114 &2018453790
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8279,6 +8282,8 @@ MonoBehaviour:
   hud: {fileID: 54816945}
   spellCost: 0
   damage: 0
+  savedSpellCost: 0
+  savedDamage: 0
 --- !u!195 &2103822905
 NavMeshAgent:
   m_ObjectHideFlags: 0

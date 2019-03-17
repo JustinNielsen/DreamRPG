@@ -60,7 +60,9 @@ public class PlayerController : MonoBehaviour
     //Bool to check if the poster trigger has already triggered.
     bool posterTriggerBool = true;
 
-
+    //This is the level and xp when you are at the beginning of a level.
+    private int savedPlayerLevel;
+    private float savedPlayerXP;
     //Shield gameobject
     public GameObject shield;
 
@@ -101,6 +103,7 @@ public class PlayerController : MonoBehaviour
         //Sets the player level to 1 and xp to 0
         playerLevel = 1;
         playerXP = 0f;
+
         meleeAttacked = false;
         //Initilize maxMana and remaining mana
         maxMana = 100f;
@@ -116,6 +119,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         //Only allow the scroll wheel to change states in combat mode
         if (state != States.WASD && !movement.isMoving && active)
         {
@@ -182,6 +186,11 @@ public class PlayerController : MonoBehaviour
             //Show game over screen and pause the game
             gameOver.SetActive(true);
             Time.timeScale = 0f;
+            //Resets the level up info should we game over.
+            playerLevel = savedPlayerLevel;
+            playerXP = savedPlayerXP;
+            attack.spellCost = attack.savedSpellCost;
+            attack.damage = attack.savedDamage;
         }
 
         if (active && Input.GetKeyDown(KeyCode.Return))
@@ -360,9 +369,14 @@ public class PlayerController : MonoBehaviour
             {
                 case Levels.Level1:
                     {
-                        MattVoiceOver(1);
-                        active = false;
-                        hud.Tutorial();
+                        MattVoiceOver(1);                      
+                        //Checks to see if the tutorial is done.
+                        if (!hud.tutorialDone)
+                        {
+                            active = false;
+                            hud.Tutorial();
+                        }
+
                         break;
                     }
                 case Levels.Level2:
@@ -374,10 +388,12 @@ public class PlayerController : MonoBehaviour
                     {
 
                             MattVoiceOver(8);
-
                         break;
                     }
             }
+
+            //This should reset the data? maybe?
+            SavePlayer();
         }
 
         if (other.gameObject.tag == "enemyProjectile")

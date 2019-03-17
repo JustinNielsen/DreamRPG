@@ -32,7 +32,7 @@ public class HUD : MonoBehaviour
     //Health list
     List<GameObject> healthList;
     bool healthInitialized = false;
-    private bool tutorialDone = false;
+    public bool tutorialDone;
     public bool isGameWon;
 
     //Text that shows the players stats
@@ -70,6 +70,8 @@ public class HUD : MonoBehaviour
         GameIsPaused = false;
         //Reactivates the player
         pMovement.enabled = true;
+        pController.enabled = true;
+        pController.attack.enabled = true;
     }
 
     //Used on the pause menu to pause the game
@@ -80,6 +82,8 @@ public class HUD : MonoBehaviour
         GameIsPaused = true;
         //Deactivates player
         pMovement.enabled = false;
+        pController.enabled = false;
+        pController.attack.enabled = false;
     }
 
     //Used on the pause menu to get back to the main menu
