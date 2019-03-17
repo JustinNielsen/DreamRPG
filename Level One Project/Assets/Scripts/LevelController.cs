@@ -77,27 +77,6 @@ public class LevelController : MonoBehaviour
             camBrain.m_DefaultBlend.m_Style = CinemachineBlendDefinition.Style.Cut;
         }
 
-        //Switches scene - Testing purposes only
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            levels = Levels.Level1;
-        }
-
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            levels = Levels.Level2;
-        }
-
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            levels = Levels.Level3;
-        }
-
-        if (Input.GetKeyDown(KeyCode.Alpha4))
-        {
-            levels = Levels.Space;
-        }
-
         //Activates the fight song when in a combat zone and the fight song is not already active
         if (pController.state != States.WASD && !fightSongActive)
         {

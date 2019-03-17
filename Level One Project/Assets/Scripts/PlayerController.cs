@@ -193,13 +193,6 @@ public class PlayerController : MonoBehaviour
 
             turn.SwitchTurn();
         }
-
-        //Also testing purposes only
-        if (Input.GetKeyDown(KeyCode.Alpha0))
-        {
-
-            hud.WinGame();
-        }
     }
 
     void FixedUpdate()
