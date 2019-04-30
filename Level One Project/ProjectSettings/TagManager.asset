@@ -29,6 +29,7 @@ TagManager:
   - PosterTrigger
   - doorBlock
   - reset
+  - Health
   layers:
   - Default
   - TransparentFX

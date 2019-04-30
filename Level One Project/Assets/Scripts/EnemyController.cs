@@ -13,6 +13,7 @@ public class EnemyController : MonoBehaviour
     public CinemachineVirtualCamera camPrefab;
     public EnemyAI ai;
     private NavMeshAgent agent;
+    private NavMeshObstacle obstacle;
     public int enemyType = 1;
     Rigidbody rb;
     public int enemyHealth;
@@ -39,6 +40,7 @@ public class EnemyController : MonoBehaviour
         cam.Follow = cameraFollow.transform;
         ai = GetComponent<EnemyAI>();
         agent = GetComponent<NavMeshAgent>();
+        obstacle = GetComponent<NavMeshObstacle>();
         rb = GetComponent<Rigidbody>();
 
         transposer = cam.GetCinemachineComponent<CinemachineTransposer>();
@@ -133,13 +135,17 @@ public class EnemyController : MonoBehaviour
     {
         if (isOn)
         {
+            obstacle.enabled = false;
+            agent.enabled = true;
             active = true;
             cam.Priority = 15;
             ai.enabled = true;
-            ai.AI(enemyType);
+            ai.AI(enemyType);            
         }
         else
         {
+            obstacle.enabled = true;
+            agent.enabled = false;
             active = false;
             cam.Priority = 5;
             ai.enabled = false;
