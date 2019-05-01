@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 using UnityEngine.AI;
+using TMPro;
+using UnityEngine.UI;
 
 public class EnemyController : MonoBehaviour
 {
@@ -16,13 +18,17 @@ public class EnemyController : MonoBehaviour
     private NavMeshObstacle obstacle;
     public int enemyType = 1;
     Rigidbody rb;
+    public int enemyMaxHealth;
     public int enemyHealth;
+    public Canvas healthIndictor;
     public int enemyLevel;
     TurnBasedSystem turn;
     PlayerController pController;
     public Animator anim;
     CinemachineTransposer transposer;
     private GameObject cameraFollow;
+    public TextMeshProUGUI healthText;
+    public Slider healthBar;
 
     // Start is called before the first frame update
     void Start()
@@ -30,11 +36,17 @@ public class EnemyController : MonoBehaviour
         //Get animator of the enemy
         anim = GetComponent<Animator>();
 
+        //Initilize the enemies health to the max health and update the indicator
+        enemyHealth = enemyMaxHealth;
+        healthText.text = "Health: " + enemyHealth;
+        healthBar.value = 1;
+
         //Create an empty gameobject at the enemies position
         cameraFollow = new GameObject("cameraFollow");
         cameraFollow.transform.position = new Vector3(this.gameObject.transform.position.x, (this.gameObject.transform.position.y + (this.gameObject.transform.localScale.y / 2)), this.gameObject.transform.position.z);
         cameraFollow.transform.rotation = new Quaternion(0, 180, 0, 0);
 
+        //Create and intilize camera and various enemy components
         cam = Instantiate(camPrefab);
         cam.Priority = 5;
         cam.Follow = cameraFollow.transform;
@@ -91,6 +103,8 @@ public class EnemyController : MonoBehaviour
         {
             anim.SetFloat("Speed", (agent.velocity.magnitude / this.gameObject.transform.localScale.y));
 
+            healthIndictor.transform.LookAt(pController.cam.transform.position, Vector3.up);
+
             if (active)
             {
                 //position between player and enemy
@@ -144,8 +158,8 @@ public class EnemyController : MonoBehaviour
         }
         else
         {
-            obstacle.enabled = true;
             agent.enabled = false;
+            obstacle.enabled = true;
             active = false;
             cam.Priority = 5;
             ai.enabled = false;
@@ -157,17 +171,33 @@ public class EnemyController : MonoBehaviour
         //Activates when the players projectile hits the enemy
         if(other.tag == "playerProjectile")
         {
+            //Destroy the projectile
             Destroy(other.gameObject);
+
+            //Get the damage value and apply it to the enemy health
             Damage damage = other.gameObject.GetComponent<Damage>();
             enemyHealth -= damage.damage;
+
+            //Update the health indicator
+            healthText.text = "Health: " + enemyHealth;
+            healthBar.value = (1.0f / (float)enemyMaxHealth) * (float)enemyHealth;
+
+            //Play enemy hit sound
             pController.PlayEnemySounds(2);
         }
 
         //Activates when the player hits the enemy
         if (other.tag == "attack")
         {
+            //Get the damage value and apply it to the enemy health
             Damage damage = other.gameObject.GetComponent<Damage>();
             enemyHealth -= damage.damage;
+
+            //Update the health indicator
+            healthText.text = "Health: " + enemyHealth;
+            healthBar.value = (1.0f / (float)enemyMaxHealth) * (float)enemyHealth;
+
+            //Play enemy hit sound
             pController.PlayEnemySounds(2);
         }
     }
