@@ -149,24 +149,20 @@ public class EnemyController : MonoBehaviour
     {
         if (isOn)
         {
-            //obstacle.enabled = false;
-            //agent.enabled = true;
-            StartCoroutine(NavMeshToggle(true));
-
-            //active = true;
-            //cam.Priority = 15;
-            //ai.enabled = true;
-            //ai.AI(enemyType);            
+            obstacle.enabled = false;
+            agent.enabled = true;
+            active = true;
+            cam.Priority = 15;
+            ai.enabled = true;
+            ai.AI(enemyType);            
         }
         else
         {
-            //agent.enabled = false;
-            //obstacle.enabled = true;
-            StartCoroutine(NavMeshToggle(false));
-
-            //active = false;
-            //cam.Priority = 5;
-            //ai.enabled = false;
+            agent.enabled = false;
+            obstacle.enabled = true;
+            active = false;
+            cam.Priority = 5;
+            ai.enabled = false;
         }
     }
 
@@ -224,37 +220,5 @@ public class EnemyController : MonoBehaviour
     {
         //Resets the text
         pController.hud.enemyStats.text = "";
-    }
-
-    IEnumerator NavMeshToggle(bool state)
-    {
-        if (state)
-        {
-            if(pController.lController.levels != Levels.Space)
-            {
-                obstacle.enabled = false;
-            }
-
-            yield return null;
-            agent.enabled = true;
-
-            active = true;
-            cam.Priority = 15;
-            ai.enabled = true;
-            ai.AI(enemyType);
-        }
-        else
-        {
-
-            if(pController.lController.levels != Levels.Space)
-            {
-                agent.enabled = false;
-                obstacle.enabled = true;
-            }
-
-            active = false;
-            cam.Priority = 5;
-            ai.enabled = false;
-        }
     }
 }
