@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ProjectileMovement : MonoBehaviour
+public class ProjectileMovement : HUD
 {
-
     public float speed = 0.5f;
     public PlayerController pController;
     private GameObject bullet;
@@ -31,6 +30,15 @@ public class ProjectileMovement : MonoBehaviour
         if(pController.lController.levels == Levels.Space && this.gameObject.CompareTag("playerProjectile"))
         {
             bullet.transform.localScale = new Vector3(2, 2, 2);
+        }
+
+        if(HUD.GameIsPaused)
+        {
+            speed = 0;
+        }
+        else
+        {
+            speed = 0.25f * pController.gameObject.transform.localScale.y;
         }
     }
 }
