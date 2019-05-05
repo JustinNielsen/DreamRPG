@@ -9266,7 +9266,7 @@ NavMeshAgent:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1894331168}
-  m_Enabled: 0
+  m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
   m_Speed: 4
@@ -9296,15 +9296,15 @@ MonoBehaviour:
   active: 0
   camPrefab: {fileID: 398722720805700671, guid: f998e366753f3864b9ebd53b1deec614,
     type: 3}
-  ai: {fileID: 0}
+  ai: {fileID: 1894331172}
   enemyType: 3
   enemyMaxHealth: 30
   enemyHealth: 30
-  healthIndictor: {fileID: 0}
+  healthIndictor: {fileID: 1317435650}
   enemyLevel: 10
   anim: {fileID: 1894331169}
-  healthText: {fileID: 0}
-  healthBar: {fileID: 0}
+  healthText: {fileID: 1478331222}
+  healthBar: {fileID: 1706099127}
 --- !u!114 &1894331172
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9351,22 +9351,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 116
   m_CollisionDetection: 1
---- !u!208 &1894331175
-NavMeshObstacle:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1894331168}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Shape: 0
-  m_Extents: {x: 0.5, y: 1, z: 0.5}
-  m_MoveThreshold: 0.1
-  m_Carve: 0
-  m_CarveOnlyStationary: 1
-  m_Center: {x: 0, y: 0.5, z: 0}
-  m_TimeToStationary: 0.5
 --- !u!4 &1894331176 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400010, guid: 31a45347a5f53214c88fc4f1d7156a0b,

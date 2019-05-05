@@ -129,7 +129,6 @@ public class EnemyController : MonoBehaviour
                     zoomAmount = 0.8f;
                 }
 
-                Debug.Log(zoomAmount);
                 cameraFollow.transform.position = middlePoint;
 
                 if(pController.lController.levels == Levels.Space)
@@ -149,20 +148,22 @@ public class EnemyController : MonoBehaviour
     {
         if (isOn)
         {
-            obstacle.enabled = false;
-            agent.enabled = true;
-            active = true;
-            cam.Priority = 15;
-            ai.enabled = true;
-            ai.AI(enemyType);            
+            StartCoroutine(NavMeshToggle(true));
+            //obstacle.enabled = false;
+            //agent.enabled = true;
+            //active = true;
+            //cam.Priority = 15;
+            //ai.enabled = true;
+            //ai.AI(enemyType);            
         }
         else
         {
-            agent.enabled = false;
-            obstacle.enabled = true;
-            active = false;
-            cam.Priority = 5;
-            ai.enabled = false;
+            StartCoroutine(NavMeshToggle(false));
+            //agent.enabled = false;
+            //obstacle.enabled = true;
+            //active = false;
+            //cam.Priority = 5;
+            //ai.enabled = false;
         }
     }
 
@@ -220,5 +221,36 @@ public class EnemyController : MonoBehaviour
     {
         //Resets the text
         pController.hud.enemyStats.text = "";
+    }
+
+    IEnumerator NavMeshToggle(bool state)
+    {
+        if (state)
+        {
+            if(pController.lController.levels != Levels.Space)
+            {
+                obstacle.enabled = false;
+            }
+
+            yield return null;
+            agent.enabled = true;
+
+            active = true;
+            cam.Priority = 15;
+            ai.enabled = true;
+            ai.AI(enemyType);
+        }
+        else
+        {
+            if(pController.lController.levels != Levels.Space)
+            {
+                agent.enabled = false;
+                obstacle.enabled = true;
+            }
+
+            active = false;
+            cam.Priority = 5;
+            ai.enabled = false;
+        }
     }
 }

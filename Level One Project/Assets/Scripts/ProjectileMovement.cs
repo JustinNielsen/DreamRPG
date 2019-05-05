@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ProjectileMovement : HUD
+public class ProjectileMovement : MonoBehaviour
 {
     public float speed = 0.5f;
     public PlayerController pController;
