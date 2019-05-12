@@ -137,7 +137,6 @@ public class LevelController : MonoBehaviour
         //Initilize health on the hud
         pController.hud.HUDHealth();
         hud.SetActive(true);
-        hudScript.Resume();
         hud.GetComponent<HUD>().errorMessage.CrossFadeAlpha(0, 0.01f, false);
         pController.state = States.WASD;
         pController.hud.DisplayStats();

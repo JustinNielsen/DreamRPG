@@ -335,11 +335,14 @@ public class HUD : MonoBehaviour
 
     private void TutorialReset()
     {
-
         //This will deactivate the tutorial stuff
         tutorial.SetActive(false);
-        //Resets the instruction flag if this is not accessed through the pause menu.
-        pauseMenuUI.SetActive(true);
+
+        if (throughPause)
+        {
+            //Resets the instruction flag if this is not accessed through the pause menu.
+            pauseMenuUI.SetActive(true);
+        }
 
         //Resets the instruction number.
         instructionNumber = 1;
