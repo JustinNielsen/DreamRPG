@@ -75,6 +75,8 @@ public class PlayerController : MonoBehaviour
 
     public CinemachineVirtualCamera TopCamera;
 
+    public Tutorial tutorial;
+
     private void Start()
     {
         //Lock the mouse to the game window
@@ -115,6 +117,8 @@ public class PlayerController : MonoBehaviour
         shieldActive = false;
         //Initilize maxDistance according to the players size
         maxDistance = 10f * this.gameObject.transform.localScale.y;
+        //Initilize tutorial script
+        tutorial = this.GetComponent<Tutorial>();
     }
 
     // Update is called once per frame
@@ -370,7 +374,7 @@ public class PlayerController : MonoBehaviour
             {
                 case Levels.Level1:
                     {               
-                        MattVoiceOver(1);
+                        MattVoiceOver(1);                       
                         break;
                     }
                 case Levels.Level2:

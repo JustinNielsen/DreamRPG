@@ -44,6 +44,7 @@ public class AttackScript : MonoBehaviour
             if (Input.GetMouseButtonDown(0))
             {
                 Debug.Log("Shoot");
+                pController.tutorial.rangeShot = true;
 
                 //Only cast spell if the player has enough mana
                 if (pController.remainingMana >= spellCost)

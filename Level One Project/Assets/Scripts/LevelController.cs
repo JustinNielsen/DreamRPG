@@ -303,10 +303,10 @@ public class LevelController : MonoBehaviour
         {
             pController.MattVoiceOver((int)levels);
         }
-        //if it is the first level, it opens up the tutorial.
-        else
+        else //if it is the first level, it opens up the tutorial.
         {
-            //hudScript.Tutorial();
+            pController.tutorial.autoTutorialHUD.SetActive(true);
+            pController.tutorial.autoTutorialActive = true;
         }
 
     }
