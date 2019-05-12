@@ -148,7 +148,7 @@ public class EnemyAI : MonoBehaviour
             
         }
 
-        if(beginningDistance == 0)
+        if(beginningDistance == 0 && enemyController.active == true)
         {
             beginningDistance = agent.remainingDistance;
         }

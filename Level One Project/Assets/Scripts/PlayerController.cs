@@ -369,19 +369,8 @@ public class PlayerController : MonoBehaviour
             switch (lController.levels)
             {
                 case Levels.Level1:
-                    {
-                     
-                        //Checks to see if the tutorial is done.
-                        if (!hud.tutorialDone)
-                        {
-                            active = false;
-                            hud.Tutorial();
-                        }
-                        else
-                        {
-                            MattVoiceOver(1);
-                        }
-
+                    {               
+                        MattVoiceOver(1);
                         break;
                     }
                 case Levels.Level2:

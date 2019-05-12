@@ -67,8 +67,26 @@ public class LevelController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //CHEATS FOR TESTING ONLY - changes the level
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            levels = Levels.Level1;
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            levels = Levels.Level2;
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            levels = Levels.Level3;
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            levels = Levels.Space;
+        }
+
         //This will make sure that the scene is loaded only once.
-        if(levels != currentLevel || gameOverLoadPlayer)
+        if (levels != currentLevel || gameOverLoadPlayer)
         {
             gameOverLoadPlayer = false;
             pController.gameOver.SetActive(false);
@@ -119,6 +137,7 @@ public class LevelController : MonoBehaviour
         //Initilize health on the hud
         pController.hud.HUDHealth();
         hud.SetActive(true);
+        hudScript.Resume();
         hud.GetComponent<HUD>().errorMessage.CrossFadeAlpha(0, 0.01f, false);
         pController.state = States.WASD;
         pController.hud.DisplayStats();
@@ -284,16 +303,11 @@ public class LevelController : MonoBehaviour
         if(levels != Levels.Level1)
         {
             pController.MattVoiceOver((int)levels);
-            //Ensures the main menu doesn't break everything.
-            if(levels != Levels.MainMenu)
-            {
-                hudScript.tutorialDone = true;
-            }
         }
         //if it is the first level, it opens up the tutorial.
         else
         {
-            hudScript.Tutorial();
+            //hudScript.Tutorial();
         }
 
     }
