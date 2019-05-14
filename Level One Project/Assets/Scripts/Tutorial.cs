@@ -25,18 +25,17 @@ public class Tutorial : MonoBehaviour
         pController = this.GetComponent<PlayerController>();
 
         //initilizing an array of all the tutorial description portions
-        tutorialDescription = new string[11] 
-        { "While in WASD movement mode you can move the character using the keys W,A,S, and D. Also explain the HUD",
+        tutorialDescription = new string[10] 
+        { "While in WASD movement mode you can move the character using the keys W,A,S, and D. ",
           "Each level has a predetermined combat zone that will activte once you enter. Once in the combat zone your state will automatically change to combat movement. Please use W,A,S, and D to navigate to the combat zone.",
-          "Explain the combat movement",
-          "Explain switching states",
-          "Explain melee attacking",
-          "Explain switching to range attack and using it",
-          "Explain switching to shield mode and activating the shield",
-          "Explain ending the turn by clicking enter",  //Combine this line and the one below it
-          "Explain taking damage by the enemy and how much mana you regain after each turn and how you can melee attack again",
-          "Explain that you will automatically switch to WASD movement once all enemies are gone",
-          "Explain that the player needs to navigate to the door to switch levels using W,A,S, and D"};
+          "Once you enter the combat zone, you can move by moving the mouse and clicking. The line shows your path, and is green when you can move to that spot. Please move towards an enemy.",
+          "You can switch your action by using the scroll wheel. Scroll up one please.",
+          "A melee attack has a limited amount of range. In order to hit the enemy, they must be in the red box. Hit the enemy with a melee attack. You can only do this once a turn.",
+          "Scroll up again to reach the ranged attack. This move has constant damage, and uses mana to use. That means you can use it more than once a turn. If you run out of mana, you can't use it anymore. Mana regenerates each turn.",
+          "Scroll up again to reach the shield. This uses mana to give you one extra hit point. However, you can only have one shield active at a time.",
+          "If you feel like you have done all you can for your turn, hit enter to end you turn.",
+          "Once all of the enemies are defeated, you will switch back to W,A,S, and D movement.",
+          "To exit the level, you must walk to the doors at the end. You can also use Esc to open the pause menu."};
 
         //Sets the starting point of the tutorial
         UpdateTutorial(0);
@@ -105,21 +104,14 @@ public class Tutorial : MonoBehaviour
                         UpdateTutorial(8);
                     }
                     break;
-                case 8://Note might need to remove this one and combine it with the one above because the timing is too short
-                    //Advance the tutorial once it is the player turn
-                    if(pController.active == true)
+                case 8:
+                    //Advance the tutorial once the player kills all the enemies
+                    if(pController.state == States.WASD)
                     {
                         UpdateTutorial(9);
                     }
                     break;
                 case 9:
-                    //Advance the tutorial once the player kills all the enemies
-                    if(pController.state == States.WASD)
-                    {
-                        UpdateTutorial(10);
-                    }
-                    break;
-                case 10:
                     //Advance the tutorial once the player starts moving
                     if(Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.D))
                     {

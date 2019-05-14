@@ -307,6 +307,7 @@ public class LevelController : MonoBehaviour
         {
             pController.tutorial.autoTutorialHUD.SetActive(true);
             pController.tutorial.autoTutorialActive = true;
+            pController.MattVoiceOver(0);
         }
 
     }

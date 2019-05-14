@@ -167,6 +167,7 @@ public class HUD : MonoBehaviour
     }
 
     //Displays the players stats according to the state that they are in
+    //Obsolete. Delete?
     public void DisplayStats()
     {
         switch (pController.state)
@@ -287,7 +288,7 @@ public class HUD : MonoBehaviour
                 break;
                 case 4:
 
-                instructions.text = "Another option for an attack is a ranged mage attack. You can use as many of these as you want per turn, assuming you have enough mana.";
+                instructions.text = "Another option for an attack is a ranged attack. You can use as many of these as you want per turn, assuming you have enough mana.";
                 tutorialImages[4].enabled = false;
                 tutorialImages[5].enabled = false;
                 tutorialImages[6].enabled = true;
