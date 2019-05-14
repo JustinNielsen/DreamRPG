@@ -203,6 +203,7 @@ public class EnemyController : MonoBehaviour
         }
     }
 
+    /*
     private void OnMouseOver()
     {
         if (enemyHealth > 0)
@@ -216,12 +217,7 @@ public class EnemyController : MonoBehaviour
             pController.hud.enemyStats.text = "";
         }
     }
-
-    private void OnMouseExit()
-    {
-        //Resets the text
-        pController.hud.enemyStats.text = "";
-    }
+    */
 
     IEnumerator NavMeshToggle(bool state)
     {

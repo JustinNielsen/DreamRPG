@@ -14,6 +14,8 @@ public class HUD : MonoBehaviour
     public GameObject tutorial;
     public PlayerMovement pMovement;
     public Image manaBar;
+    public Image xpBar;
+    public Text playerStats;
     public LevelController lController;
     public PlayerController pController;
     public GameObject hud;
@@ -36,7 +38,7 @@ public class HUD : MonoBehaviour
     public bool isGameWon;
 
     //Text that shows the players stats
-    public TextMeshProUGUI playerStats;
+    //public TextMeshProUGUI playerStats;
 
     //Text that shows what state the player is in
     public TextMeshProUGUI stateIndicator;
@@ -46,7 +48,7 @@ public class HUD : MonoBehaviour
 
     public TextMeshProUGUI instructions;
 
-    public TextMeshProUGUI enemyStats;
+    //public TextMeshProUGUI enemyStats;
 
     //The number is used to differentiate between instruction pieces.
     private int instructionNumber;
@@ -172,17 +174,21 @@ public class HUD : MonoBehaviour
         switch (pController.state)
         {
             case States.WASD:
-            case States.NavMesh:
-                playerStats.text = $"Player Level: {pController.playerLevel}\nXP: {pController.playerXP}";
+            case States.NavMesh://Display xp bar and level
+                xpBar.fillAmount = (float)pController.playerXP / 100.0f;
+                playerStats.text = $"Level: {pController.playerLevel}";
                 break;
-            case States.MeleeAttack:
-                playerStats.text = $"Player Level: {pController.playerLevel}\nXP: {pController.playerXP}\nDamage: {pController.attack.damage}";
+            case States.MeleeAttack: //Display xp bar, level, and melee damage
+                xpBar.fillAmount = (float)pController.playerXP / 100.0f;
+                playerStats.text = $"Level: {pController.playerLevel}   Damage: {pController.attack.damage}";
                 break;
-            case States.RangeAttack:
-                playerStats.text = $"Player Level: {pController.playerLevel}\nXP: {pController.playerXP}\nRemaining Mana: {pController.remainingMana}\nSpell Cost: {pController.attack.spellCost}";
+            case States.RangeAttack: // Display xp bar, level, and range cost
+                xpBar.fillAmount = (float)pController.playerXP / 100.0f;
+                playerStats.text = $"Level: {pController.playerLevel}   Cost: {pController.attack.spellCost}";
                 break;
-            case States.Shielding:
-                playerStats.text = $"Player Level: {pController.playerLevel}\nXP: {pController.playerXP}\nRemaining Mana: {pController.remainingMana}\nSpell Cost: {40}";
+            case States.Shielding: // Display xp bar, level, and shield cost
+                xpBar.fillAmount = (float)pController.playerXP / 100.0f;
+                playerStats.text = $"Level: {pController.playerLevel}   Cost: {40}";
                 break;
         }
     }
