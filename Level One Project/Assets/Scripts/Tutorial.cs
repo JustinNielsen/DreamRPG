@@ -33,7 +33,7 @@ public class Tutorial : MonoBehaviour
           "Explain melee attacking",
           "Explain switching to range attack and using it",
           "Explain switching to shield mode and activating the shield",
-          "Explain ending the turn by clicking enter",
+          "Explain ending the turn by clicking enter",  //Combine this line and the one below it
           "Explain taking damage by the enemy and how much mana you regain after each turn and how you can melee attack again",
           "Explain that you will automatically switch to WASD movement once all enemies are gone",
           "Explain that the player needs to navigate to the door to switch levels using W,A,S, and D"};
@@ -105,9 +105,9 @@ public class Tutorial : MonoBehaviour
                         UpdateTutorial(8);
                     }
                     break;
-                case 8:
-                    //Advance the tutorial after the player gets hit
-                    if(pController.shieldActive == false)
+                case 8://Note might need to remove this one and combine it with the one above because the timing is too short
+                    //Advance the tutorial once it is the player turn
+                    if(pController.active == true)
                     {
                         UpdateTutorial(9);
                     }
@@ -123,11 +123,12 @@ public class Tutorial : MonoBehaviour
                     //Advance the tutorial once the player starts moving
                     if(Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.D))
                     {
-                        UpdateTutorial(11);
+                        //At this point we can either keep the text on the screen, add more text, or take it away                        
                     }
                     break;
             }
 
+            //Disable the tutorial text if the player is not on level 1
             if(pController.lController.levels != Levels.Level1)
             {
                 autoTutorialHUD.SetActive(false);
