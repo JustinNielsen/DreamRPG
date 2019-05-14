@@ -284,7 +284,7 @@ public class LevelController : MonoBehaviour
                     fightSongActive = false;
                     pController.SavePlayer();
                     player.transform.localScale = new Vector3(.25f, .25f, .25f);
-                    transposer.m_FollowOffset = new Vector3(-0.3f, 1, -0.15f);
+                    transposer.m_FollowOffset = new Vector3(-0.6f, 1.4f, -0.3f);
                     pController.NormalCamera.transform.rotation = Quaternion.Euler(new Vector3(60, 245, 0));
                     pController.movement.movementSpeed = 4 * pController.gameObject.transform.localScale.y;
                     pController.movement.agent.speed = 1.4f * pController.gameObject.transform.localScale.y;
