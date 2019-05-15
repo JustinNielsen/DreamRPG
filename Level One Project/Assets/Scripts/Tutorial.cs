@@ -31,7 +31,7 @@ public class Tutorial : MonoBehaviour
           "Once you enter the combat zone, you can move by moving the mouse and clicking. The line shows your path, and is green when you can move to that spot. Please move towards an enemy.",
           "You can switch your action by using the scroll wheel. Scroll up one please.",
           "A melee attack has a limited amount of range. In order to hit the enemy, they must be in the red box. Hit the enemy with a melee attack. You can only do this once a turn.",
-          "Scroll up again to reach the ranged attack. This move has constant damage, and uses mana to use. That means you can use it more than once a turn. If you run out of mana, you can't use it anymore. Mana regenerates each turn.",
+          "Scroll up again to reach the ranged attack. This move has constant damage, and costs mana to use. That means you can use it more than once a turn. If you run out of mana, you can't use it anymore. Mana regenerates each turn.",
           "Scroll up again to reach the shield. This uses mana to give you one extra hit point. However, you can only have one shield active at a time.",
           "If you feel like you have done all you can for your turn, hit enter to end you turn.",
           "Once all of the enemies are defeated, you will switch back to W,A,S, and D movement.",
