@@ -128,11 +128,11 @@ public class PlayerController : MonoBehaviour
         //Only allow the scroll wheel to change states in combat mode
         if (state != States.WASD && !movement.isMoving && active)
         {
-            if (Input.GetAxis("Mouse ScrollWheel") > 0)
+            if (Input.GetAxis("Mouse ScrollWheel") > 0 || Input.GetKeyDown(KeyCode.UpArrow))
             {
                 ScrollWheel(true);
             }
-            else if (Input.GetAxis("Mouse ScrollWheel") < 0)
+            else if (Input.GetAxis("Mouse ScrollWheel") < 0 || Input.GetKeyDown(KeyCode.DownArrow))
             {
                 ScrollWheel(false);
             }
