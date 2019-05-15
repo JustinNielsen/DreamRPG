@@ -30,6 +30,7 @@ TagManager:
   - doorBlock
   - reset
   - Health
+  - footprints
   layers:
   - Default
   - TransparentFX

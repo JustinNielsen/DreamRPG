@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using System;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -27,6 +28,7 @@ public class PlayerMovement : MonoBehaviour
     Ray ray;
     public Animator anim;
     bool activeFlag = true;
+    GameObject footprints;
 
     //Find speed
     Vector3 previousPosition;
@@ -59,6 +61,8 @@ public class PlayerMovement : MonoBehaviour
         rb = player.GetComponent<Rigidbody>();
         //Initialize checking if stuck to false
         checkingIfStuck = false;
+        //Initialize footprints
+        footprints = GameObject.FindGameObjectWithTag("footprints");
     }
 
     private void FixedUpdate()
@@ -104,7 +108,7 @@ public class PlayerMovement : MonoBehaviour
             }
 
             //If the magnitudes is greater than 1 divide move input by its magnitude
-            if(moveInput.magnitude > 1)
+            if (moveInput.magnitude > 1)
             {
                 moveInput /= moveInput.magnitude;
             }
@@ -125,7 +129,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         //Input for moving the player with mouse clicks
-        if(pControl.state == States.NavMesh)
+        if (pControl.state == States.NavMesh)
         {
             //Triggers when the player clicks with the left mouse button
             if (Input.GetMouseButtonDown(0))
@@ -145,14 +149,14 @@ public class PlayerMovement : MonoBehaviour
         }
 
         //Stops your movement 1.5 seconds after your turn is over.
-        if(!pControl.active && activeFlag)
+        if (!pControl.active && activeFlag)
         {
             StartCoroutine(EndMovement());
             activeFlag = false;
         }
 
         //Resets the active flag
-        if(pControl.active && !activeFlag)
+        if (pControl.active && !activeFlag)
         {
             activeFlag = true;
         }
@@ -179,7 +183,7 @@ public class PlayerMovement : MonoBehaviour
             //Sets isMoving to false
             isMoving = false;
 
-            if(rockStuck != null)
+            if (rockStuck != null)
             {
                 StopCoroutine(rockStuck);
             }
@@ -347,7 +351,14 @@ public class PlayerMovement : MonoBehaviour
         {
             line.SetPosition(i, path.corners[i]);
         }
+       
+        angle = Quaternion.Euler(90, line.transform.rotation.y + 90, line.transform.rotation.z);
+        obj = (GameObject)Instantiate(footprints, line.transform.position, angle);
+        obj.transform.parent = line.transform;
     }
+
+    GameObject obj;
+    Quaternion angle;
 
     public void KeyboardMovement()
     {
@@ -385,7 +396,7 @@ public class PlayerMovement : MonoBehaviour
 
         distanceMoved = previousDistance - agent.remainingDistance;
 
-        if(pControl.lController.levels == Levels.Space)
+        if (pControl.lController.levels == Levels.Space)
         {
             minMoveDistance = 0.001f;
         }
@@ -399,7 +410,7 @@ public class PlayerMovement : MonoBehaviour
             //Adds the remaining distance back to the maxDistance variable
             Debug.Log("Remaining Distance 2: " + agent.remainingDistance);
 
-            if(agent.remainingDistance != Mathf.Infinity)
+            if (agent.remainingDistance != Mathf.Infinity)
             {
                 maxDistance += agent.remainingDistance;
             }
@@ -424,7 +435,7 @@ public class PlayerMovement : MonoBehaviour
     private IEnumerator UnstuckOnRocks()
     {
         yield return new WaitForSeconds(7);
-        if(agent.path != null)
+        if (agent.path != null)
         {
             agent.ResetPath();
         }
